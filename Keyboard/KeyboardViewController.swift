@@ -9,53 +9,29 @@
 import UIKit
 
 class KeyboardViewController: UIInputViewController {
-
   @IBOutlet var nextKeyboardButton: UIButton!
-
-  override func updateViewConstraints() {
-      super.updateViewConstraints()
-  
-      // Add custom view sizing constraints here
-  }
+  var keyboardHeight = CGFloat(260) { didSet { view.setNeedsUpdateConstraints() } }
+  private weak var keyboardHeightConstraint: NSLayoutConstraint?
 
   override func viewDidLoad() {
-      super.viewDidLoad()
-  
-      // Perform custom UI setup here
-      self.nextKeyboardButton = UIButton(type: .System)
-  
-      self.nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
-      self.nextKeyboardButton.sizeToFit()
-      self.nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
-  
-      self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-      
-      self.view.addSubview(self.nextKeyboardButton)
-  
-      self.nextKeyboardButton.leftAnchor.constraintEqualToAnchor(self.view.leftAnchor).active = true
-      self.nextKeyboardButton.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
+    super.viewDidLoad()
   }
 
-  override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-      // Dispose of any resources that can be recreated
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    keyboardHeightConstraint = NSLayoutConstraint(
+      item: view!,
+      attribute: .Height,
+      relatedBy: .Equal,
+      toItem: nil,
+      attribute: .NotAnAttribute,
+      multiplier: 1,
+      constant: keyboardHeight)
+    inputView?.addConstraint(keyboardHeightConstraint!)
   }
 
-  override func textWillChange(textInput: UITextInput?) {
-      // The app is about to change the document's contents. Perform any preparation here.
+  override func updateViewConstraints() {
+    super.updateViewConstraints()
+    keyboardHeightConstraint?.constant = keyboardHeight
   }
-
-  override func textDidChange(textInput: UITextInput?) {
-      // The app has just changed the document's contents, the document context has been updated.
-  
-      var textColor: UIColor
-      let proxy = self.textDocumentProxy
-      if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
-          textColor = UIColor.whiteColor()
-      } else {
-          textColor = UIColor.blackColor()
-      }
-      self.nextKeyboardButton.setTitleColor(textColor, forState: .Normal)
-  }
-
 }
