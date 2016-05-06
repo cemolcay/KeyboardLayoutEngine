@@ -12,7 +12,6 @@ public struct KeyboardRowStyle {
   public var leadingPadding: CGFloat
   public var trailingPadding: CGFloat
   public var buttonsPadding: CGFloat
-  public var height: CGFloat
 }
 
 public class KeyboardRow: UIView {
@@ -36,24 +35,22 @@ public class KeyboardRow: UIView {
   }
 
   private func layoutRow(row: KeyboardRow) {
-    let buttonWidth = getOptimumButtonWidth()
+    let optimumButtonWidth = getOptimumButtonWidth()
     var currentX = row.style.leadingPadding
-    for character in characters {
+    for character in row.characters {
       if let character = character as? KeyboardButton {
         character.frame = CGRect(
           x: currentX,
           y: 0,
-          width: character.width ?? buttonWidth,
-          height: style.height)
+          width: character.width ?? optimumButtonWidth,
+          height: frame.size.height)
         row.addSubview(character)
         currentX += character.frame.size.width + row.style.buttonsPadding
-      } else if let childRow = character as? KeyboardRow {
-        childRow.style.height = style.height
+      }
+      if let childRow = character as? KeyboardRow {
+        childRow.frame.size.height = frame.size.height
         childRow.frame.origin.x = currentX
-        addSubview(childRow)
         layoutRow(childRow)
-      } else {
-        continue
       }
     }
     currentX += row.style.trailingPadding
@@ -68,13 +65,14 @@ public class KeyboardRow: UIView {
     return max(0, (width - totalPadding) / CGFloat(charactersCount))
   }
 
-  internal func getCharacterCount() -> Int {
+  internal func getCharacterCount(isMini: Bool = false) -> Int {
     var count = 0
     for character in characters {
       if character is KeyboardButton {
         count += 1
-      } else if let row = character as? KeyboardRow {
-        count += row.getCharacterCount()
+      }
+      if let row = character as? KeyboardRow {
+        count += row.getCharacterCount(true)
       }
     }
     return count

@@ -26,6 +26,21 @@ public struct KeyboardButtonStyle {
   // Text
   public var textColor: UIColor
   public var font: UIFont
+
+  init(
+    backgroundColor: UIColor? = nil,
+    cornerRadius: CGFloat? = nil,
+    borderColor: UIColor? = nil,
+    borderWidth: CGFloat? = nil,
+    textColor: UIColor? = nil,
+    font: UIFont? = nil) {
+    self.backgroundColor = backgroundColor ?? UIColor.lightGrayColor()
+    self.cornerRadius = cornerRadius ?? 5
+    self.borderColor = borderColor ?? UIColor.clearColor()
+    self.borderWidth = borderWidth ?? 0
+    self.textColor = textColor ?? UIColor.blackColor()
+    self.font = font ?? UIFont.systemFontOfSize(15)
+  }
 }
 
 public class KeyboardButton: UIView {
@@ -76,7 +91,7 @@ public class KeyboardButton: UIView {
 
   public override func layoutSubviews() {
     super.layoutSubviews()
-    textLabel?.frame = CGRectOffset(frame, 5, 5)
-    imageView?.frame = CGRectOffset(frame, 5, 5)
+    textLabel?.frame = CGRectOffset(frame, -5, -5)
+    imageView?.frame = CGRectOffset(frame, -5, -5)
   }
 }

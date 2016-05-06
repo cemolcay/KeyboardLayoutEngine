@@ -19,6 +19,7 @@
 		B2FBDD0B1CDD22B8008D6100 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDD0A1CDD22B8008D6100 /* KeyboardLayout.swift */; };
 		B2FBDD0D1CDD22C3008D6100 /* KeyboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDD0C1CDD22C3008D6100 /* KeyboardRow.swift */; };
 		B2FBDD0F1CDD22CC008D6100 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDD0E1CDD22CC008D6100 /* KeyboardButton.swift */; };
+		B2FBDD401CDD4EDB008D6100 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		B2FBDD0A1CDD22B8008D6100 /* KeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
 		B2FBDD0C1CDD22C3008D6100 /* KeyboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardRow.swift; sourceTree = "<group>"; };
 		B2FBDD0E1CDD22CC008D6100 /* KeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
+		B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				B2FBDD091CDD22AE008D6100 /* KeyboardLayoutEngine */,
 				B2FBDCFF1CDD2292008D6100 /* KeyboardViewController.swift */,
 				B2FBDD011CDD2292008D6100 /* Info.plist */,
+				B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2FBDD401CDD4EDB008D6100 /* Resources.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

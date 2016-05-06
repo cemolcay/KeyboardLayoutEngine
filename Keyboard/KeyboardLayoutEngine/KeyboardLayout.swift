@@ -9,10 +9,10 @@
 import UIKit
 
 public struct KeyboardLayoutStyle {
-  public var backgroundColor: UIColor
   public var topPadding: CGFloat
   public var bottomPadding: CGFloat
   public var rowPadding: CGFloat
+  public var backgroundColor: UIColor
 }
 
 public class KeyboardLayout {
@@ -32,14 +32,25 @@ public class KeyboardLayout {
       width: view.frame.size.width,
       height: layoutHeight))
 
+    let optimumRowHeight = getOptimumRowHeight(forView: view)
     var currentY = CGFloat(0)
     for row in rows {
-      row.frame.size.width = layoutView.frame.size.width
-      row.frame.origin.y = currentY
+      row.frame = CGRect(
+        x: 0,
+        y: currentY,
+        width: layoutView.frame.size.height,
+        height: optimumRowHeight)
       layoutView.addSubview(row)
-      currentY += row.style.height + style.rowPadding
+      currentY += optimumRowHeight + style.rowPadding
     }
 
     view.addSubview(layoutView)
+  }
+
+  internal func getOptimumRowHeight(forView view: UIView) -> CGFloat {
+    let height = view.frame.size.height
+    let rowPaddings = CGFloat(min(rows.count - 1, 0)) * style.rowPadding
+    let totalPaddings = rowPaddings + style.topPadding + style.bottomPadding
+    return (height - totalPaddings) / CGFloat(rows.count)
   }
 }
