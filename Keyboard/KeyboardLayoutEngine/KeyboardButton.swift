@@ -127,9 +127,11 @@ public class KeyboardButton: UIControl {
       y: padding,
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
+
     if let imageSize = style.imageSize {
       padding = (min(frame.size.height, frame.size.width) - imageSize) / 2
     }
+
     imageView?.frame = CGRect(
       x: padding,
       y: padding,
