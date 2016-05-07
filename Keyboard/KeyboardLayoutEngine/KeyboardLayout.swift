@@ -13,6 +13,18 @@ public struct KeyboardLayoutStyle {
   public var bottomPadding: CGFloat
   public var rowPadding: CGFloat
   public var backgroundColor: UIColor
+
+  init(
+    topPadding: CGFloat? = nil,
+    bottomPadding: CGFloat? = nil,
+    rowPadding: CGFloat? = nil,
+    backgroundColor: UIColor? = nil) {
+    
+    self.topPadding = topPadding ?? 5
+    self.bottomPadding = bottomPadding ?? 5
+    self.rowPadding = bottomPadding ?? 10
+    self.backgroundColor = backgroundColor ?? UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)
+  }
 }
 
 public class KeyboardLayout: UIView {

@@ -43,6 +43,7 @@ public struct KeyboardButtonStyle {
     textColor: UIColor? = nil,
     font: UIFont? = nil,
     imageSize: CGFloat? = nil) {
+
     self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
     self.cornerRadius = cornerRadius ?? 5
     self.borderColor = borderColor ?? UIColor.clearColor()
@@ -85,7 +86,11 @@ public class KeyboardButton: UIControl {
     addSubview(textLabel!)
   }
 
-  public init(imageNamed: String, style: KeyboardButtonStyle, width: KeyboardButtonWidth = .Dynamic) {
+  public init(
+    imageNamed: String,
+    style: KeyboardButtonStyle,
+    width: KeyboardButtonWidth = .Dynamic) {
+    
     super.init(frame: CGRect.zero)
     self.style = style
     self.width = width
