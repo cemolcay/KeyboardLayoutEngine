@@ -15,38 +15,42 @@ public struct KeyboardLayoutStyle {
   public var backgroundColor: UIColor
 }
 
-public class KeyboardLayout {
+public class KeyboardLayout: UIView {
   public var rows: [KeyboardRow]!
   public var style: KeyboardLayoutStyle!
 
   public init(rows: [KeyboardRow], style: KeyboardLayoutStyle) {
+    super.init(frame: CGRect.zero)
     self.rows = rows
     self.style = style
+
+    for row in rows {
+      addSubview(row)
+    }
   }
 
-  public func apply(onView view: UIView) {
-    let layoutHeight = view.frame.size.height - style.topPadding - style.bottomPadding
-    let layoutView = UIView(frame: CGRect(
-      x: 0,
-      y: style.topPadding,
-      width: view.frame.size.width,
-      height: layoutHeight))
+  public required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
 
-    let optimumRowHeight = getOptimumRowHeight(forView: view)
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    guard let superview = superview else { return }
+    superview.backgroundColor = style.backgroundColor
+
+    let layoutHeight = superview.frame.size.height - style.topPadding - style.bottomPadding
+    frame = CGRect(x: 0, y: style.topPadding, width: superview.frame.size.width, height: layoutHeight)
+
+    let optimumRowHeight = getOptimumRowHeight(forView: superview)
     var currentY: CGFloat = 0
-
     for row in rows {
       row.frame = CGRect(
         x: 0,
         y: currentY,
-        width: layoutView.frame.size.width,
+        width: frame.size.width,
         height: optimumRowHeight)
-      layoutView.addSubview(row)
       currentY += optimumRowHeight + style.rowPadding
     }
-
-    view.backgroundColor = style.backgroundColor
-    view.addSubview(layoutView)
   }
 
   private func getOptimumRowHeight(forView view: UIView) -> CGFloat {

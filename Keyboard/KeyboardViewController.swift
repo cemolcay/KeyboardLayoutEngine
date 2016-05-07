@@ -10,10 +10,13 @@ import UIKit
 
 let layoutStyle = KeyboardLayoutStyle(topPadding: 5, bottomPadding: 5, rowPadding: 10, backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
 let rowStyle = KeyboardRowStyle(leadingPadding: 5, trailingPadding: 5, buttonsPadding: 6)
+let secondRowStyle = KeyboardRowStyle(leadingPadding: 20, trailingPadding: 20, buttonsPadding: 6)
 let shiftRowStyle = KeyboardRowStyle(leadingPadding: 10, trailingPadding: 10, buttonsPadding: 6)
 let defaultButtonStyle = KeyboardButtonStyle()
 let spaceButtonStyle = KeyboardButtonStyle(font: UIFont.systemFontOfSize(15))
 let globeButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), imageSize: 20)
+let shiftButtonStyle = KeyboardButtonStyle(imageSize: 18)
+let backspaceButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), imageSize: 18)
 let darkButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1))
 let nunmbersButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), font: UIFont.systemFontOfSize(15))
 let capitalLayout = KeyboardLayout(
@@ -45,11 +48,11 @@ let capitalLayout = KeyboardLayout(
         KeyboardButton(text: "K", style: defaultButtonStyle),
         KeyboardButton(text: "L", style: defaultButtonStyle),
       ],
-      style: rowStyle
+      style: secondRowStyle
     ),
     KeyboardRow(
       characters: [
-        KeyboardButton(imageNamed: "shift", style: defaultButtonStyle, width: .Static(width: 30)),
+        KeyboardButton(imageNamed: "shift", style: shiftButtonStyle, width: .Relative(percent: 0.13)),
         KeyboardRow(
           characters: [
             KeyboardButton(text: "Z", style: defaultButtonStyle),
@@ -62,16 +65,16 @@ let capitalLayout = KeyboardLayout(
           ],
           style: shiftRowStyle
         ),
-        KeyboardButton(imageNamed: "backspace", style: darkButtonStyle, width: .Static(width: 30)),
+        KeyboardButton(imageNamed: "backspace", style: backspaceButtonStyle, width: .Relative(percent: 0.13)),
       ],
       style: rowStyle
     ),
     KeyboardRow(
       characters: [
-        KeyboardButton(text: "123", style: nunmbersButtonStyle, width: .Relative(percent: 0.2)),
+        KeyboardButton(text: "123", style: nunmbersButtonStyle, width: .Relative(percent: 0.13)),
         KeyboardButton(imageNamed: "globe", style: globeButtonStyle, width: .Static(width: 40)),
         KeyboardButton(text: "space", style: spaceButtonStyle),
-        KeyboardButton(text: "return", style: spaceButtonStyle, width: .Static(width: 80)),
+        KeyboardButton(text: "return", style: spaceButtonStyle, width: .Relative(percent: 0.2)),
       ],
       style: rowStyle
     ),
@@ -83,10 +86,11 @@ class KeyboardViewController: UIInputViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.addSubview(capitalLayout)
   }
 
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    capitalLayout.apply(onView: view)
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    capitalLayout.setNeedsLayout()
   }
 }
