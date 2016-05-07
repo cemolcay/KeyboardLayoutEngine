@@ -48,7 +48,7 @@ public class KeyboardRow: UIView {
         character.frame = CGRect(
           x: currentX,
           y: 0,
-          width: character.width ?? optimumButtonWidth,
+          width: getWidthForKeyboardButton(character),
           height: frame.size.height)
         currentX += character.frame.size.width + style.buttonsPadding
       }
@@ -64,6 +64,24 @@ public class KeyboardRow: UIView {
     currentX += style.trailingPadding
   }
 
+  private func getRelativeWidthForPercent(percent: CGFloat) -> CGFloat {
+    let buttonsPadding = max(0, CGFloat(characters.count - 1)) * style.buttonsPadding
+    let totalPadding = buttonsPadding + style.leadingPadding + style.trailingPadding
+    let cleanWidth = frame.size.width - totalPadding
+    return cleanWidth * percent
+  }
+
+  private func getWidthForKeyboardButton(button: KeyboardButton) -> CGFloat {
+    switch button.width {
+    case .Dynamic:
+      return getOptimumButtonWidth()
+    case .Static(let width):
+      return width
+    case .Relative(let percent):
+      return getRelativeWidthForPercent(percent)
+    }
+  }
+
   private func getOptimumButtonWidth() -> CGFloat {
     var charactersWithDynamicWidthCount: Int = 0
     var totalStaticWidthButtonsWidth: CGFloat = 0
@@ -71,11 +89,15 @@ public class KeyboardRow: UIView {
 
     for character in characters {
       if let button = character as? KeyboardButton {
-        if let width = button.width {
-          totalStaticWidthButtonsWidth += width
-        } else {
+        switch button.width {
+        case .Dynamic:
           charactersWithDynamicWidthCount += 1
-        }
+        case .Static(let width):
+          totalStaticWidthButtonsWidth += width
+        case .Relative(let percent):
+          totalStaticWidthButtonsWidth += getRelativeWidthForPercent(percent)
+          break
+         }
       } else if let row = character as? KeyboardRow {
         totalChildRowPadding += row.style.leadingPadding + row.style.trailingPadding
         charactersWithDynamicWidthCount += 1

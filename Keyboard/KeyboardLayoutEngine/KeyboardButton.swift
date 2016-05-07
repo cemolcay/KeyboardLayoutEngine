@@ -58,13 +58,19 @@ public struct KeyboardButtonStyle {
   }
 }
 
-public class KeyboardButton: UIView {
+public enum KeyboardButtonWidth {
+  case Dynamic
+  case Static(width: CGFloat)
+  case Relative(percent: CGFloat)
+}
+
+public class KeyboardButton: UIControl {
+  public var width: KeyboardButtonWidth = .Dynamic
+  public var style: KeyboardButtonStyle!
   public var textLabel: UILabel?
   public var imageView: UIImageView?
-  public var width: CGFloat?
-  public var style: KeyboardButtonStyle!
 
-  public init(text: String, style: KeyboardButtonStyle, width: CGFloat? = nil) {
+  public init(text: String, style: KeyboardButtonStyle, width: KeyboardButtonWidth = .Dynamic) {
     super.init(frame: CGRect.zero)
     self.style = style
     self.width = width
@@ -79,7 +85,7 @@ public class KeyboardButton: UIView {
     addSubview(textLabel!)
   }
 
-  public init(imageNamed: String, style: KeyboardButtonStyle, width: CGFloat? = nil) {
+  public init(imageNamed: String, style: KeyboardButtonStyle, width: KeyboardButtonWidth = .Dynamic) {
     super.init(frame: CGRect.zero)
     self.style = style
     self.width = width
