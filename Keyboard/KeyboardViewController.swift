@@ -8,8 +8,9 @@
 
 import UIKit
 
-let layoutStyle = KeyboardLayoutStyle(topPadding: 5, bottomPadding: 5, rowPadding: 20, backgroundColor: UIColor.grayColor())
+let layoutStyle = KeyboardLayoutStyle(topPadding: 5, bottomPadding: 5, rowPadding: 10, backgroundColor: UIColor.grayColor())
 let rowStyle = KeyboardRowStyle(leadingPadding: 5, trailingPadding: 5, buttonsPadding: 10)
+let shiftRowStyle = KeyboardRowStyle(leadingPadding: 10, trailingPadding: 10, buttonsPadding: 10)
 let defaultButtonStyle = KeyboardButtonStyle()
 let darkButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor.darkGrayColor())
 let capitalLayout = KeyboardLayout(
@@ -46,8 +47,8 @@ let capitalLayout = KeyboardLayout(
     KeyboardRow(
       characters: [
         KeyboardButton(imageNamed: "shift", style: defaultButtonStyle, width: 30),
-//        KeyboardRow(
-//          characters: [
+        KeyboardRow(
+          characters: [
             KeyboardButton(text: "Z", style: defaultButtonStyle),
             KeyboardButton(text: "X", style: defaultButtonStyle),
             KeyboardButton(text: "C", style: defaultButtonStyle),
@@ -55,9 +56,9 @@ let capitalLayout = KeyboardLayout(
             KeyboardButton(text: "B", style: defaultButtonStyle),
             KeyboardButton(text: "N", style: defaultButtonStyle),
             KeyboardButton(text: "M", style: defaultButtonStyle),
-//          ],
-//          style: rowStyle
-//        ),
+          ],
+          style: shiftRowStyle
+        ),
         KeyboardButton(imageNamed: "backspace", style: darkButtonStyle, width: 30),
       ],
       style: rowStyle
@@ -84,5 +85,9 @@ class KeyboardViewController: UIInputViewController {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     capitalLayout.apply(onView: view)
+  }
+
+  override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+    super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
   }
 }

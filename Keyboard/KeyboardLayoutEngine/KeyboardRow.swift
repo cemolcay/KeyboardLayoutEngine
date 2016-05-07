@@ -15,17 +15,17 @@ public struct KeyboardRowStyle {
 }
 
 public class KeyboardRow: UIView {
-
+  /// Characters should be eighter `KeyboardButton` or `KeyboardRow`
   public var characters: [AnyObject]!
   public var style: KeyboardRowStyle!
-  private var childRowsAdded: Bool = false
 
   public init(characters: [AnyObject], style: KeyboardRowStyle) {
+    assert(characters.filter({ !(($0 is KeyboardButton) || ($0 is KeyboardRow)) }).count <= 0)
     super.init(frame: CGRect.zero)
-    self.characters = characters
     self.style = style
+    self.characters = characters
 
-    for character in characters {
+    for character in self.characters {
       if let character = character as? KeyboardButton {
         addSubview(character)
       }
@@ -33,7 +33,6 @@ public class KeyboardRow: UIView {
         addSubview(row)
       }
     }
-    childRowsAdded = true
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -42,82 +41,55 @@ public class KeyboardRow: UIView {
 
   public override func layoutSubviews() {
     super.layoutSubviews()
-    if childRowsAdded {
-      layoutRow(self)
-    }
-  }
-
-  private func layoutRow(row: KeyboardRow) {
-    let optimumButtonWidth = row.getOptimumButtonWidth()
-    var currentX = row.style.leadingPadding
-    for character in row.characters {
+    let optimumButtonWidth = getOptimumButtonWidth()
+    var currentX = style.leadingPadding
+    for character in characters {
       if let character = character as? KeyboardButton {
         character.frame = CGRect(
           x: currentX,
           y: 0,
           width: character.width ?? optimumButtonWidth,
-          height: row.frame.size.height)
-        currentX += character.frame.size.width + row.style.buttonsPadding
+          height: frame.size.height)
+        currentX += character.frame.size.width + style.buttonsPadding
       }
       if let childRow = character as? KeyboardRow {
-        childRow.frame.size.height = frame.size.height
-        childRow.frame.origin.x = currentX
-        layoutRow(childRow)
+        childRow.frame = CGRect(
+          x: currentX,
+          y: 0,
+          width: childRow.style.leadingPadding + optimumButtonWidth  + childRow.style.trailingPadding,
+          height: frame.size.height)
+        currentX += childRow.frame.size.width + style.buttonsPadding
       }
     }
-    currentX += row.style.trailingPadding
-    row.frame.size.width = currentX
+    currentX += style.trailingPadding
   }
 
   private func getOptimumButtonWidth() -> CGFloat {
-    let width = frame.size.width
-    let charactersCount = getCharactersCount()
-    let dynamicWidthCharactersCount = getDynamicWidthCharacterCount()
-    let buttonsTotalPadding = CGFloat(max(0, charactersCount - 1)) * style.buttonsPadding
-    let totalPadding = buttonsTotalPadding + style.leadingPadding + style.trailingPadding + getTotalStaticWidthOfButtons()
-    return max(0, (width - totalPadding) / CGFloat(dynamicWidthCharactersCount))
-  }
+    var charactersWithDynamicWidthCount: Int = 0
+    var totalStaticWidthButtonsWidth: CGFloat = 0
+    var totalChildRowPadding: CGFloat = 0
 
-  private func getTotalStaticWidthOfButtons() -> CGFloat {
-    var totalWidth = CGFloat(0)
     for character in characters {
       if let button = character as? KeyboardButton {
         if let width = button.width {
-          totalWidth += width
+          totalStaticWidthButtonsWidth += width
+        } else {
+          charactersWithDynamicWidthCount += 1
         }
-      }
-      if let row = character as? KeyboardRow {
-        totalWidth += row.getTotalStaticWidthOfButtons()
+      } else if let row = character as? KeyboardRow {
+        totalChildRowPadding += row.style.leadingPadding + row.style.trailingPadding
+        charactersWithDynamicWidthCount += 1
       }
     }
-    return totalWidth
-  }
 
-  private func getCharactersCount() -> Int {
-    var count = 0
-    for character in characters {
-      if character is KeyboardButton {
-        count += 1
-      }
-      if let row = character as? KeyboardRow {
-        count += row.getCharactersCount()
-      }
-    }
-    return count
-  }
-
-  private func getDynamicWidthCharacterCount() -> Int {
-    var count = 0
-    for character in characters {
-      if let button = character as? KeyboardButton {
-        if button.width == nil {
-          count += 1
-        }
-      }
-      if let row = character as? KeyboardRow {
-        count += row.getDynamicWidthCharacterCount()
-      }
-    }
-    return count
+    let width = frame.size.width
+    let totalButtonPadding: CGFloat = max(0, CGFloat(characters.count - 1) * style.buttonsPadding)
+    let totalPadding = totalButtonPadding +
+      totalStaticWidthButtonsWidth +
+      totalChildRowPadding +
+      style.leadingPadding +
+      style.trailingPadding
+    let opt = (width - totalPadding) / CGFloat(charactersWithDynamicWidthCount)
+    return opt
   }
 }

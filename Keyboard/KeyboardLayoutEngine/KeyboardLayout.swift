@@ -33,7 +33,7 @@ public class KeyboardLayout {
       height: layoutHeight))
 
     let optimumRowHeight = getOptimumRowHeight(forView: view)
-    var currentY = CGFloat(0)
+    var currentY: CGFloat = 0
 
     for row in rows {
       row.frame = CGRect(
@@ -48,7 +48,7 @@ public class KeyboardLayout {
     view.addSubview(layoutView)
   }
 
-  internal func getOptimumRowHeight(forView view: UIView) -> CGFloat {
+  private func getOptimumRowHeight(forView view: UIView) -> CGFloat {
     let height = view.frame.size.height
     let rowPaddings = CGFloat(max(rows.count - 1, 0)) * style.rowPadding
     let totalPaddings = rowPaddings + style.topPadding + style.bottomPadding
