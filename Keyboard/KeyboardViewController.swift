@@ -13,6 +13,7 @@ let rowStyle = KeyboardRowStyle(leadingPadding: 5, trailingPadding: 5, buttonsPa
 let shiftRowStyle = KeyboardRowStyle(leadingPadding: 10, trailingPadding: 10, buttonsPadding: 6)
 let defaultButtonStyle = KeyboardButtonStyle()
 let spaceButtonStyle = KeyboardButtonStyle(font: UIFont.systemFontOfSize(15))
+let globeButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), imageSize: 20)
 let darkButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1))
 let capitalLayout = KeyboardLayout(
   rows: [
@@ -67,7 +68,7 @@ let capitalLayout = KeyboardLayout(
     KeyboardRow(
       characters: [
         KeyboardButton(text: "123", style: darkButtonStyle, width: 40),
-        KeyboardButton(imageNamed: "globe", style: darkButtonStyle, width: 40),
+        KeyboardButton(imageNamed: "globe", style: globeButtonStyle, width: 40),
         KeyboardButton(text: "space", style: spaceButtonStyle),
         KeyboardButton(text: "return", style: spaceButtonStyle, width: 80),
       ],

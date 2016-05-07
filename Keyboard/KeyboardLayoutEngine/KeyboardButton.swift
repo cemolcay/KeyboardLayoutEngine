@@ -27,6 +27,9 @@ public struct KeyboardButtonStyle {
   public var textColor: UIColor
   public var font: UIFont
 
+  // Image
+  public var imageSize: CGFloat?
+
   init(
     backgroundColor: UIColor? = nil,
     cornerRadius: CGFloat? = nil,
@@ -38,7 +41,8 @@ public struct KeyboardButtonStyle {
     shadowRadius: CGFloat? = nil,
     shadowPath: UIBezierPath? = nil,
     textColor: UIColor? = nil,
-    font: UIFont? = nil) {
+    font: UIFont? = nil,
+    imageSize: CGFloat? = nil) {
     self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
     self.cornerRadius = cornerRadius ?? 5
     self.borderColor = borderColor ?? UIColor.clearColor()
@@ -46,10 +50,11 @@ public struct KeyboardButtonStyle {
     self.shadowColor = shadowColor ?? UIColor.blackColor()
     self.shadowOpacity = shadowOpacity ?? 0.4
     self.shadowOffset = shadowOffset ?? CGSize(width: 0, height: 1)
-    self.shadowRadius = shadowRadius ?? 1
+    self.shadowRadius = shadowRadius ?? 1 / UIScreen.mainScreen().scale
     self.shadowPath = shadowPath
     self.textColor = textColor ?? UIColor.blackColor()
     self.font = font ?? UIFont.systemFontOfSize(18)
+    self.imageSize = imageSize
   }
 }
 
@@ -57,11 +62,13 @@ public class KeyboardButton: UIView {
   public var textLabel: UILabel?
   public var imageView: UIImageView?
   public var width: CGFloat?
+  public var style: KeyboardButtonStyle!
 
   public init(text: String, style: KeyboardButtonStyle, width: CGFloat? = nil) {
     super.init(frame: CGRect.zero)
+    self.style = style
     self.width = width
-    setupAppearance(style)
+    setupAppearance()
 
     textLabel = UILabel()
     textLabel?.text = text
@@ -74,12 +81,12 @@ public class KeyboardButton: UIView {
 
   public init(imageNamed: String, style: KeyboardButtonStyle, width: CGFloat? = nil) {
     super.init(frame: CGRect.zero)
+    self.style = style
     self.width = width
-    setupAppearance(style)
+    setupAppearance()
 
     imageView = UIImageView(image: UIImage(named: imageNamed))
     imageView?.contentMode = .ScaleAspectFit
-    imageView?.translatesAutoresizingMaskIntoConstraints = false
     addSubview(imageView!)
   }
 
@@ -87,7 +94,7 @@ public class KeyboardButton: UIView {
     super.init(coder: aDecoder)
   }
 
-  private func setupAppearance(style: KeyboardButtonStyle) {
+  private func setupAppearance() {
     backgroundColor = style.backgroundColor
     layer.cornerRadius = style.cornerRadius
     layer.borderColor = style.borderColor.CGColor
@@ -103,12 +110,15 @@ public class KeyboardButton: UIView {
 
   public override func layoutSubviews() {
     super.layoutSubviews()
-    let padding = CGFloat(5)
+    var padding = CGFloat(5)
     textLabel?.frame = CGRect(
       x: padding,
       y: padding,
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
+    if let imageSize = style.imageSize {
+      padding = (min(frame.size.height, frame.size.width) - imageSize) / 2
+    }
     imageView?.frame = CGRect(
       x: padding,
       y: padding,
