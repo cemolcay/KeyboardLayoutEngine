@@ -8,11 +8,12 @@
 
 import UIKit
 
-let layoutStyle = KeyboardLayoutStyle(topPadding: 5, bottomPadding: 5, rowPadding: 10, backgroundColor: UIColor.grayColor())
-let rowStyle = KeyboardRowStyle(leadingPadding: 5, trailingPadding: 5, buttonsPadding: 10)
-let shiftRowStyle = KeyboardRowStyle(leadingPadding: 10, trailingPadding: 10, buttonsPadding: 10)
+let layoutStyle = KeyboardLayoutStyle(topPadding: 5, bottomPadding: 5, rowPadding: 10, backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
+let rowStyle = KeyboardRowStyle(leadingPadding: 5, trailingPadding: 5, buttonsPadding: 6)
+let shiftRowStyle = KeyboardRowStyle(leadingPadding: 10, trailingPadding: 10, buttonsPadding: 6)
 let defaultButtonStyle = KeyboardButtonStyle()
-let darkButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor.darkGrayColor())
+let spaceButtonStyle = KeyboardButtonStyle(font: UIFont.systemFontOfSize(15))
+let darkButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1))
 let capitalLayout = KeyboardLayout(
   rows: [
     KeyboardRow(
@@ -65,10 +66,10 @@ let capitalLayout = KeyboardLayout(
     ),
     KeyboardRow(
       characters: [
-        KeyboardButton(text: "123", style: darkButtonStyle, width: 30),
-        KeyboardButton(imageNamed: "globe", style: darkButtonStyle, width: 30),
-        KeyboardButton(text: "space", style: defaultButtonStyle),
-        KeyboardButton(text: "return", style: darkButtonStyle, width: 40),
+        KeyboardButton(text: "123", style: darkButtonStyle, width: 40),
+        KeyboardButton(imageNamed: "globe", style: darkButtonStyle, width: 40),
+        KeyboardButton(text: "space", style: spaceButtonStyle),
+        KeyboardButton(text: "return", style: spaceButtonStyle, width: 80),
       ],
       style: rowStyle
     ),
@@ -85,9 +86,5 @@ class KeyboardViewController: UIInputViewController {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     capitalLayout.apply(onView: view)
-  }
-
-  override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-    super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
   }
 }

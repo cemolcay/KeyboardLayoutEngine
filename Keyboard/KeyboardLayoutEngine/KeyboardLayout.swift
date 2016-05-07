@@ -45,6 +45,7 @@ public class KeyboardLayout {
       currentY += optimumRowHeight + style.rowPadding
     }
 
+    view.backgroundColor = style.backgroundColor
     view.addSubview(layoutView)
   }
 
