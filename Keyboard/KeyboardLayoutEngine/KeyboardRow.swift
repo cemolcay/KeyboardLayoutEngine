@@ -69,22 +69,53 @@ public class KeyboardRow: UIView {
     row.frame.size.width = currentX
   }
 
-  internal func getOptimumButtonWidth() -> CGFloat {
+  private func getOptimumButtonWidth() -> CGFloat {
     let width = frame.size.width
-    let charactersCount = getCharacterCount()
-    let buttonsTotalPadding = CGFloat(min(0, charactersCount - 1)) * style.buttonsPadding
-    let totalPadding = buttonsTotalPadding + style.leadingPadding + style.trailingPadding
-    return max(0, (width - totalPadding) / CGFloat(charactersCount))
+    let charactersCount = getCharactersCount()
+    let dynamicWidthCharactersCount = getDynamicWidthCharacterCount()
+    let buttonsTotalPadding = CGFloat(max(0, charactersCount - 1)) * style.buttonsPadding
+    let totalPadding = buttonsTotalPadding + style.leadingPadding + style.trailingPadding + getTotalStaticWidthOfButtons()
+    return max(0, (width - totalPadding) / CGFloat(dynamicWidthCharactersCount))
   }
 
-  internal func getCharacterCount() -> Int {
+  private func getTotalStaticWidthOfButtons() -> CGFloat {
+    var totalWidth = CGFloat(0)
+    for character in characters {
+      if let button = character as? KeyboardButton {
+        if let width = button.width {
+          totalWidth += width
+        }
+      }
+      if let row = character as? KeyboardRow {
+        totalWidth += row.getTotalStaticWidthOfButtons()
+      }
+    }
+    return totalWidth
+  }
+
+  private func getCharactersCount() -> Int {
     var count = 0
     for character in characters {
       if character is KeyboardButton {
         count += 1
       }
       if let row = character as? KeyboardRow {
-        count += row.getCharacterCount()
+        count += row.getCharactersCount()
+      }
+    }
+    return count
+  }
+
+  private func getDynamicWidthCharacterCount() -> Int {
+    var count = 0
+    for character in characters {
+      if let button = character as? KeyboardButton {
+        if button.width == nil {
+          count += 1
+        }
+      }
+      if let row = character as? KeyboardRow {
+        count += row.getDynamicWidthCharacterCount()
       }
     }
     return count
