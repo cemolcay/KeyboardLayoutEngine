@@ -46,8 +46,8 @@ let capitalLayout = KeyboardLayout(
     KeyboardRow(
       characters: [
         KeyboardButton(imageNamed: "shift", style: defaultButtonStyle, width: 30),
-        KeyboardRow(
-          characters: [
+//        KeyboardRow(
+//          characters: [
             KeyboardButton(text: "Z", style: defaultButtonStyle),
             KeyboardButton(text: "X", style: defaultButtonStyle),
             KeyboardButton(text: "C", style: defaultButtonStyle),
@@ -55,9 +55,9 @@ let capitalLayout = KeyboardLayout(
             KeyboardButton(text: "B", style: defaultButtonStyle),
             KeyboardButton(text: "N", style: defaultButtonStyle),
             KeyboardButton(text: "M", style: defaultButtonStyle),
-          ],
-          style: rowStyle
-        ),
+//          ],
+//          style: rowStyle
+//        ),
         KeyboardButton(imageNamed: "backspace", style: darkButtonStyle, width: 30),
       ],
       style: rowStyle

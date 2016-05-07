@@ -91,7 +91,16 @@ public class KeyboardButton: UIView {
 
   public override func layoutSubviews() {
     super.layoutSubviews()
-    textLabel?.frame = CGRectOffset(frame, -5, -5)
-    imageView?.frame = CGRectOffset(frame, -5, -5)
+    let padding = CGFloat(5)
+    textLabel?.frame = CGRect(
+      x: padding,
+      y: padding,
+      width: frame.size.width - (padding * 2),
+      height: frame.size.height - (padding * 2))
+    imageView?.frame = CGRect(
+      x: padding,
+      y: padding,
+      width: frame.size.width - (padding * 2),
+      height: frame.size.height - (padding * 2))
   }
 }

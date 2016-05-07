@@ -18,11 +18,22 @@ public class KeyboardRow: UIView {
 
   public var characters: [AnyObject]!
   public var style: KeyboardRowStyle!
+  private var childRowsAdded: Bool = false
 
   public init(characters: [AnyObject], style: KeyboardRowStyle) {
     super.init(frame: CGRect.zero)
     self.characters = characters
     self.style = style
+
+    for character in characters {
+      if let character = character as? KeyboardButton {
+        addSubview(character)
+      }
+      if let row = character as? KeyboardRow {
+        addSubview(row)
+      }
+    }
+    childRowsAdded = true
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -31,11 +42,13 @@ public class KeyboardRow: UIView {
 
   public override func layoutSubviews() {
     super.layoutSubviews()
-    layoutRow(self)
+    if childRowsAdded {
+      layoutRow(self)
+    }
   }
 
   private func layoutRow(row: KeyboardRow) {
-    let optimumButtonWidth = getOptimumButtonWidth()
+    let optimumButtonWidth = row.getOptimumButtonWidth()
     var currentX = row.style.leadingPadding
     for character in row.characters {
       if let character = character as? KeyboardButton {
@@ -43,8 +56,7 @@ public class KeyboardRow: UIView {
           x: currentX,
           y: 0,
           width: character.width ?? optimumButtonWidth,
-          height: frame.size.height)
-        row.addSubview(character)
+          height: row.frame.size.height)
         currentX += character.frame.size.width + row.style.buttonsPadding
       }
       if let childRow = character as? KeyboardRow {
@@ -65,14 +77,14 @@ public class KeyboardRow: UIView {
     return max(0, (width - totalPadding) / CGFloat(charactersCount))
   }
 
-  internal func getCharacterCount(isMini: Bool = false) -> Int {
+  internal func getCharacterCount() -> Int {
     var count = 0
     for character in characters {
       if character is KeyboardButton {
         count += 1
       }
       if let row = character as? KeyboardRow {
-        count += row.getCharacterCount(true)
+        count += row.getCharacterCount()
       }
     }
     return count
