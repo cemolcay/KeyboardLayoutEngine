@@ -8,12 +8,21 @@
 
 import UIKit
 
+// MARK: - KeyboardButtonType
 public enum KeyboardButtonType {
   case Key(String)
   case Text(String)
   case Image(UIImage?)
 }
 
+// MARK: - KeyboardButtonWidth
+public enum KeyboardButtonWidth {
+  case Dynamic
+  case Static(width: CGFloat)
+  case Relative(percent: CGFloat)
+}
+
+// MARK: - KeyboardButtonStyle
 public struct KeyboardButtonStyle {
   public var backgroundColor: UIColor
   public var cornerRadius: CGFloat
@@ -36,41 +45,40 @@ public struct KeyboardButtonStyle {
   // Image
   public var imageSize: CGFloat?
 
-  init(
-    backgroundColor: UIColor? = nil,
-    cornerRadius: CGFloat? = nil,
-    borderColor: UIColor? = nil,
-    borderWidth: CGFloat? = nil,
-    shadowColor: UIColor? = nil,
-    shadowOpacity: Float? = nil,
-    shadowOffset: CGSize? = nil,
-    shadowRadius: CGFloat? = nil,
-    shadowPath: UIBezierPath? = nil,
-    textColor: UIColor? = nil,
-    font: UIFont? = nil,
-    imageSize: CGFloat? = nil) {
+  // Popup
+  public var showsPopup: Bool
 
-    self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
-    self.cornerRadius = cornerRadius ?? 5
-    self.borderColor = borderColor ?? UIColor.clearColor()
-    self.borderWidth = borderWidth ?? 0
-    self.shadowColor = shadowColor ?? UIColor.blackColor()
-    self.shadowOpacity = shadowOpacity ?? 0.4
-    self.shadowOffset = shadowOffset ?? CGSize(width: 0, height: 1)
-    self.shadowRadius = shadowRadius ?? 1 / UIScreen.mainScreen().scale
+  init(
+    backgroundColor: UIColor = UIColor.whiteColor(),
+    cornerRadius: CGFloat = 5,
+    borderColor: UIColor = UIColor.clearColor(),
+    borderWidth: CGFloat = 0,
+    shadowColor: UIColor = UIColor.blackColor(),
+    shadowOpacity: Float = 0.4,
+    shadowOffset: CGSize = CGSize(width: 0, height: 1),
+    shadowRadius: CGFloat = 1 / UIScreen.mainScreen().scale,
+    shadowPath: UIBezierPath? = nil,
+    textColor: UIColor = UIColor.blackColor(),
+    font: UIFont = UIFont.systemFontOfSize(20),
+    imageSize: CGFloat? = nil,
+    showsPopup: Bool = false) {
+    self.backgroundColor = backgroundColor
+    self.cornerRadius = cornerRadius
+    self.borderColor = borderColor
+    self.borderWidth = borderWidth
+    self.shadowColor = shadowColor
+    self.shadowOpacity = shadowOpacity
+    self.shadowOffset = shadowOffset
+    self.shadowRadius = shadowRadius
     self.shadowPath = shadowPath
-    self.textColor = textColor ?? UIColor.blackColor()
-    self.font = font ?? UIFont.systemFontOfSize(18)
+    self.textColor = textColor
+    self.font = font
     self.imageSize = imageSize
+    self.showsPopup = showsPopup
   }
 }
 
-public enum KeyboardButtonWidth {
-  case Dynamic
-  case Static(width: CGFloat)
-  case Relative(percent: CGFloat)
-}
-
+// MARK: - KeyboardButton
 public class KeyboardButton: UIView {
   public var type: KeyboardButtonType = .Key("")
   public var width: KeyboardButtonWidth = .Dynamic
@@ -82,13 +90,11 @@ public class KeyboardButton: UIView {
   public var identifier: String?
   public var highlighted: Bool = false {
     didSet {
-      // TODO: Make pop up
-      if highlighted {
-        print("highlight \(textLabel?.text)")
-      }
+      showPopup(show: highlighted)
     }
   }
 
+  // MARK: Init
   public init(
     type: KeyboardButtonType,
     style: KeyboardButtonStyle,
@@ -125,7 +131,6 @@ public class KeyboardButton: UIView {
       imageView?.contentMode = .ScaleAspectFit
       addSubview(imageView!)
     }
-
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -146,6 +151,7 @@ public class KeyboardButton: UIView {
     }
   }
 
+  // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
     var padding = CGFloat(5)
@@ -164,5 +170,14 @@ public class KeyboardButton: UIView {
       y: padding,
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
+  }
+
+  // MARK: Popup
+  private func showPopup(show show: Bool) {
+    if show {
+
+    } else {
+
+    }
   }
 }

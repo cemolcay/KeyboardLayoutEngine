@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: - KeyboardLayoutStyle
 public struct KeyboardLayoutStyle {
   public var topPadding: CGFloat
   public var bottomPadding: CGFloat
@@ -15,22 +16,23 @@ public struct KeyboardLayoutStyle {
   public var backgroundColor: UIColor
 
   init(
-    topPadding: CGFloat? = nil,
-    bottomPadding: CGFloat? = nil,
-    rowPadding: CGFloat? = nil,
-    backgroundColor: UIColor? = nil) {
-    
-    self.topPadding = topPadding ?? 5
-    self.bottomPadding = bottomPadding ?? 5
-    self.rowPadding = bottomPadding ?? 10
-    self.backgroundColor = backgroundColor ?? UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)
+    topPadding: CGFloat = 5,
+    bottomPadding: CGFloat = 5,
+    rowPadding: CGFloat = 15,
+    backgroundColor: UIColor = UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)) {
+    self.topPadding = topPadding
+    self.bottomPadding = bottomPadding
+    self.rowPadding = rowPadding
+    self.backgroundColor = backgroundColor
   }
 }
 
+// MARK: - KeyboardLayoutDelegate
 public protocol KeyboardLayuotDelegate: class {
   func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
 }
 
+// MARK: - KeyboardLayout
 public class KeyboardLayout: UIView {
   public var rows: [KeyboardRow]!
   public var style: KeyboardLayoutStyle!
@@ -40,6 +42,7 @@ public class KeyboardLayout: UIView {
 
   public weak var delegate: KeyboardLayuotDelegate?
 
+  // MARK: Init
   public init(rows: [KeyboardRow], style: KeyboardLayoutStyle) {
     super.init(frame: CGRect.zero)
     self.rows = rows
@@ -59,6 +62,7 @@ public class KeyboardLayout: UIView {
     super.init(coder: aDecoder)
   }
 
+  // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
     guard let superview = superview else { return }
@@ -86,6 +90,7 @@ public class KeyboardLayout: UIView {
     return max(0, (height - totalPaddings) / CGFloat(rows.count))
   }
 
+  // MARK: Pan
   public func didPan(pan: UIPanGestureRecognizer) {
     if pan == panGestureRecognizer {
       switch pan.state {
@@ -105,6 +110,7 @@ public class KeyboardLayout: UIView {
     }
   }
 
+  // MARK: Tap
   public func didTap(tap: UITapGestureRecognizer) {
     if tap == tapGestureRecognizer {
       if tap.state == .Ended {
