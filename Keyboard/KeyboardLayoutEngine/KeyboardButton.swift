@@ -53,7 +53,6 @@ public struct KeyboardButtonStyle {
     font: UIFont = UIFont.systemFontOfSize(20),
     imageSize: CGFloat? = nil,
     showsPopup: Bool = false) {
-
     self.backgroundColor = backgroundColor
     self.cornerRadius = cornerRadius
     self.borderColor = borderColor
@@ -66,6 +65,7 @@ public struct KeyboardButtonStyle {
     self.textColor = textColor
     self.font = font
     self.imageSize = imageSize
+    self.showsPopup = showsPopup
   }
 }
 
@@ -86,7 +86,7 @@ public class KeyboardButton: UIView {
   public var identifier: String?
   public var highlighted: Bool = false {
     didSet {
-      showPopup(show: <#T##Bool#>)
+      showPopup(show: highlighted)
     }
   }
 
