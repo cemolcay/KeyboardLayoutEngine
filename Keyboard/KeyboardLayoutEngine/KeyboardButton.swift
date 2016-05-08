@@ -60,7 +60,7 @@ public struct KeyboardButtonStyle {
     self.shadowRadius = shadowRadius ?? 1 / UIScreen.mainScreen().scale
     self.shadowPath = shadowPath
     self.textColor = textColor ?? UIColor.blackColor()
-    self.font = font ?? UIFont.systemFontOfSize(18)
+    self.font = font ?? UIFont.systemFontOfSize(20)
     self.imageSize = imageSize
   }
 }
@@ -82,9 +82,8 @@ public class KeyboardButton: UIView {
   public var identifier: String?
   public var highlighted: Bool = false {
     didSet {
-      // TODO: Make pop up
       if highlighted {
-        print("highlight \(textLabel?.text)")
+
       }
     }
   }
@@ -164,5 +163,13 @@ public class KeyboardButton: UIView {
       y: padding,
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
+  }
+
+  private func showPopup(show show: Bool) {
+    if show {
+
+    } else {
+
+    }
   }
 }
