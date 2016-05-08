@@ -175,9 +175,15 @@ public class KeyboardButton: UIView {
   // MARK: Popup
   private func showPopup(show show: Bool) {
     if show {
-
+      if viewWithTag(1) != nil { return }
+      let popup = UIView(frame: CGRect(x: 0, y: -frame.size.height, width: frame.size.width, height: frame.size.height))
+      popup.backgroundColor = UIColor.redColor()
+      popup.tag = 1
+      addSubview(popup)
     } else {
-
+      if let popup = viewWithTag(1) {
+        popup.removeFromSuperview()
+      }
     }
   }
 }

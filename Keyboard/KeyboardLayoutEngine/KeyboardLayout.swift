@@ -112,13 +112,18 @@ public class KeyboardLayout: UIView {
 
   // MARK: Tap
   public func didTap(tap: UITapGestureRecognizer) {
-    if tap == tapGestureRecognizer {
-      if tap.state == .Ended {
-        if let button = hitTest(tap.locationInView(self), withEvent: nil) as? KeyboardButton {
-          button.highlighted = false
-          delegate?.keyboardLayoutDidPressButton(self, keyboardButton: button)
-        }
-      }
+    guard let tap = tapGestureRecognizer,
+      let button = hitTest(tap.locationInView(self), withEvent: nil) as? KeyboardButton
+      else { return }
+
+    switch tap.state {
+    case .Began:
+      button.highlighted = true
+    case .Ended:
+      button.highlighted = false
+      delegate?.keyboardLayoutDidPressButton(self, keyboardButton: button)
+    default:
+      return
     }
   }
 }
