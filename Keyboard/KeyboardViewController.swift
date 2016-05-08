@@ -99,17 +99,24 @@ class KeyboardViewController: UIInputViewController, KeyboardLayuotDelegate {
       if let identifier = keyboardButton.identifier {
         if identifier == "globe" {
           advanceToNextInputMode()
-        } else {
-          print("\(identifier) pressed")
-          return
+        } else if identifier == "space" {
+          textDocumentProxy.insertText(" ")
+        } else if identifier == "backspace" {
+          textDocumentProxy.deleteBackward()
+        } else if identifier == "shift" {
+          shiftPressed()
         }
       }
       switch keyboardButton.type {
       case .Key(let key):
-        print("\(key) pressed")
+        textDocumentProxy.insertText(key)
       default:
         return
       }
     }
+  }
+
+  func shiftPressed() {
+    print("shift pressed")
   }
 }
