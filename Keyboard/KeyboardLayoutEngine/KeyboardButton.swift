@@ -8,6 +8,12 @@
 
 import UIKit
 
+public enum KeyboardButtonType {
+  case Key(String)
+  case Text(String)
+  case Image(UIImage?)
+}
+
 public struct KeyboardButtonStyle {
   public var backgroundColor: UIColor
   public var cornerRadius: CGFloat
@@ -43,6 +49,7 @@ public struct KeyboardButtonStyle {
     textColor: UIColor? = nil,
     font: UIFont? = nil,
     imageSize: CGFloat? = nil) {
+
     self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
     self.cornerRadius = cornerRadius ?? 5
     self.borderColor = borderColor ?? UIColor.clearColor()
@@ -64,36 +71,61 @@ public enum KeyboardButtonWidth {
   case Relative(percent: CGFloat)
 }
 
-public class KeyboardButton: UIControl {
+public class KeyboardButton: UIView {
+  public var type: KeyboardButtonType = .Key("")
   public var width: KeyboardButtonWidth = .Dynamic
   public var style: KeyboardButtonStyle!
+
   public var textLabel: UILabel?
   public var imageView: UIImageView?
 
-  public init(text: String, style: KeyboardButtonStyle, width: KeyboardButtonWidth = .Dynamic) {
-    super.init(frame: CGRect.zero)
-    self.style = style
-    self.width = width
-    setupAppearance()
-
-    textLabel = UILabel()
-    textLabel?.text = text
-    textLabel?.textColor = style.textColor
-    textLabel?.font = style.font
-    textLabel?.textAlignment = .Center
-    textLabel?.translatesAutoresizingMaskIntoConstraints = false
-    addSubview(textLabel!)
+  public var identifier: String?
+  public var highlighted: Bool = false {
+    didSet {
+      // TODO: Make pop up
+      if highlighted {
+        print("highlight \(textLabel?.text)")
+      }
+    }
   }
 
-  public init(imageNamed: String, style: KeyboardButtonStyle, width: KeyboardButtonWidth = .Dynamic) {
+  public init(
+    type: KeyboardButtonType,
+    style: KeyboardButtonStyle,
+    width: KeyboardButtonWidth = .Dynamic,
+    identifier: String? = nil) {
+    
     super.init(frame: CGRect.zero)
+    self.type = type
     self.style = style
     self.width = width
+    self.identifier = identifier
+    userInteractionEnabled = true
     setupAppearance()
 
-    imageView = UIImageView(image: UIImage(named: imageNamed))
-    imageView?.contentMode = .ScaleAspectFit
-    addSubview(imageView!)
+    switch type {
+    case .Key(let text):
+      textLabel = UILabel()
+      textLabel?.text = text
+      textLabel?.textColor = style.textColor
+      textLabel?.font = style.font
+      textLabel?.textAlignment = .Center
+      textLabel?.translatesAutoresizingMaskIntoConstraints = false
+      addSubview(textLabel!)
+    case .Text(let text):
+      textLabel = UILabel()
+      textLabel?.text = text
+      textLabel?.textColor = style.textColor
+      textLabel?.font = style.font
+      textLabel?.textAlignment = .Center
+      textLabel?.translatesAutoresizingMaskIntoConstraints = false
+      addSubview(textLabel!)
+    case .Image(let image):
+      imageView = UIImageView(image: image)
+      imageView?.contentMode = .ScaleAspectFit
+      addSubview(imageView!)
+    }
+
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -122,9 +154,11 @@ public class KeyboardButton: UIControl {
       y: padding,
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
+
     if let imageSize = style.imageSize {
       padding = (min(frame.size.height, frame.size.width) - imageSize) / 2
     }
+
     imageView?.frame = CGRect(
       x: padding,
       y: padding,

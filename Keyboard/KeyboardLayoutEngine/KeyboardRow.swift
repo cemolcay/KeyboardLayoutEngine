@@ -12,6 +12,16 @@ public struct KeyboardRowStyle {
   public var leadingPadding: CGFloat
   public var trailingPadding: CGFloat
   public var buttonsPadding: CGFloat
+
+  public init(
+    leadingPadding: CGFloat? = nil,
+    trailingPadding: CGFloat? = nil,
+    buttonsPadding: CGFloat? = nil) {
+    
+    self.leadingPadding = leadingPadding ?? 5
+    self.trailingPadding = trailingPadding ?? 5
+    self.buttonsPadding = buttonsPadding ?? 6
+  }
 }
 
 public class KeyboardRow: UIView {
@@ -22,6 +32,7 @@ public class KeyboardRow: UIView {
   public init(characters: [AnyObject], style: KeyboardRowStyle) {
     assert(characters.filter({ !(($0 is KeyboardButton) || ($0 is KeyboardRow)) }).count <= 0)
     super.init(frame: CGRect.zero)
+    
     self.style = style
     self.characters = characters
 
@@ -113,5 +124,15 @@ public class KeyboardRow: UIView {
       style.trailingPadding
     let opt = (width - totalPadding) / CGFloat(charactersWithDynamicWidthCount)
     return opt
+  }
+
+  public func highlightButton(button: KeyboardButton) {
+    for character in characters {
+      if let highlightedButton = character as? KeyboardButton {
+        highlightedButton.highlighted = highlightedButton == button
+      } else if let row = character as? KeyboardRow {
+        row.highlightButton(button)
+      }
+    }
   }
 }
