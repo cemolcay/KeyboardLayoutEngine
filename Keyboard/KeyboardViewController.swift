@@ -23,58 +23,58 @@ let capitalLayout = KeyboardLayout(
   rows: [
     KeyboardRow(
       characters: [
-        KeyboardButton(text: "Q", style: defaultButtonStyle),
-        KeyboardButton(text: "W", style: defaultButtonStyle),
-        KeyboardButton(text: "E", style: defaultButtonStyle),
-        KeyboardButton(text: "R", style: defaultButtonStyle),
-        KeyboardButton(text: "T", style: defaultButtonStyle),
-        KeyboardButton(text: "Y", style: defaultButtonStyle),
-        KeyboardButton(text: "U", style: defaultButtonStyle),
-        KeyboardButton(text: "I", style: defaultButtonStyle),
-        KeyboardButton(text: "O", style: defaultButtonStyle),
-        KeyboardButton(text: "P", style: defaultButtonStyle),
+        KeyboardButton(type: .Key("Q"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("W"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("E"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("R"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("T"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("Y"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("U"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("I"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("O"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("P"), style: defaultButtonStyle),
       ],
       style: rowStyle
     ),
     KeyboardRow(
       characters: [
-        KeyboardButton(text: "A", style: defaultButtonStyle),
-        KeyboardButton(text: "S", style: defaultButtonStyle),
-        KeyboardButton(text: "D", style: defaultButtonStyle),
-        KeyboardButton(text: "F", style: defaultButtonStyle),
-        KeyboardButton(text: "G", style: defaultButtonStyle),
-        KeyboardButton(text: "H", style: defaultButtonStyle),
-        KeyboardButton(text: "J", style: defaultButtonStyle),
-        KeyboardButton(text: "K", style: defaultButtonStyle),
-        KeyboardButton(text: "L", style: defaultButtonStyle),
+        KeyboardButton(type: .Key("A"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("S"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("D"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("F"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("G"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("H"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("J"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("K"), style: defaultButtonStyle),
+        KeyboardButton(type: .Key("L"), style: defaultButtonStyle),
       ],
       style: secondRowStyle
     ),
     KeyboardRow(
       characters: [
-        KeyboardButton(imageNamed: "shift", style: shiftButtonStyle, width: .Relative(percent: 0.13)),
+        KeyboardButton(type: .Image(UIImage(named: "shift")), style: shiftButtonStyle, width: .Relative(percent: 0.13), identifier: "shift"),
         KeyboardRow(
           characters: [
-            KeyboardButton(text: "Z", style: defaultButtonStyle),
-            KeyboardButton(text: "X", style: defaultButtonStyle),
-            KeyboardButton(text: "C", style: defaultButtonStyle),
-            KeyboardButton(text: "V", style: defaultButtonStyle),
-            KeyboardButton(text: "B", style: defaultButtonStyle),
-            KeyboardButton(text: "N", style: defaultButtonStyle),
-            KeyboardButton(text: "M", style: defaultButtonStyle),
+            KeyboardButton(type: .Key("Z"), style: defaultButtonStyle),
+            KeyboardButton(type: .Key("X"), style: defaultButtonStyle),
+            KeyboardButton(type: .Key("C"), style: defaultButtonStyle),
+            KeyboardButton(type: .Key("V"), style: defaultButtonStyle),
+            KeyboardButton(type: .Key("B"), style: defaultButtonStyle),
+            KeyboardButton(type: .Key("N"), style: defaultButtonStyle),
+            KeyboardButton(type: .Key("M"), style: defaultButtonStyle),
           ],
           style: shiftRowStyle
         ),
-        KeyboardButton(imageNamed: "backspace", style: backspaceButtonStyle, width: .Relative(percent: 0.13)),
+        KeyboardButton(type: .Image(UIImage(named: "backspace")), style: backspaceButtonStyle, width: .Relative(percent: 0.13), identifier: "backspace"),
       ],
       style: rowStyle
     ),
     KeyboardRow(
       characters: [
-        KeyboardButton(text: "123", style: nunmbersButtonStyle, width: .Relative(percent: 0.13)),
-        KeyboardButton(imageNamed: "globe", style: globeButtonStyle, width: .Static(width: 40)),
-        KeyboardButton(text: "space", style: spaceButtonStyle),
-        KeyboardButton(text: "return", style: spaceButtonStyle, width: .Relative(percent: 0.2)),
+        KeyboardButton(type: .Text("123"), style: nunmbersButtonStyle, width: .Relative(percent: 0.13)),
+        KeyboardButton(type: .Image(UIImage(named: "globe")), style: globeButtonStyle, width: .Static(width: 40), identifier: "globe"),
+        KeyboardButton(type: .Key("space"), style: spaceButtonStyle, identifier: "space"),
+        KeyboardButton(type: .Key("return"), style: spaceButtonStyle, width: .Relative(percent: 0.2), identifier: "return"),
       ],
       style: rowStyle
     ),
@@ -82,15 +82,31 @@ let capitalLayout = KeyboardLayout(
   style: layoutStyle
 )
 
-class KeyboardViewController: UIInputViewController {
+class KeyboardViewController: UIInputViewController, KeyboardLayuotDelegate {
 
   override func viewDidLoad() {
     super.viewDidLoad()
     view.addSubview(capitalLayout)
+    capitalLayout.delegate = self
   }
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     capitalLayout.setNeedsLayout()
+  }
+
+  func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
+    if keyboardLayout == capitalLayout {
+      if let identifier = keyboardButton.identifier {
+        print("\(identifier) pressed")
+        return
+      }
+      switch keyboardButton.type {
+      case .Key(let key):
+        print("\(key) pressed")
+      default:
+        return
+      }
+    }
   }
 }

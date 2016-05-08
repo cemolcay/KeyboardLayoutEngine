@@ -125,4 +125,14 @@ public class KeyboardRow: UIView {
     let opt = (width - totalPadding) / CGFloat(charactersWithDynamicWidthCount)
     return opt
   }
+
+  public func highlightButton(button: KeyboardButton) {
+    for character in characters {
+      if let highlightedButton = character as? KeyboardButton {
+        highlightedButton.highlighted = highlightedButton == button
+      } else if let row = character as? KeyboardRow {
+        row.highlightButton(button)
+      }
+    }
+  }
 }
