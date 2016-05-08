@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: - KeyboardRowStyle
 public struct KeyboardRowStyle {
   public var leadingPadding: CGFloat
   public var trailingPadding: CGFloat
@@ -24,11 +25,13 @@ public struct KeyboardRowStyle {
   }
 }
 
+// MARK: - KeyboardRow
 public class KeyboardRow: UIView {
   /// Characters should be eighter `KeyboardButton` or `KeyboardRow`
   public var characters: [AnyObject]!
   public var style: KeyboardRowStyle!
 
+  // MARK: Init
   public init(characters: [AnyObject], style: KeyboardRowStyle) {
     assert(characters.filter({ !(($0 is KeyboardButton) || ($0 is KeyboardRow)) }).count <= 0)
     super.init(frame: CGRect.zero)
@@ -50,6 +53,7 @@ public class KeyboardRow: UIView {
     super.init(coder: aDecoder)
   }
 
+  // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
     let optimumButtonWidth = getOptimumButtonWidth()
@@ -126,6 +130,7 @@ public class KeyboardRow: UIView {
     return opt
   }
 
+  // MARK: Highlight Button
   public func highlightButton(button: KeyboardButton) {
     for character in characters {
       if let highlightedButton = character as? KeyboardButton {

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: - KeyboardLayoutStyle
 public struct KeyboardLayoutStyle {
   public var topPadding: CGFloat
   public var bottomPadding: CGFloat
@@ -26,10 +27,12 @@ public struct KeyboardLayoutStyle {
   }
 }
 
+// MARK: - KeyboardLayoutDelegate
 public protocol KeyboardLayuotDelegate: class {
   func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
 }
 
+// MARK: - KeyboardLayout
 public class KeyboardLayout: UIView {
   public var rows: [KeyboardRow]!
   public var style: KeyboardLayoutStyle!
@@ -39,6 +42,7 @@ public class KeyboardLayout: UIView {
 
   public weak var delegate: KeyboardLayuotDelegate?
 
+  // MARK: Init
   public init(rows: [KeyboardRow], style: KeyboardLayoutStyle) {
     super.init(frame: CGRect.zero)
     self.rows = rows
@@ -58,6 +62,7 @@ public class KeyboardLayout: UIView {
     super.init(coder: aDecoder)
   }
 
+  // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
     guard let superview = superview else { return }
@@ -85,6 +90,7 @@ public class KeyboardLayout: UIView {
     return max(0, (height - totalPaddings) / CGFloat(rows.count))
   }
 
+  // MARK: Pan
   public func didPan(pan: UIPanGestureRecognizer) {
     if pan == panGestureRecognizer {
       switch pan.state {
@@ -104,6 +110,7 @@ public class KeyboardLayout: UIView {
     }
   }
 
+  // MARK: Tap
   public func didTap(tap: UITapGestureRecognizer) {
     if tap == tapGestureRecognizer {
       if tap.state == .Ended {

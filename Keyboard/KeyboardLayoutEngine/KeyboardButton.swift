@@ -8,12 +8,21 @@
 
 import UIKit
 
+// MARK: - KeyboardButtonType
 public enum KeyboardButtonType {
   case Key(String)
   case Text(String)
   case Image(UIImage?)
 }
 
+// MARK: - KeyboardButtonWidth
+public enum KeyboardButtonWidth {
+  case Dynamic
+  case Static(width: CGFloat)
+  case Relative(percent: CGFloat)
+}
+
+// MARK: - KeyboardButtonStyle
 public struct KeyboardButtonStyle {
   public var backgroundColor: UIColor
   public var cornerRadius: CGFloat
@@ -69,12 +78,7 @@ public struct KeyboardButtonStyle {
   }
 }
 
-public enum KeyboardButtonWidth {
-  case Dynamic
-  case Static(width: CGFloat)
-  case Relative(percent: CGFloat)
-}
-
+// MARK: - KeyboardButton
 public class KeyboardButton: UIView {
   public var type: KeyboardButtonType = .Key("")
   public var width: KeyboardButtonWidth = .Dynamic
@@ -90,6 +94,7 @@ public class KeyboardButton: UIView {
     }
   }
 
+  // MARK: Init
   public init(
     type: KeyboardButtonType,
     style: KeyboardButtonStyle,
@@ -146,6 +151,7 @@ public class KeyboardButton: UIView {
     }
   }
 
+  // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
     var padding = CGFloat(5)
@@ -166,6 +172,7 @@ public class KeyboardButton: UIView {
       height: frame.size.height - (padding * 2))
   }
 
+  // MARK: Popup
   private func showPopup(show show: Bool) {
     if show {
 
