@@ -15,15 +15,14 @@ public struct KeyboardLayoutStyle {
   public var backgroundColor: UIColor
 
   init(
-    topPadding: CGFloat? = nil,
-    bottomPadding: CGFloat? = nil,
-    rowPadding: CGFloat? = nil,
-    backgroundColor: UIColor? = nil) {
-    
-    self.topPadding = topPadding ?? 5
-    self.bottomPadding = bottomPadding ?? 5
-    self.rowPadding = rowPadding ?? 15
-    self.backgroundColor = backgroundColor ?? UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)
+    topPadding: CGFloat = 5,
+    bottomPadding: CGFloat = 5,
+    rowPadding: CGFloat = 15,
+    backgroundColor: UIColor = UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)) {
+    self.topPadding = topPadding
+    self.bottomPadding = bottomPadding
+    self.rowPadding = rowPadding
+    self.backgroundColor = backgroundColor
   }
 }
 

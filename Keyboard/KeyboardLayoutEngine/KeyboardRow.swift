@@ -14,13 +14,13 @@ public struct KeyboardRowStyle {
   public var buttonsPadding: CGFloat
 
   public init(
-    leadingPadding: CGFloat? = nil,
-    trailingPadding: CGFloat? = nil,
-    buttonsPadding: CGFloat? = nil) {
+    leadingPadding: CGFloat = 5,
+    trailingPadding: CGFloat = 5,
+    buttonsPadding: CGFloat = 6) {
     
-    self.leadingPadding = leadingPadding ?? 5
-    self.trailingPadding = trailingPadding ?? 5
-    self.buttonsPadding = buttonsPadding ?? 6
+    self.leadingPadding = leadingPadding
+    self.trailingPadding = trailingPadding
+    self.buttonsPadding = buttonsPadding
   }
 }
 
