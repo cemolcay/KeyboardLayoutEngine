@@ -47,8 +47,10 @@ public struct KeyboardButtonStyle {
 
   // Popup
   public var showsPopup: Bool
+  public var popupWidthMultiplier: CGFloat
+  public var popupHeightMultiplier: CGFloat
 
-  init(
+  public init(
     backgroundColor: UIColor = UIColor.whiteColor(),
     cornerRadius: CGFloat = 5,
     borderColor: UIColor = UIColor.clearColor(),
@@ -61,7 +63,9 @@ public struct KeyboardButtonStyle {
     textColor: UIColor = UIColor.blackColor(),
     font: UIFont = UIFont.systemFontOfSize(20),
     imageSize: CGFloat? = nil,
-    showsPopup: Bool = false) {
+    showsPopup: Bool = true,
+    popupWidthMultiplier: CGFloat = 1.7,
+    popupHeightMultiplier: CGFloat = 1.4) {
     self.backgroundColor = backgroundColor
     self.cornerRadius = cornerRadius
     self.borderColor = borderColor
@@ -75,6 +79,8 @@ public struct KeyboardButtonStyle {
     self.font = font
     self.imageSize = imageSize
     self.showsPopup = showsPopup
+    self.popupWidthMultiplier = popupWidthMultiplier
+    self.popupHeightMultiplier = popupHeightMultiplier
   }
 }
 
@@ -90,7 +96,9 @@ public class KeyboardButton: UIView {
   public var identifier: String?
   public var highlighted: Bool = false {
     didSet {
-      showPopup(show: highlighted)
+      if style.showsPopup {
+        showPopup(show: highlighted)
+      }
     }
   }
 
@@ -175,9 +183,76 @@ public class KeyboardButton: UIView {
   // MARK: Popup
   private func showPopup(show show: Bool) {
     if show {
-
+      if viewWithTag(1) != nil { return }
+      let popup = createPopup()
+      popup.tag = 1
+      addSubview(popup)
     } else {
-
+      if let popup = viewWithTag(1) {
+        popup.removeFromSuperview()
+      }
     }
+  }
+
+  private func createPopup() -> UIView {
+    let topCornerRadius = style.cornerRadius * style.popupWidthMultiplier
+    let topWidth = frame.size.width * style.popupWidthMultiplier
+    let topHeight = frame.size.height * style.popupHeightMultiplier
+    let middleWidth = frame.size.width
+    let middleHeight = CGFloat(3) + style.cornerRadius
+    // middle
+    let middle = UIView(frame: CGRect(x: 0, y: -middleHeight + (style.cornerRadius / 2) + 1, width: middleWidth, height: middleHeight))
+    middle.backgroundColor = style.backgroundColor
+    middle.center.x = frame.size.width / 2
+    // top
+    let top = UIView(frame: CGRect(
+      x: 0,
+      y: middle.frame.origin.y - topHeight,
+      width: topWidth,
+      height: topHeight))
+    top.backgroundColor = style.backgroundColor
+    top.layer.cornerRadius = topCornerRadius
+    top.center.x = frame.size.width / 2
+    top.addSubview(copyContentIntoView(top))
+    // popup
+    let popup = UIView()
+    popup.addSubview(middle)
+    popup.addSubview(top)
+    return popup
+  }
+
+  private func copyContentIntoView(view: UIView) -> UIView {
+    let padding = CGFloat(5)
+    let contentView = UIView(frame: CGRect(
+      x: padding,
+      y: padding,
+      width: view.frame.size.width - (padding * 2),
+      height: view.frame.size.height - (padding * 2)))
+
+    switch type {
+    case .Key(let text):
+      let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
+      label.text = text
+      label.textColor = style.textColor
+      label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
+      label.textAlignment = .Center
+      label.translatesAutoresizingMaskIntoConstraints = false
+      contentView.addSubview(label)
+    case .Text(let text):
+      let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
+      label.text = text
+      label.textColor = style.textColor
+      label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
+      label.textAlignment = .Center
+      label.translatesAutoresizingMaskIntoConstraints = false
+      contentView.addSubview(label)
+    case .Image(let image):
+      let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
+      imageView.contentMode = .ScaleAspectFit
+      imageView.image = image
+      contentView.addSubview(imageView)
+    }
+
+    return contentView
   }
 }
