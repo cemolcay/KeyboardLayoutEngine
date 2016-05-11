@@ -15,7 +15,7 @@ public struct KeyboardLayoutStyle {
   public var rowPadding: CGFloat
   public var backgroundColor: UIColor
 
-  init(
+  public init(
     topPadding: CGFloat = 5,
     bottomPadding: CGFloat = 5,
     rowPadding: CGFloat = 15,
