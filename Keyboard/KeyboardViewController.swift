@@ -14,10 +14,10 @@ let secondRowStyle = KeyboardRowStyle(leadingPadding: 20, trailingPadding: 20, b
 let shiftRowStyle = KeyboardRowStyle(leadingPadding: 10, trailingPadding: 10, buttonsPadding: 6)
 let defaultButtonStyle = KeyboardButtonStyle(showsPopup: true)
 let spaceButtonStyle = KeyboardButtonStyle(font: UIFont.systemFontOfSize(15), showsPopup: false)
-let globeButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), imageSize: 20)
-let darkImageButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), imageSize: 18)
-let darkButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 201.0/255.0, alpha: 1))
-let nunmbersButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), font: UIFont.systemFontOfSize(15))
+let globeButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), imageSize: 20, showsPopup: false)
+let darkImageButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), imageSize: 18, showsPopup: false)
+let darkButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 201.0/255.0, alpha: 1), showsPopup: false)
+let nunmbersButtonStyle = KeyboardButtonStyle(backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1), font: UIFont.systemFontOfSize(15), showsPopup: false)
 let capitalLayout = KeyboardLayout(
   rows: [
     KeyboardRow(

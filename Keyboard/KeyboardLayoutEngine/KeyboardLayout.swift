@@ -48,11 +48,6 @@ public class KeyboardLayout: UIView {
     self.rows = rows
     self.style = style
 
-    panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(KeyboardLayout.didPan(_:)))
-    addGestureRecognizer(panGestureRecognizer)
-    tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(KeyboardLayout.didTap(_:)))
-    addGestureRecognizer(tapGestureRecognizer)
-
     for row in rows {
       addSubview(row)
     }
@@ -90,40 +85,46 @@ public class KeyboardLayout: UIView {
     return max(0, (height - totalPaddings) / CGFloat(rows.count))
   }
 
-  // MARK: Pan
-  public func didPan(pan: UIPanGestureRecognizer) {
-    if pan == panGestureRecognizer {
-      switch pan.state {
-      case .Began, .Changed, .Ended:
-        if let button = hitTest(pan.locationInView(self), withEvent: nil) as? KeyboardButton {
-          for row in rows {
-            row.highlightButton(button)
-          }
-          if pan.state == .Ended {
-            button.highlighted = false
-            delegate?.keyboardLayoutDidPressButton(self, keyboardButton: button)
-          }
-        }
-        default:
-          return
+  // MARK: Touch Handling
+  public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    super.touchesBegan(touches, withEvent: event)
+    highlightButton(withTouches: touches)
+  }
+
+  public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    super.touchesMoved(touches, withEvent: event)
+    highlightButton(withTouches: touches)
+  }
+
+  public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    super.touchesEnded(touches, withEvent: event)
+    unhighlightButtons()
+    for touch in touches {
+      if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
+        delegate?.keyboardLayoutDidPressButton(self, keyboardButton: button)
       }
     }
   }
 
-  // MARK: Tap
-  public func didTap(tap: UITapGestureRecognizer) {
-    guard let tap = tapGestureRecognizer,
-      let button = hitTest(tap.locationInView(self), withEvent: nil) as? KeyboardButton
-      else { return }
+  public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    super.touchesCancelled(touches, withEvent: event)
+    unhighlightButtons()
+  }
 
-    switch tap.state {
-    case .Began:
-      button.highlighted = true
-    case .Ended:
-      button.highlighted = false
-      delegate?.keyboardLayoutDidPressButton(self, keyboardButton: button)
-    default:
-      return
+  // MARK: Button Highlighting
+  private func highlightButton(withTouches touches: Set<UITouch>) {
+    for touch in touches {
+      if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
+        for row in rows {
+          row.highlightButton(button)
+        }
+      }
+    }
+  }
+
+  private func unhighlightButtons() {
+    for row in rows {
+      row.unhighlightButtons()
     }
   }
 }
