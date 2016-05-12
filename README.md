@@ -3,24 +3,24 @@ KeyboardLayoutEngine
 
 ⌨️ Simplest custom keyboard generator for iOS ever!  
   
-`KeyboardLayoutEngine` is all about laying out keyboard buttons dynamically in a rectangle in a custom style easily but in fashion of original keyboard.  
-For the sake of flexiblity, KeyboardLayoutEngine provides:
+`KeyboardLayoutEngine` is all about laying out keyboard buttons dynamically in a rectangle in a custom style easily but in fashion of original keyboard. For the sake of flexiblity, KeyboardLayoutEngine provides:
+
 * `KeyboardLayout`: For laying out rows with custom paddings, colors.
 * `KeyboardRow`: For laying out buttons or another set of KeyboardRow's inside.
 * `KeyboardButton`: For rendering buttons in rows. Also provides flexible width, type and other very useful API's for flexiblty.
 * They are also `UIView`s and handles their layout in their `layoutSubviews` function.
 * They are faster than autolayout yet they can adopt perfectly any `CGFrame` you want apply a keyboard layout.
 * That means they are play very well with orientation changes. (Layout for size class and/or orientation support is on the way.)
-* `KeyboardLayoutStyle`, `KeyboardRowStyle` and `KeyboardButtonStyle` `struct`s handles pretty much everything about styling.
+* `KeyboardLayoutStyle`, `KeyboardRowStyle` and `KeyboardButtonStyle` structs handles pretty much everything about styling.
 * `KeyboardLayoutDelegate` for inform about button presses.  
 * Also `DefaultKeyboard` provided out of box, a good start point for figuring out how it works other than being of fully functional original keyboard.  
 
 Install
 ----
+#### CocoaPods
 
 ``` ruby
-!use_frameworks
-
+use_frameworks!
 # Target Keyboard
 pod 'KeyboardLayoutEngine'
 ```
@@ -28,7 +28,7 @@ pod 'KeyboardLayoutEngine'
 Usage
 ----
 
-Describe your keyboard with custom styles, rows and buttons with either text or image in it.  
+* Describe your keyboard with custom styles, rows and buttons with either text or image in it.  
 
 ``` swift
 let keyboardLayout = KeyboardLayout(
@@ -63,10 +63,10 @@ override func viewDidLayoutSubviews() {
 }
 ```
 
-`KeyboardLayoutDelegate`
+KeyboardLayoutDelegate
 ----
 
-Implement `KeyboardLayoutDelegate` for get information about the button presses.
+* Implement `KeyboardLayoutDelegate` for get information about the button presses.
 
 ``` swift
 @objc public protocol KeyboardLayoutDelegate {
@@ -75,7 +75,7 @@ Implement `KeyboardLayoutDelegate` for get information about the button presses.
 }
 ```
 
-`KeyboardButtonWidth`
+KeyboardButtonWidth
 ----
 
 ``` swift
@@ -86,12 +86,12 @@ public enum KeyboardButtonWidth {
 }
 ```
 
-Laying out buttons in rows are important. Since rows can their child rows, calculating right sizes for buttons and rows done by button types.  
-If you leave `.Dynamic` which is default by the way, every button in a row, it will calculate their width by `KeyboardRowStyle.buttonPadding` and total width of row and figure out equal widths with equal buttonPaddings.  
-Static will be static width obviusly.  
-Relative is an interesting one, which takes a value between [0, 1], fills percent of parent row, smartly calculated.
+* Laying out buttons in rows are important. Since rows can their child rows, calculating right sizes for buttons and rows done by button types.  
+* If you leave `.Dynamic` which is default by the way, every button in a row, it will calculate their width by `KeyboardRowStyle.buttonPadding` and total width of row and figure out equal widths with equal buttonPaddings.  
+* Static will be static width obviusly.  
+* Relative is an interesting one, which takes a value between [0, 1], fills percent of parent row, smartly calculated.
 
-`KeyboardButtonType`
+KeyboardButtonType
 ----
 
 ``` swift
@@ -102,19 +102,20 @@ public enum KeyboardButtonType {
 }
 ```
 
-A button can be `Key`, `Text` or `Image`.  
-Key case might be useful for `textDocumentProxy.insertText`operation.
-Text case might be useful for buttons like "space", "return", "ABC", "123" or any string include emojis.
-Image case might be useful for buttons like "shift", "backspace", "switch keyboard" etc.
+* A button can be `Key`, `Text` or `Image`.  
+* Key case might be useful for `textDocumentProxy.insertText`operation.
+* Text case might be useful for buttons like "space", "return", "ABC", "123" or any string include emojis.
+* Image case might be useful for buttons like "shift", "backspace", "switch keyboard" etc.
 
 Styling
 ----
 
-Every style struct has their default values in taste of original keyboard.  
-If you dont assign a value in `init` function of a style struct, it will be loaded with its default value.  
+* Every style struct has their default values in taste of original keyboard.  
+* If you dont assign a value in `init` function of a style struct, it will be loaded with its default value.  
 
-`KeyboardLayoutStyle`
+KeyboardLayoutStyle
 ----
+Definition:
 
 ``` swift
 public struct KeyboardLayoutStyle {
@@ -125,8 +126,21 @@ public struct KeyboardLayoutStyle {
 }
 ```
 
-`KeyboardRowStyle`
+Example:
+
+``` swift
+let DefaultKeyboardLayoutStyle = KeyboardLayoutStyle(
+  topPadding: 10,
+  bottomPadding: 5,
+  rowPadding: 13,
+  backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
+```
+
+KeyboardRowStyle
 ----
+
+Definition:
+
 
 ``` swift
 public struct KeyboardRowStyle {
@@ -136,8 +150,19 @@ public struct KeyboardRowStyle {
 }
 ```
 
-`KeyboardButtonStyle`
+Example:
+
+``` swift
+let DefaultKeyboardRowStyle = KeyboardRowStyle(
+  leadingPadding: 5,
+  trailingPadding: 5,
+  buttonsPadding: 6)
+```
+
+KeyboardButtonStyle
 ----
+
+Definition:
 
 ``` swift
 public struct KeyboardButtonStyle {
@@ -169,20 +194,30 @@ public struct KeyboardButtonStyle {
 }
 ```
 
+Example:
+
+``` swift
+let DefaultKeyboardDarkImageButtonStyle = KeyboardButtonStyle(
+  backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
+  imageSize: 18,
+  showsPopup: false)
+```
+
 DefaultKeyboard
 ----
 
-Default iOS Keyboard implementation with `KeyboardLayoutEngine`.
-* Shift toggle mechanism
-* Backspace mechanisim
-* Key button popups
-* `textDocumentProxy` integrations with `DefaultKeyboardDelegate`
-* Ridiculusly easy implementation in `KeyboardViewController`
+Default iOS Keyboard implementation with `KeyboardLayoutEngine`.  
 
-`DefaultKeyboardDelegate`
+* Shift toggle mechanism  
+* Backspace mechanisim  
+* Key button popups  
+* `textDocumentProxy` integrations with `DefaultKeyboardDelegate`  
+* Ridiculusly easy implementation in `KeyboardViewController`  
+
+DefaultKeyboardDelegate
 ----
 
-Provides information about key and special button presses.  
+* Provides information about key and special button presses.  
 
 ``` swift
 @objc public protocol DefaultKeyboardDelegate {

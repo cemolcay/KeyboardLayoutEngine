@@ -42,8 +42,7 @@ private let DefaultKeyboardGlobeButtonStyle = KeyboardButtonStyle(
   showsPopup: false)
 
 private let DefaultKeyboardDarkImageButtonStyle = KeyboardButtonStyle(
-  backgroundColor:
-  UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
+  backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
   imageSize: 18,
   showsPopup: false)
 
