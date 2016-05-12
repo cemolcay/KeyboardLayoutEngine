@@ -9,58 +9,59 @@
 import UIKit
 
 // MARK: - Layout Style
-private let DefaultKeyboardLayoutStyle = KeyboardLayoutStyle(
+public var DefaultKeyboardLayoutStyle = KeyboardLayoutStyle(
   topPadding: 10,
   bottomPadding: 5,
   rowPadding: 13,
   backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
 
 // MARK: - Row Style
-private let DefaultKeyboardRowStyle = KeyboardRowStyle(
+public var DefaultKeyboardRowStyle = KeyboardRowStyle(
   leadingPadding: 5,
   trailingPadding: 5,
   buttonsPadding: 6)
 
-private let DefaultKeyboardSecondRowStyle = KeyboardRowStyle(
+public var DefaultKeyboardSecondRowStyle = KeyboardRowStyle(
   leadingPadding: 20,
   trailingPadding: 20,
   buttonsPadding: 6)
 
-private let DefaultKeyboardThirdRowStyle = KeyboardRowStyle(
+public var DefaultKeyboardChildRowStyle = KeyboardRowStyle(
   leadingPadding: 10,
   trailingPadding: 10,
   buttonsPadding: 6)
 
 // MARK: - Button Style
-private let DefaultKeyboardSpaceButtonStyle = KeyboardButtonStyle(
+public var DefaultKeyboardSpaceButtonStyle = KeyboardButtonStyle(
   font: UIFont.systemFontOfSize(15),
   showsPopup: false)
 
-private let DefaultKeyboardGlobeButtonStyle = KeyboardButtonStyle(
+public var DefaultKeyboardBackspaceButtonStyle = KeyboardButtonStyle(
   backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
   imageSize: 20,
   showsPopup: false)
 
-private let DefaultKeyboardDarkImageButtonStyle = KeyboardButtonStyle(
+public var DefaultKeyboardShiftButtonStyle = KeyboardButtonStyle(
   backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
-  imageSize: 18,
+  imageSize: 20,
   showsPopup: false)
 
-private let DefaultKeyboardDarkButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 201.0/255.0, alpha: 1),
+public var DefaultKeyboardGlobeButtonStyle = KeyboardButtonStyle(
+  backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
+  imageSize: 20,
   showsPopup: false)
 
-private let DefaultKeyboardReturnButtonStyle = KeyboardButtonStyle(
+public var DefaultKeyboardReturnButtonStyle = KeyboardButtonStyle(
   backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 201.0/255.0, alpha: 1),
   font: UIFont.systemFontOfSize(15),
   showsPopup: false)
 
-private let DefaultKeyboardNumbersButtonStyle = KeyboardButtonStyle(
+public var DefaultKeyboardNumbersButtonStyle = KeyboardButtonStyle(
   backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
   font: UIFont.systemFontOfSize(15),
   showsPopup: false)
 
-private let DefaultKeyboardKeyButtonStyle = KeyboardButtonStyle(showsPopup: true)
+public var DefaultKeyboardKeyButtonStyle = KeyboardButtonStyle(showsPopup: true)
 
 // MARK: - Identifier
 public enum DefaultKeyboardIdentifier: String {
@@ -137,11 +138,11 @@ public enum DefaultKeyboardLayout {
           characters: [
             KeyboardButton(
               type: .Image(UIImage(named: toggled ? "shiftToggled" : "shiftToggledOnce")),
-              style: DefaultKeyboardDarkImageButtonStyle,
+              style: DefaultKeyboardShiftButtonStyle,
               width: .Relative(percent: 0.13),
               identifier: toggled ? DefaultKeyboardIdentifier.ShiftToggled.rawValue : DefaultKeyboardIdentifier.ShiftToggledOnce.rawValue),
             KeyboardRow(
-              style: DefaultKeyboardThirdRowStyle,
+              style: DefaultKeyboardChildRowStyle,
               characters: [
                 KeyboardButton(type: .Key("Z"), style: DefaultKeyboardKeyButtonStyle),
                 KeyboardButton(type: .Key("X"), style: DefaultKeyboardKeyButtonStyle),
@@ -154,7 +155,7 @@ public enum DefaultKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(named: "backspace")),
-              style: DefaultKeyboardDarkImageButtonStyle,
+              style: DefaultKeyboardBackspaceButtonStyle,
               width: .Relative(percent: 0.13), 
               identifier: DefaultKeyboardIdentifier.Backspace.rawValue),
           ]
@@ -225,11 +226,11 @@ public enum DefaultKeyboardLayout {
           characters: [
             KeyboardButton(
               type: .Image(UIImage(named: "shift")),
-              style: DefaultKeyboardDarkImageButtonStyle,
+              style: DefaultKeyboardShiftButtonStyle,
               width: .Relative(percent: 0.13),
               identifier: DefaultKeyboardIdentifier.Shift.rawValue),
             KeyboardRow(
-              style: DefaultKeyboardThirdRowStyle,
+              style: DefaultKeyboardChildRowStyle,
               characters: [
                 KeyboardButton(type: .Key("z"), style: DefaultKeyboardKeyButtonStyle),
                 KeyboardButton(type: .Key("x"), style: DefaultKeyboardKeyButtonStyle),
@@ -242,7 +243,7 @@ public enum DefaultKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(named: "backspace")),
-              style: DefaultKeyboardDarkImageButtonStyle,
+              style: DefaultKeyboardBackspaceButtonStyle,
               width: .Relative(percent: 0.13),
               identifier: DefaultKeyboardIdentifier.Backspace.rawValue),
           ]
@@ -318,7 +319,7 @@ public enum DefaultKeyboardLayout {
               width: .Relative(percent: 0.13),
               identifier: DefaultKeyboardIdentifier.Symbols.rawValue),
             KeyboardRow(
-              style: DefaultKeyboardThirdRowStyle,
+              style: DefaultKeyboardChildRowStyle,
               characters: [
                 KeyboardButton(type: .Key("."), style: DefaultKeyboardKeyButtonStyle),
                 KeyboardButton(type: .Key(","), style: DefaultKeyboardKeyButtonStyle),
@@ -329,7 +330,7 @@ public enum DefaultKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(named: "backspace")),
-              style: DefaultKeyboardDarkImageButtonStyle,
+              style: DefaultKeyboardBackspaceButtonStyle,
               width: .Relative(percent: 0.13),
               identifier: DefaultKeyboardIdentifier.Backspace.rawValue),
           ]
@@ -405,7 +406,7 @@ public enum DefaultKeyboardLayout {
               width: .Relative(percent: 0.13),
               identifier: DefaultKeyboardIdentifier.Numbers.rawValue),
             KeyboardRow(
-              style: DefaultKeyboardThirdRowStyle,
+              style: DefaultKeyboardChildRowStyle,
               characters: [
                 KeyboardButton(type: .Key("."), style: DefaultKeyboardKeyButtonStyle),
                 KeyboardButton(type: .Key(","), style: DefaultKeyboardKeyButtonStyle),
@@ -416,7 +417,7 @@ public enum DefaultKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(named: "backspace")),
-              style: DefaultKeyboardDarkImageButtonStyle,
+              style: DefaultKeyboardBackspaceButtonStyle,
               width: .Relative(percent: 0.13),
               identifier: DefaultKeyboardIdentifier.Backspace.rawValue),
           ]
