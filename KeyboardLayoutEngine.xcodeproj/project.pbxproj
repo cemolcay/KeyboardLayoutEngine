@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B29423E51CE3C47A00973547 /* DefaultKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29423E41CE3C47A00973547 /* DefaultKeyboard.swift */; };
+		B29423E71CE3C64100973547 /* DefaultKeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29423E61CE3C64100973547 /* DefaultKeyboardLayout.swift */; };
 		B2FBDCCC1CDD2224008D6100 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCCB1CDD2224008D6100 /* AppDelegate.swift */; };
 		B2FBDCCE1CDD2224008D6100 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCCD1CDD2224008D6100 /* ViewController.swift */; };
 		B2FBDCD11CDD2224008D6100 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2FBDCCF1CDD2224008D6100 /* Main.storyboard */; };
@@ -61,6 +63,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B29423E41CE3C47A00973547 /* DefaultKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeyboard.swift; sourceTree = "<group>"; };
+		B29423E61CE3C64100973547 /* DefaultKeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeyboardLayout.swift; sourceTree = "<group>"; };
 		B2FBDCC81CDD2224008D6100 /* KeyboardLayoutEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardLayoutEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2FBDCCB1CDD2224008D6100 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2FBDCCD1CDD2224008D6100 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +119,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B29423E31CE3C46400973547 /* DefaultKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B29423E41CE3C47A00973547 /* DefaultKeyboard.swift */,
+				B29423E61CE3C64100973547 /* DefaultKeyboardLayout.swift */,
+			);
+			path = DefaultKeyboard;
+			sourceTree = "<group>";
+		};
 		B2FBDCBF1CDD2224008D6100 = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +184,7 @@
 		B2FBDCFE1CDD2292008D6100 /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				B29423E31CE3C46400973547 /* DefaultKeyboard */,
 				B2FBDD091CDD22AE008D6100 /* KeyboardLayoutEngine */,
 				B2FBDCFF1CDD2292008D6100 /* KeyboardViewController.swift */,
 				B2FBDD011CDD2292008D6100 /* Info.plist */,
@@ -377,8 +391,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2FBDD0F1CDD22CC008D6100 /* KeyboardButton.swift in Sources */,
+				B29423E51CE3C47A00973547 /* DefaultKeyboard.swift in Sources */,
 				B2FBDD0D1CDD22C3008D6100 /* KeyboardRow.swift in Sources */,
 				B2FBDD0B1CDD22B8008D6100 /* KeyboardLayout.swift in Sources */,
+				B29423E71CE3C64100973547 /* DefaultKeyboardLayout.swift in Sources */,
 				B2FBDD001CDD2292008D6100 /* KeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,6 +633,7 @@
 				B2FBDCF21CDD2224008D6100 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B2FBDCF31CDD2224008D6100 /* Build configuration list for PBXNativeTarget "KeyboardLayoutEngineTests" */ = {
 			isa = XCConfigurationList;
@@ -625,6 +642,7 @@
 				B2FBDCF51CDD2224008D6100 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B2FBDCF61CDD2224008D6100 /* Build configuration list for PBXNativeTarget "KeyboardLayoutEngineUITests" */ = {
 			isa = XCConfigurationList;
@@ -633,6 +651,7 @@
 				B2FBDCF81CDD2224008D6100 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B2FBDD051CDD2292008D6100 /* Build configuration list for PBXNativeTarget "Keyboard" */ = {
 			isa = XCConfigurationList;
@@ -641,6 +660,7 @@
 				B2FBDD071CDD2292008D6100 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
