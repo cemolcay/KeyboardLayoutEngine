@@ -29,6 +29,7 @@ Usage
 ----
 
 * Describe your keyboard with custom styles, rows and buttons with either text or image in it.  
+* Checkout the [DefaultKeyboardLayout](https://github.com/cemolcay/KeyboardLayoutEngine/blob/master/Keyboard/DefaultKeyboard/DefaultKeyboardLayout.swift) for detailed usage.
 
 ``` swift
 let keyboardLayout = KeyboardLayout(
