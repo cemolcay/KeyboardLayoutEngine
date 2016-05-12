@@ -30,6 +30,11 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
   private var shiftCanBeToggled: Bool = false
   private var uppercaseOnce: Bool = true
 
+  public var backspaceDeleteInterval: NSTimeInterval = 0.1
+  public var backspaceAutoDeleteModeInterval: NSTimeInterval = 0.5
+  private var backspaceDeleteTimer: NSTimer?
+  private var backspaceAutoDeleteModeTimer: NSTimer?
+
   private(set) var currentLayout: KeyboardLayout! {
     didSet {
       oldValue?.delegate = nil
@@ -74,8 +79,48 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     addSubview(currentLayout)
   }
 
+  // MARK: Backspace Auto Delete
+  private func startBackspaceAutoDeleteModeTimer() {
+    backspaceAutoDeleteModeTimer = NSTimer.scheduledTimerWithTimeInterval(
+      backspaceAutoDeleteModeInterval,
+      target: self,
+      selector: #selector(DefaultKeyboard.startBackspaceAutoDeleteMode),
+      userInfo: nil,
+      repeats: false)
+  }
+
+  private func startBackspaceDeleteTimer() {
+    backspaceDeleteTimer = NSTimer.scheduledTimerWithTimeInterval(
+      backspaceDeleteInterval,
+      target: self,
+      selector: #selector(DefaultKeyboard.autoDelete),
+      userInfo: nil,
+      repeats: true)
+  }
+
+  private func invalidateBackspaceAutoDeleteModeTimer() {
+    backspaceAutoDeleteModeTimer?.invalidate()
+    backspaceAutoDeleteModeTimer = nil
+  }
+
+
+  private func invalidateBackspaceDeleteTimer() {
+    backspaceDeleteTimer?.invalidate()
+    backspaceDeleteTimer = nil
+  }
+
+  internal func startBackspaceAutoDeleteMode() {
+    invalidateBackspaceDeleteTimer()
+    startBackspaceDeleteTimer()
+  }
+
+  internal func autoDelete() {
+    delegate?.defaultKeyboardDidPressBackspaceButton?(self)
+  }
+
+
   // MARK: Shift Toggle
-  func startShiftToggleTimer() {
+  private func startShiftToggleTimer() {
     shiftCanBeToggled = true
     shiftToggleTimer = NSTimer.scheduledTimerWithTimeInterval(
       shiftToggleInterval,
@@ -85,7 +130,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
       repeats: false)
   }
 
-  func invalidateShiftToggleTimer() {
+  public func invalidateShiftToggleTimer() {
     shiftToggleTimer?.invalidate()
     shiftToggleTimer = nil
     shiftCanBeToggled = false
@@ -93,6 +138,8 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
 
   // MARK: KeyboardLayoutDelegate
   public func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
+    invalidateBackspaceAutoDeleteModeTimer()
+    invalidateBackspaceDeleteTimer()
     if keyboardLayout == currentLayout {
       switch keyboardButton.type {
       case .Key(let key):
@@ -141,6 +188,16 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
           }
         }
         break
+      }
+    }
+  }
+
+  public func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
+    invalidateBackspaceAutoDeleteModeTimer()
+    invalidateBackspaceDeleteTimer()
+    if keyboardLayout == currentLayout {
+      if keyboardButton.identifier == DefaultKeyboardIdentifier.Backspace.rawValue {
+        startBackspaceAutoDeleteModeTimer()
       }
     }
   }
