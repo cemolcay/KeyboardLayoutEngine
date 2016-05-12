@@ -27,12 +27,12 @@ public struct KeyboardRowStyle {
 
 // MARK: - KeyboardRow
 public class KeyboardRow: UIView {
+  public var style: KeyboardRowStyle!
   /// Characters should be eighter `KeyboardButton` or `KeyboardRow`
   public var characters: [AnyObject]!
-  public var style: KeyboardRowStyle!
 
   // MARK: Init
-  public init(characters: [AnyObject], style: KeyboardRowStyle) {
+  public init(style: KeyboardRowStyle, characters: [AnyObject]) {
     assert(characters.filter({ !(($0 is KeyboardButton) || ($0 is KeyboardRow)) }).count <= 0)
     super.init(frame: CGRect.zero)
     
@@ -130,7 +130,7 @@ public class KeyboardRow: UIView {
     return opt
   }
 
-  // MARK: Button Highlighing
+  // MARK: Button Highlighting
   public func highlightButton(button: KeyboardButton) {
     for character in characters {
       if let highlightedButton = character as? KeyboardButton {
