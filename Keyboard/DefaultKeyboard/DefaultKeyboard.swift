@@ -15,6 +15,7 @@ import UIKit
   optional func defaultKeyboardDidPressBackspaceButton(defaultKeyboard: DefaultKeyboard)
   optional func defaultKeyboardDidPressGlobeButton(defaultKeyboard: DefaultKeyboard)
   optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboard)
+  optional func defaultKeyboardDidPressKeyboardButton(defaultKeyboard: DefaultKeyboard, keyboardButton: KeyboardButton)
 }
 
 // MARK: - DefaultKeyboard
@@ -35,6 +36,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
   private var backspaceDeleteTimer: NSTimer?
   private var backspaceAutoDeleteModeTimer: NSTimer?
 
+  private var lastLetterLayout: KeyboardLayout?
   private(set) var currentLayout: KeyboardLayout! {
     didSet {
       oldValue?.delegate = nil
@@ -74,7 +76,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     lowercaseLayout = DefaultKeyboardLayout.Lowercase.keyboardLayout
     numbersLayout = DefaultKeyboardLayout.Numbers.keyboardLayout
     symbolsLayout = DefaultKeyboardLayout.Symbols.keyboardLayout
-
+    
     currentLayout = uppercaseLayout
     addSubview(currentLayout)
   }
@@ -136,6 +138,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
 
   // MARK: KeyboardLayoutDelegate
   public func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
+    delegate?.defaultKeyboardDidPressKeyboardButton?(self, keyboardButton: keyboardButton)
     invalidateBackspaceAutoDeleteModeTimer()
     invalidateBackspaceDeleteTimer()
     if keyboardLayout == currentLayout {

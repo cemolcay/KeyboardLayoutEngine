@@ -18,6 +18,17 @@ class KeyboardViewController: UIInputViewController, DefaultKeyboardDelegate {
     defaultKeyboard = DefaultKeyboard()
     defaultKeyboard.delegate = self
     view.addSubview(defaultKeyboard)
+
+    // This is how you add extra buttons to layouts for customising DefaultKeyboard without even subclass it!
+    let customButton = KeyboardButton(
+      type: .Text("🕶"),
+      style: DefaultKeyboardKeyButtonStyle,
+      width: .Static(width: 40),
+      identifier: "customButton")
+    defaultKeyboard.numbersLayout.addKeyboardButton(
+      keyboardButton: customButton,
+      rowAtIndex: 3,
+      buttonIndex: 2)
   }
 
   override func viewDidLayoutSubviews() {
@@ -53,6 +64,14 @@ class KeyboardViewController: UIInputViewController, DefaultKeyboardDelegate {
   func defaultKeyboardDidPressGlobeButton(defaultKeyboard: DefaultKeyboard) {
     if defaultKeyboard == self.defaultKeyboard {
       advanceToNextInputMode()
+    }
+  }
+
+  func defaultKeyboardDidPressKeyboardButton(defaultKeyboard: DefaultKeyboard, keyboardButton: KeyboardButton) {
+    if defaultKeyboard == self.defaultKeyboard {
+      if keyboardButton.identifier == "customButton" {
+        print("custom button pressed")
+      }
     }
   }
 }

@@ -8,6 +8,14 @@
 
 import UIKit
 
+// MARK: - Array Extension
+extension CollectionType {
+  /// Returns the element at the specified index iff it is within bounds, otherwise nil.
+  subscript (safe index: Index) -> Generator.Element? {
+    return indices.contains(index) ? self[index] : nil
+  }
+}
+
 // MARK: - KeyboardLayoutDelegate
 @objc public protocol KeyboardLayoutDelegate {
   optional func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
@@ -81,6 +89,34 @@ public class KeyboardLayout: UIView {
     let rowPaddings = CGFloat(max(rows.count - 1, 0)) * style.rowPadding
     let totalPaddings = rowPaddings + style.topPadding + style.bottomPadding
     return max(0, (height - totalPaddings) / CGFloat(rows.count))
+  }
+
+  // MARK: Manage Buttons
+  public func getKeyboardButton(atRowIndex rowIndex: Int, buttonIndex: Int) -> KeyboardButton? {
+    if let row = rows[safe: rowIndex], let button = row.characters[safe: buttonIndex] as? KeyboardButton {
+      return button
+    }
+    return nil
+  }
+
+  public func addKeyboardButton(keyboardButton button: KeyboardButton, rowAtIndex: Int, buttonIndex: Int?) {
+    if let row = rows[safe: rowAtIndex] {
+      if let index = buttonIndex where buttonIndex < row.characters.count {
+        row.characters.insert(button, atIndex: index)
+      } else {
+        row.characters.append(button)
+      }
+      row.addSubview(button)
+    }
+  }
+
+  public func removeKeyboardButton(atRowIndex rowIndex: Int, buttonIndex: Int) -> Bool {
+    if let row = rows[safe: rowIndex], let button = row.characters[safe: buttonIndex] {
+      row.characters.removeAtIndex(buttonIndex)
+      button.removeFromSuperview()
+      return true
+    }
+    return false
   }
 
   // MARK: Touch Handling
