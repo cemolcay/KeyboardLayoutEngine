@@ -79,7 +79,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     addSubview(currentLayout)
   }
 
-  // MARK: Backspace Auto Delete Mode
+  // MARK: Backspace Auto Delete
   private func startBackspaceAutoDeleteModeTimer() {
     backspaceAutoDeleteModeTimer = NSTimer.scheduledTimerWithTimeInterval(
       backspaceAutoDeleteModeInterval,
@@ -103,7 +103,6 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     backspaceAutoDeleteModeTimer = nil
   }
 
-  // MARK: Backspace Auto Delete
   private func invalidateBackspaceDeleteTimer() {
     backspaceDeleteTimer?.invalidate()
     backspaceDeleteTimer = nil
@@ -117,7 +116,6 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
   internal func autoDelete() {
     delegate?.defaultKeyboardDidPressBackspaceButton?(self)
   }
-
 
   // MARK: Shift Toggle
   private func startShiftToggleTimer() {
