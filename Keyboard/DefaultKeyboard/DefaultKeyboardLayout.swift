@@ -11,24 +11,24 @@ import UIKit
 // MARK: - Layout Style
 public var DefaultKeyboardLayoutStyle = KeyboardLayoutStyle(
   topPadding: 10,
-  bottomPadding: 5,
-  rowPadding: 13,
+  bottomPadding: 4,
+  rowPadding: 12,
   backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
 
 // MARK: - Row Style
 public var DefaultKeyboardRowStyle = KeyboardRowStyle(
-  leadingPadding: 5,
-  trailingPadding: 5,
+  leadingPadding: 3,
+  trailingPadding: 3,
   buttonsPadding: 6)
 
 public var DefaultKeyboardSecondRowStyle = KeyboardRowStyle(
-  leadingPadding: 20,
-  trailingPadding: 20,
+  leadingPadding: 22,
+  trailingPadding: 22,
   buttonsPadding: 6)
 
 public var DefaultKeyboardChildRowStyle = KeyboardRowStyle(
-  leadingPadding: 10,
-  trailingPadding: 10,
+  leadingPadding: 12,
+  trailingPadding: 12,
   buttonsPadding: 6)
 
 // MARK: - Button Style
@@ -139,7 +139,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Image(UIImage(named: toggled ? "shiftToggled" : "shiftToggledOnce", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardShiftButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: toggled ? DefaultKeyboardIdentifier.ShiftToggled.rawValue : DefaultKeyboardIdentifier.ShiftToggledOnce.rawValue),
             KeyboardRow(
               style: DefaultKeyboardChildRowStyle,
@@ -156,7 +156,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Image(UIImage(named: "backspace", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardBackspaceButtonStyle,
-              width: .Relative(percent: 0.13), 
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Backspace.rawValue),
           ]
         ),
@@ -166,12 +166,12 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("123"),
               style: DefaultKeyboardNumbersButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Numbers.rawValue),
             KeyboardButton(
               type: .Image(UIImage(named: "globe", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardGlobeButtonStyle,
-              width: .Static(width: 40),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Globe.rawValue),
             KeyboardButton(
               type: .Text("space"),
@@ -180,7 +180,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("return"),
               style: DefaultKeyboardReturnButtonStyle,
-              width: .Relative(percent: 0.2), 
+              width: .Relative(percent: 0.18),
               identifier: DefaultKeyboardIdentifier.Return.rawValue),
           ]
         ),
@@ -227,7 +227,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Image(UIImage(named: "shift", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardShiftButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Shift.rawValue),
             KeyboardRow(
               style: DefaultKeyboardChildRowStyle,
@@ -244,7 +244,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Image(UIImage(named: "backspace", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardBackspaceButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Backspace.rawValue),
           ]
         ),
@@ -254,12 +254,12 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("123"),
               style: DefaultKeyboardNumbersButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Numbers.rawValue),
             KeyboardButton(
               type: .Image(UIImage(named: "globe", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardGlobeButtonStyle,
-              width: .Static(width: 40),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Globe.rawValue),
             KeyboardButton(
               type: .Text("space"),
@@ -268,7 +268,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("return"),
               style: DefaultKeyboardReturnButtonStyle,
-              width: .Relative(percent: 0.2),
+              width: .Relative(percent: 0.18),
               identifier: DefaultKeyboardIdentifier.Return.rawValue),
           ]
         ),
@@ -316,7 +316,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("#+="),
               style: DefaultKeyboardNumbersButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Symbols.rawValue),
             KeyboardRow(
               style: DefaultKeyboardChildRowStyle,
@@ -331,7 +331,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Image(UIImage(named: "backspace", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardBackspaceButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Backspace.rawValue),
           ]
         ),
@@ -341,12 +341,12 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("ABC"),
               style: DefaultKeyboardNumbersButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Letters.rawValue),
             KeyboardButton(
               type: .Image(UIImage(named: "globe", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardGlobeButtonStyle,
-              width: .Static(width: 40),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Globe.rawValue),
             KeyboardButton(
               type: .Text("space"),
@@ -355,7 +355,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("return"),
               style: DefaultKeyboardReturnButtonStyle,
-              width: .Relative(percent: 0.2),
+              width: .Relative(percent: 0.18),
               identifier: DefaultKeyboardIdentifier.Return.rawValue),
           ]
         ),
@@ -403,7 +403,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("123"),
               style: DefaultKeyboardNumbersButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Numbers.rawValue),
             KeyboardRow(
               style: DefaultKeyboardChildRowStyle,
@@ -418,7 +418,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Image(UIImage(named: "backspace", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardBackspaceButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Backspace.rawValue),
           ]
         ),
@@ -428,12 +428,12 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("ABC"),
               style: DefaultKeyboardNumbersButtonStyle,
-              width: .Relative(percent: 0.13),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Letters.rawValue),
             KeyboardButton(
               type: .Image(UIImage(named: "globe", inBundle: NSBundle(forClass: DefaultKeyboard.self), compatibleWithTraitCollection: nil)),
               style: DefaultKeyboardGlobeButtonStyle,
-              width: .Static(width: 40),
+              width: .Relative(percent: 0.115),
               identifier: DefaultKeyboardIdentifier.Globe.rawValue),
             KeyboardButton(
               type: .Text("space"),
@@ -442,7 +442,7 @@ public enum DefaultKeyboardLayout {
             KeyboardButton(
               type: .Text("return"),
               style: DefaultKeyboardReturnButtonStyle,
-              width: .Relative(percent: 0.2),
+              width: .Relative(percent: 0.18),
               identifier: DefaultKeyboardIdentifier.Return.rawValue),
           ]
         ),

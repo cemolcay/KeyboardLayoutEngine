@@ -27,16 +27,19 @@ public struct KeyboardLayoutStyle {
   public var topPadding: CGFloat
   public var bottomPadding: CGFloat
   public var rowPadding: CGFloat
+  public var rowPaddingLandscape: CGFloat
   public var backgroundColor: UIColor
 
   public init(
     topPadding: CGFloat = 5,
     bottomPadding: CGFloat = 5,
     rowPadding: CGFloat = 15,
+    rowPaddingPortrait: CGFloat = 8,
     backgroundColor: UIColor = UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)) {
     self.topPadding = topPadding
     self.bottomPadding = bottomPadding
     self.rowPadding = rowPadding
+    self.rowPaddingLandscape = rowPaddingLandscape
     self.backgroundColor = backgroundColor
   }
 }
@@ -80,15 +83,19 @@ public class KeyboardLayout: UIView {
         y: currentY,
         width: frame.size.width,
         height: optimumRowHeight)
-      currentY += optimumRowHeight + style.rowPadding
+      currentY += optimumRowHeight + getRowPadding()
     }
   }
 
   private func getOptimumRowHeight(forView view: UIView) -> CGFloat {
     let height = view.frame.size.height
-    let rowPaddings = CGFloat(max(rows.count - 1, 0)) * style.rowPadding
+    let rowPaddings = CGFloat(max(rows.count - 1, 0)) * getRowPadding()
     let totalPaddings = rowPaddings + style.topPadding + style.bottomPadding
     return max(0, (height - totalPaddings) / CGFloat(rows.count))
+  }
+
+  private func getRowPadding() -> CGFloat {
+    return frame.size.width > frame.size.height ? style.rowPaddingLandscape : style.rowPadding
   }
 
   // MARK: Manage Buttons
