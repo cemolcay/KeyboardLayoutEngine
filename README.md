@@ -213,6 +213,32 @@ Default iOS Keyboard implementation with `KeyboardLayoutEngine`.
 * Key button popups  
 * `textDocumentProxy` integrations with `DefaultKeyboardDelegate`  
 * Ridiculusly easy implementation in `KeyboardViewController`  
+* Change default styles before initilze it and you have your fully functional custumised standard English QWERTY keyboard!
+
+``` swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+    DefaultKeyboardLayoutStyle.backgroundColor = UIColor.redColor()
+    DefaultKeyboardRowStyle.buttonsPadding = 5
+    defaultKeyboard = DefaultKeyboard()
+    defaultKeyboard.delegate = self
+    view.addSubview(defaultKeyboard)
+}
+```
+
+#### DefaultKeyboard styles
+
+* DefaultKeyboardLayoutStyle: `KeyboardLayoutStyle`
+* DefaultKeyboardRowStyle: `KeyboardRowStyle`
+* DefaultKeyboardSecondRowStyle: `KeyboardRowStyle`
+* DefaultKeyboardChildRowStyle: `KeyboardRowStyle`
+* DefaultKeyboardSpaceButtonStyle: `KeyboardButtonStyle`
+* DefaultKeyboardBackspaceButtonStyle: `KeyboardButtonStyle`
+* DefaultKeyboardShiftButtonStyle: `KeyboardButtonStyle`
+* DefaultKeyboardGlobeButtonStyle: `KeyboardButtonStyle`
+* DefaultKeyboardReturnButtonStyle: `KeyboardButtonStyle`
+* DefaultKeyboardNumbersButtonStyle: `KeyboardButtonStyle`
+* DefaultKeyboardKeyButtonStyle: `KeyboardButtonStyle`
 
 DefaultKeyboardDelegate
 ----
