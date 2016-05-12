@@ -22,7 +22,7 @@ class KeyboardViewController: UIInputViewController, DefaultKeyboardDelegate {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    defaultKeyboard.frame = view.frame
+    defaultKeyboard?.frame = view.frame
   }
 
   // MARK: DefaultKeyboardDelegate

@@ -19,14 +19,16 @@ import UIKit
 
 // MARK: - DefaultKeyboard
 public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
-  public weak var delegate: DefaultKeyboardDelegate?
-  private var uppercaseOnce: Bool = true
-
   public var uppercaseToggledLayout: KeyboardLayout!
   public var uppercaseLayout: KeyboardLayout!
   public var lowercaseLayout: KeyboardLayout!
   public var numbersLayout: KeyboardLayout!
   public var symbolsLayout: KeyboardLayout!
+
+  public var shiftToggleInterval: NSTimeInterval = 0.5
+  private var shiftToggleTimer: NSTimer?
+  private var shiftCanBeToggled: Bool = false
+  private var uppercaseOnce: Bool = true
 
   private(set) var currentLayout: KeyboardLayout! {
     didSet {
@@ -42,6 +44,8 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
       currentLayout?.frame = frame
     }
   }
+
+  public weak var delegate: DefaultKeyboardDelegate?
 
   // MARK: Init
   public init() {
@@ -68,6 +72,23 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
 
     currentLayout = uppercaseLayout
     addSubview(currentLayout)
+  }
+
+  // MARK: Shift Toggle
+  func startShiftToggleTimer() {
+    shiftCanBeToggled = true
+    shiftToggleTimer = NSTimer.scheduledTimerWithTimeInterval(
+      shiftToggleInterval,
+      target: self,
+      selector: #selector(DefaultKeyboard.invalidateShiftToggleTimer),
+      userInfo: nil,
+      repeats: false)
+  }
+
+  func invalidateShiftToggleTimer() {
+    shiftToggleTimer?.invalidate()
+    shiftToggleTimer = nil
+    shiftCanBeToggled = false
   }
 
   // MARK: KeyboardLayoutDelegate
@@ -104,12 +125,19 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
           case .Shift:
             currentLayout = uppercaseLayout
             uppercaseOnce = true
+            startShiftToggleTimer()
           case .ShiftToggled:
             currentLayout = lowercaseLayout
             uppercaseOnce = false
           case .ShiftToggledOnce:
-            currentLayout = lowercaseLayout
-            uppercaseOnce = false
+            if shiftCanBeToggled {
+              currentLayout = uppercaseToggledLayout
+              uppercaseOnce = false
+              invalidateShiftToggleTimer()
+            } else {
+              currentLayout = lowercaseLayout
+              uppercaseOnce = false
+            }
           }
         }
         break
