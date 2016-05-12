@@ -9,8 +9,9 @@
 import UIKit
 
 // MARK: - KeyboardLayoutDelegate
-public protocol KeyboardLayoutDelegate: class {
-  func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
+@objc public protocol KeyboardLayoutDelegate {
+  optional func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
+  optional func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
 }
 
 // MARK: - KeyboardLayoutStyle
@@ -85,32 +86,19 @@ public class KeyboardLayout: UIView {
   // MARK: Touch Handling
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesBegan(touches, withEvent: event)
-    highlightButton(withTouches: touches)
-  }
-
-  public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesMoved(touches, withEvent: event)
-    highlightButton(withTouches: touches)
-  }
-
-  public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesEnded(touches, withEvent: event)
-    unhighlightButtons()
-    for touch in touches {
+    if let touch = touches.first {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
-        delegate?.keyboardLayoutDidPressButton(self, keyboardButton: button)
+        for row in rows {
+          row.highlightButton(button)
+          delegate?.keyboardLayoutDidStartPressingButton?(self, keyboardButton: button)
+        }
       }
     }
   }
 
-  public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-    super.touchesCancelled(touches, withEvent: event)
-    unhighlightButtons()
-  }
-
-  // MARK: Button Highlighting
-  private func highlightButton(withTouches touches: Set<UITouch>) {
-    for touch in touches {
+  public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    super.touchesMoved(touches, withEvent: event)
+    if let touch = touches.first {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
         for row in rows {
           row.highlightButton(button)
@@ -119,7 +107,20 @@ public class KeyboardLayout: UIView {
     }
   }
 
-  private func unhighlightButtons() {
+  public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    super.touchesEnded(touches, withEvent: event)
+    for row in rows {
+      row.unhighlightButtons()
+    }
+    if let touch = touches.first {
+      if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
+        delegate?.keyboardLayoutDidPressButton?(self, keyboardButton: button)
+      }
+    }
+  }
+
+  public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    super.touchesCancelled(touches, withEvent: event)
     for row in rows {
       row.unhighlightButtons()
     }
