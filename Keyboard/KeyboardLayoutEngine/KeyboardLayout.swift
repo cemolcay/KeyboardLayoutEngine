@@ -10,8 +10,8 @@ import UIKit
 
 // MARK: - KeyboardLayoutDelegate
 @objc public protocol KeyboardLayoutDelegate {
-  optional func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
   optional func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
+  optional func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
 }
 
 // MARK: - KeyboardLayoutStyle

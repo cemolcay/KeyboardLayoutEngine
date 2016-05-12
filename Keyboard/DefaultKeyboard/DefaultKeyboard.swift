@@ -79,7 +79,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     addSubview(currentLayout)
   }
 
-  // MARK: Backspace Auto Delete
+  // MARK: Backspace Auto Delete Mode
   private func startBackspaceAutoDeleteModeTimer() {
     backspaceAutoDeleteModeTimer = NSTimer.scheduledTimerWithTimeInterval(
       backspaceAutoDeleteModeInterval,
@@ -103,7 +103,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     backspaceAutoDeleteModeTimer = nil
   }
 
-
+  // MARK: Backspace Auto Delete
   private func invalidateBackspaceDeleteTimer() {
     backspaceDeleteTimer?.invalidate()
     backspaceDeleteTimer = nil
