@@ -6,6 +6,8 @@ KeyboardLayoutEngine
 
 ⌨️ Simplest custom keyboard generator for iOS ever!  
   
+![alt tag](https://raw.githubusercontent.com/cemolcay/KeyboardLayoutEngine/master/demo.gif)
+  
 `KeyboardLayoutEngine` is all about laying out keyboard buttons dynamically in a rectangle in a custom style easily but in fashion of original keyboard. For the sake of flexiblity, KeyboardLayoutEngine provides:
 
 * `KeyboardLayout`: For laying out rows with custom paddings, colors.
