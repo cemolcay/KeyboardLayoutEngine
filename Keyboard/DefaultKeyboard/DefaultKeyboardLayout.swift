@@ -32,6 +32,8 @@ public var DefaultKeyboardChildRowStyle = KeyboardRowStyle(
   buttonsPadding: 6)
 
 // MARK: - Button Style
+public var DefaultKeyboardKeyButtonStyle = KeyboardButtonStyle(showsPopup: true)
+
 public var DefaultKeyboardSpaceButtonStyle = KeyboardButtonStyle(
   font: UIFont.systemFontOfSize(15),
   showsPopup: false)
@@ -60,8 +62,6 @@ public var DefaultKeyboardNumbersButtonStyle = KeyboardButtonStyle(
   backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
   font: UIFont.systemFontOfSize(15),
   showsPopup: false)
-
-public var DefaultKeyboardKeyButtonStyle = KeyboardButtonStyle(showsPopup: true)
 
 // MARK: - Identifier
 public enum DefaultKeyboardIdentifier: String {

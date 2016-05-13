@@ -32,6 +32,7 @@ public struct KeyboardButtonStyle {
   public var borderWidth: CGFloat
 
   // Shadow
+  public var shadowEnabled: Bool
   public var shadowColor: UIColor
   public var shadowOpacity: Float
   public var shadowOffset: CGSize
@@ -55,6 +56,7 @@ public struct KeyboardButtonStyle {
     cornerRadius: CGFloat = 5,
     borderColor: UIColor = UIColor.clearColor(),
     borderWidth: CGFloat = 0,
+    shadowEnabled: Bool = true,
     shadowColor: UIColor = UIColor.blackColor(),
     shadowOpacity: Float = 0.4,
     shadowOffset: CGSize = CGSize(width: 0, height: 1),
@@ -70,6 +72,7 @@ public struct KeyboardButtonStyle {
     self.cornerRadius = cornerRadius
     self.borderColor = borderColor
     self.borderWidth = borderWidth
+    self.shadowEnabled = shadowEnabled
     self.shadowColor = shadowColor
     self.shadowOpacity = shadowOpacity
     self.shadowOffset = shadowOffset
@@ -148,14 +151,18 @@ public class KeyboardButton: UIView {
   private func setupAppearance() {
     backgroundColor = style.backgroundColor
     layer.cornerRadius = style.cornerRadius
+    // border
     layer.borderColor = style.borderColor.CGColor
     layer.borderWidth = style.borderWidth
-    layer.shadowColor = style.shadowColor.CGColor
-    layer.shadowOpacity = style.shadowOpacity
-    layer.shadowOffset = style.shadowOffset
-    layer.shadowRadius = style.shadowRadius
-    if let path = style.shadowPath {
-      layer.shadowPath = path.CGPath
+    // shadow
+    if style.shadowEnabled {
+      layer.shadowColor = style.shadowColor.CGColor
+      layer.shadowOpacity = style.shadowOpacity
+      layer.shadowOffset = style.shadowOffset
+      layer.shadowRadius = style.shadowRadius
+      if let path = style.shadowPath {
+        layer.shadowPath = path.CGPath
+      }
     }
   }
 
@@ -183,12 +190,12 @@ public class KeyboardButton: UIView {
   // MARK: Popup
   private func showPopup(show show: Bool) {
     if show {
-      if viewWithTag(1) != nil { return }
+      if viewWithTag(101) != nil { return }
       let popup = createPopup()
-      popup.tag = 1
+      popup.tag = 101
       addSubview(popup)
     } else {
-      if let popup = viewWithTag(1) {
+      if let popup = viewWithTag(101) {
         popup.removeFromSuperview()
       }
     }
