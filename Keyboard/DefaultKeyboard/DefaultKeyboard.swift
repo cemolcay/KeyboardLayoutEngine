@@ -171,9 +171,15 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
           case .Symbols:
             currentLayout = symbolsLayout
           case .Shift:
-            currentLayout = uppercaseLayout
-            uppercaseOnce = true
-            startShiftToggleTimer()
+            if shiftCanBeToggled {
+              currentLayout = uppercaseToggledLayout
+              uppercaseOnce = false
+              invalidateShiftToggleTimer()
+            } else {
+              currentLayout = uppercaseLayout
+              uppercaseOnce = true
+              startShiftToggleTimer()
+            }
           case .ShiftToggled:
             currentLayout = lowercaseLayout
             uppercaseOnce = false
@@ -183,8 +189,9 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
               uppercaseOnce = false
               invalidateShiftToggleTimer()
             } else {
-              currentLayout = lowercaseLayout
               uppercaseOnce = false
+              currentLayout = lowercaseLayout
+              startShiftToggleTimer()
             }
           }
         }
