@@ -34,7 +34,7 @@ public struct KeyboardLayoutStyle {
     topPadding: CGFloat = 5,
     bottomPadding: CGFloat = 5,
     rowPadding: CGFloat = 15,
-    rowPaddingPortrait: CGFloat = 8,
+    rowPaddingLandscape: CGFloat = 8,
     backgroundColor: UIColor = UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)) {
     self.topPadding = topPadding
     self.bottomPadding = bottomPadding
