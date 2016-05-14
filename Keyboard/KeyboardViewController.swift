@@ -10,7 +10,6 @@ import UIKit
 
 class KeyboardViewController: UIInputViewController, DefaultKeyboardDelegate {
   var defaultKeyboard: DefaultKeyboard!
-  var uppercase: KeyboardLayout!
 
   // MARK: - Lifecycle
   override func viewDidLoad() {

@@ -243,7 +243,6 @@ public class KeyboardButton: UIView {
       label.textColor = style.textColor
       label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
       label.textAlignment = .Center
-      label.translatesAutoresizingMaskIntoConstraints = false
       contentView.addSubview(label)
     case .Text(let text):
       let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
@@ -251,7 +250,6 @@ public class KeyboardButton: UIView {
       label.textColor = style.textColor
       label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
       label.textAlignment = .Center
-      label.translatesAutoresizingMaskIntoConstraints = false
       contentView.addSubview(label)
     case .Image(let image):
       let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
