@@ -8,23 +8,23 @@
 
 import UIKit
 
-class KeyboardViewController: UIInputViewController, DefaultKeyboardDelegate {
-  var defaultKeyboard: DefaultKeyboard!
+class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
+  var customKeyboard: CustomKeyboard!
 
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    defaultKeyboard = DefaultKeyboard()
-    defaultKeyboard.delegate = self
-    view.addSubview(defaultKeyboard)
+    customKeyboard = CustomKeyboard()
+    customKeyboard.delegate = self
+    view.addSubview(customKeyboard)
 
-    // This is how you add extra buttons to layouts for customising DefaultKeyboard without even subclass it!
+    // This is how you add extra buttons to layouts for customising CustomKeyboard without even subclass it!
     let customButton = KeyboardButton(
       type: .Text("🕶"),
-      style: DefaultKeyboardKeyButtonStyle,
+      style: CustomKeyboardKeyButtonStyle,
       width: .Static(width: 40),
       identifier: "customButton")
-    defaultKeyboard.numbersLayout.addKeyboardButton(
+    customKeyboard.numbersLayout.addKeyboardButton(
       keyboardButton: customButton,
       rowAtIndex: 3,
       buttonIndex: 2)
@@ -32,42 +32,42 @@ class KeyboardViewController: UIInputViewController, DefaultKeyboardDelegate {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    defaultKeyboard?.frame = view.frame
+    customKeyboard?.frame = view.frame
   }
 
-  // MARK: DefaultKeyboardDelegate
-  func defaultKeyboardDidPressKeyButton(defaultKeyboard: DefaultKeyboard, key: String) {
-    if defaultKeyboard == self.defaultKeyboard {
+  // MARK: CustomKeyboardDelegate
+  func customKeyboardKeyButtonPressed(customKeyboard: CustomKeyboard, key: String) {
+    if customKeyboard == self.customKeyboard {
       textDocumentProxy.insertText(key)
     }
   }
 
-  func defaultKeyboardDidPressSpaceButton(defaultKeyboard: DefaultKeyboard) {
-    if defaultKeyboard == self.defaultKeyboard {
+  func customKeyboardSpaceButtonPressed(customKeyboard: CustomKeyboard) {
+    if customKeyboard == self.customKeyboard {
       textDocumentProxy.insertText(" ")
     }
   }
 
-  func defaultKeyboardDidPressBackspaceButton(defaultKeyboard: DefaultKeyboard) {
-    if defaultKeyboard == self.defaultKeyboard {
+  func customKeyboardBackspaceButtonPressed(customKeyboard: CustomKeyboard) {
+    if customKeyboard == self.customKeyboard {
       textDocumentProxy.deleteBackward()
     }
   }
 
-  func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboard) {
-    if defaultKeyboard == self.defaultKeyboard {
+  func customKeyboardReturnButtonPressed(customKeyboard: CustomKeyboard) {
+    if customKeyboard == self.customKeyboard {
       textDocumentProxy.insertText("\n")
     }
   }
 
-  func defaultKeyboardDidPressGlobeButton(defaultKeyboard: DefaultKeyboard) {
-    if defaultKeyboard == self.defaultKeyboard {
+  func customKeyboardGlobeButtonPressed(customKeyboard: CustomKeyboard) {
+    if customKeyboard == self.customKeyboard {
       advanceToNextInputMode()
     }
   }
 
-  func defaultKeyboardDidPressKeyboardButton(defaultKeyboard: DefaultKeyboard, keyboardButton: KeyboardButton) {
-    if defaultKeyboard == self.defaultKeyboard {
+  func customKeyboardButtonPressed(customKeyboard: CustomKeyboard, keyboardButton: KeyboardButton) {
+    if customKeyboard == self.customKeyboard {
       if keyboardButton.identifier == "customButton" {
         print("custom button pressed")
       }

@@ -1,5 +1,5 @@
 //
-//  DefaultKeyboard.swift
+//  CustomKeyboard.swift
 //  KeyboardLayoutEngine
 //
 //  Created by Cem Olcay on 11/05/16.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-// MARK: - DefaultKeyboardDelegate
-@objc public protocol DefaultKeyboardDelegate {
-  optional func defaultKeyboardDidPressKeyButton(defaultKeyboard: DefaultKeyboard, key: String)
-  optional func defaultKeyboardDidPressSpaceButton(defaultKeyboard: DefaultKeyboard)
-  optional func defaultKeyboardDidPressBackspaceButton(defaultKeyboard: DefaultKeyboard)
-  optional func defaultKeyboardDidPressGlobeButton(defaultKeyboard: DefaultKeyboard)
-  optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboard)
-  optional func defaultKeyboardDidPressKeyboardButton(defaultKeyboard: DefaultKeyboard, keyboardButton: KeyboardButton)
+// MARK: - CustomKeyboardDelegate
+@objc public protocol CustomKeyboardDelegate {
+  optional func customKeyboardKeyButtonPressed(customKeyboard: CustomKeyboard, key: String)
+  optional func customKeyboardSpaceButtonPressed(customKeyboard: CustomKeyboard)
+  optional func customKeyboardBackspaceButtonPressed(customKeyboard: CustomKeyboard)
+  optional func customKeyboardGlobeButtonPressed(customKeyboard: CustomKeyboard)
+  optional func customKeyboardReturnButtonPressed(customKeyboard: CustomKeyboard)
+  optional func customKeyboardButtonPressed(customKeyboard: CustomKeyboard, keyboardButton: KeyboardButton)
 }
 
-// MARK: - DefaultKeyboard
-public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
+// MARK: - CustomKeyboard
+public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   public var uppercaseToggledLayout: KeyboardLayout!
   public var uppercaseLayout: KeyboardLayout!
   public var lowercaseLayout: KeyboardLayout!
@@ -46,13 +46,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     }
   }
 
-  public override var frame: CGRect {
-    didSet {
-      currentLayout?.frame = frame
-    }
-  }
-
-  public weak var delegate: DefaultKeyboardDelegate?
+  public weak var delegate: CustomKeyboardDelegate?
 
   // MARK: Init
   public init() {
@@ -71,14 +65,23 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   private func defaultInit() {
-    uppercaseToggledLayout = DefaultKeyboardLayout.UppercaseToggled.keyboardLayout
-    uppercaseLayout = DefaultKeyboardLayout.Uppercase.keyboardLayout
-    lowercaseLayout = DefaultKeyboardLayout.Lowercase.keyboardLayout
-    numbersLayout = DefaultKeyboardLayout.Numbers.keyboardLayout
-    symbolsLayout = DefaultKeyboardLayout.Symbols.keyboardLayout
+    uppercaseToggledLayout = CustomKeyboardLayout.UppercaseToggled.keyboardLayout
+    uppercaseLayout = CustomKeyboardLayout.Uppercase.keyboardLayout
+    lowercaseLayout = CustomKeyboardLayout.Lowercase.keyboardLayout
+    numbersLayout = CustomKeyboardLayout.Numbers.keyboardLayout
+    symbolsLayout = CustomKeyboardLayout.Symbols.keyboardLayout
     
     currentLayout = uppercaseLayout
     addSubview(currentLayout)
+  }
+
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    currentLayout?.frame = CGRect(
+      x: 0,
+      y: 0,
+      width: frame.size.width,
+      height: frame.size.height)
   }
 
   // MARK: Backspace Auto Delete
@@ -86,7 +89,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     backspaceAutoDeleteModeTimer = NSTimer.scheduledTimerWithTimeInterval(
       backspaceAutoDeleteModeInterval,
       target: self,
-      selector: #selector(DefaultKeyboard.startBackspaceAutoDeleteMode),
+      selector: #selector(CustomKeyboard.startBackspaceAutoDeleteMode),
       userInfo: nil,
       repeats: false)
   }
@@ -95,7 +98,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     backspaceDeleteTimer = NSTimer.scheduledTimerWithTimeInterval(
       backspaceDeleteInterval,
       target: self,
-      selector: #selector(DefaultKeyboard.autoDelete),
+      selector: #selector(CustomKeyboard.autoDelete),
       userInfo: nil,
       repeats: true)
   }
@@ -116,7 +119,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   internal func autoDelete() {
-    delegate?.defaultKeyboardDidPressBackspaceButton?(self)
+    delegate?.customKeyboardBackspaceButtonPressed?(self)
   }
 
   // MARK: Shift Toggle
@@ -125,7 +128,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     shiftToggleTimer = NSTimer.scheduledTimerWithTimeInterval(
       shiftToggleInterval,
       target: self,
-      selector: #selector(DefaultKeyboard.invalidateShiftToggleTimer),
+      selector: #selector(CustomKeyboard.invalidateShiftToggleTimer),
       userInfo: nil,
       repeats: false)
   }
@@ -138,31 +141,31 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
 
   // MARK: KeyboardLayoutDelegate
   public func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
-    delegate?.defaultKeyboardDidPressKeyboardButton?(self, keyboardButton: keyboardButton)
+    delegate?.customKeyboardButtonPressed?(self, keyboardButton: keyboardButton)
     invalidateBackspaceAutoDeleteModeTimer()
     invalidateBackspaceDeleteTimer()
     if keyboardLayout == currentLayout {
       switch keyboardButton.type {
       case .Key(let key):
-        delegate?.defaultKeyboardDidPressKeyButton?(self, key: key)
+        delegate?.customKeyboardKeyButtonPressed?(self, key: key)
         if uppercaseOnce {
           uppercaseOnce = false
           currentLayout = lowercaseLayout
         }
       default:
         if let id = keyboardButton.identifier,
-          let identifier = DefaultKeyboardIdentifier(rawValue: id) {
+          let identifier = CustomKeyboardIdentifier(rawValue: id) {
           switch identifier {
           case .Space:
-            delegate?.defaultKeyboardDidPressSpaceButton?(self)
+            delegate?.customKeyboardSpaceButtonPressed?(self)
             uppercaseOnce = false
           case .Backspace:
-            delegate?.defaultKeyboardDidPressBackspaceButton?(self)
+            delegate?.customKeyboardBackspaceButtonPressed?(self)
             uppercaseOnce = false
           case .Globe:
-            delegate?.defaultKeyboardDidPressGlobeButton?(self)
+            delegate?.customKeyboardGlobeButtonPressed?(self)
           case .Return:
-            delegate?.defaultKeyboardDidPressReturnButton?(self)
+            delegate?.customKeyboardReturnButtonPressed?(self)
           case .Letters:
             currentLayout = uppercaseLayout
             uppercaseOnce = true
@@ -204,7 +207,7 @@ public class DefaultKeyboard: UIView, KeyboardLayoutDelegate {
     invalidateBackspaceAutoDeleteModeTimer()
     invalidateBackspaceDeleteTimer()
     if keyboardLayout == currentLayout {
-      if keyboardButton.identifier == DefaultKeyboardIdentifier.Backspace.rawValue {
+      if keyboardButton.identifier == CustomKeyboardIdentifier.Backspace.rawValue {
         startBackspaceAutoDeleteModeTimer()
       }
     }
