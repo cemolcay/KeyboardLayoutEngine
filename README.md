@@ -18,7 +18,7 @@ KeyboardLayoutEngine
 * That means they are play very well with orientation changes. (Layout for size class and/or orientation support is on the way.)
 * `KeyboardLayoutStyle`, `KeyboardRowStyle` and `KeyboardButtonStyle` structs handles pretty much everything about styling.
 * `KeyboardLayoutDelegate` for inform about button presses.  
-* Also `DefaultKeyboard` provided out of box, a good start point for figuring out how it works other than being of fully functional original keyboard.  
+* Also `CustomKeyboard` provided out of box, a good start point for figuring out how it works other than being of fully functional original keyboard.  
 
 Install
 ----
@@ -34,25 +34,25 @@ Usage
 ----
 
 * Describe your keyboard with custom styles, rows and buttons with either text or image in it.  
-* Checkout the [DefaultKeyboardLayout](https://github.com/cemolcay/KeyboardLayoutEngine/blob/master/Keyboard/DefaultKeyboard/DefaultKeyboardLayout.swift) for detailed usage.
+* Checkout the [CustomKeyboardLayout](https://github.com/cemolcay/KeyboardLayoutEngine/blob/master/Keyboard/CustomKeyboard/CustomKeyboardLayout.swift) for detailed usage.
 
 ``` swift
 let keyboardLayout = KeyboardLayout(
-  style: DefaultKeyboardLayoutStyle,
+  style: CustomKeyboardLayoutStyle,
   rows: [
     KeyboardRow(
-      style: DefaultKeyboardRowStyle,
+      style: CustomKeyboardRowStyle,
       characters: [
-        KeyboardButton(type: .Key("Q"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("W"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("E"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("R"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("T"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("Y"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("U"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("I"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("O"), style: DefaultKeyboardKeyButtonStyle),
-        KeyboardButton(type: .Key("P"), style: DefaultKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("Q"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("W"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("E"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("R"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("T"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("Y"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("U"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("I"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("O"), style: CustomKeyboardKeyButtonStyle),
+        KeyboardButton(type: .Key("P"), style: CustomKeyboardKeyButtonStyle),
       ]
     )
   ]
@@ -135,7 +135,7 @@ public struct KeyboardLayoutStyle {
 Example:
 
 ``` swift
-let DefaultKeyboardLayoutStyle = KeyboardLayoutStyle(
+let CustomKeyboardLayoutStyle = KeyboardLayoutStyle(
   topPadding: 10,
   bottomPadding: 5,
   rowPadding: 13,
@@ -159,7 +159,7 @@ public struct KeyboardRowStyle {
 Example:
 
 ``` swift
-let DefaultKeyboardRowStyle = KeyboardRowStyle(
+let CustomKeyboardRowStyle = KeyboardRowStyle(
   leadingPadding: 5,
   trailingPadding: 5,
   buttonsPadding: 6)
@@ -203,13 +203,13 @@ public struct KeyboardButtonStyle {
 Example:
 
 ``` swift
-let DefaultKeyboardDarkImageButtonStyle = KeyboardButtonStyle(
+let CustomKeyboardDarkImageButtonStyle = KeyboardButtonStyle(
   backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
   imageSize: 18,
   showsPopup: false)
 ```
 
-DefaultKeyboard
+CustomKeyboard
 ----
 
 Default iOS Keyboard implementation with `KeyboardLayoutEngine`.  
@@ -217,46 +217,46 @@ Default iOS Keyboard implementation with `KeyboardLayoutEngine`.
 * Shift toggle mechanism  
 * Backspace mechanisim  
 * Key button popups  
-* `textDocumentProxy` integrations with `DefaultKeyboardDelegate`  
+* `textDocumentProxy` integrations with `CustomKeyboardDelegate`  
 * Ridiculusly easy implementation in `KeyboardViewController`  
 * Change default styles before initilze it and you have your fully functional custumised standard English QWERTY keyboard!
 
 ``` swift
 override func viewDidLoad() {
     super.viewDidLoad()
-    DefaultKeyboardLayoutStyle.backgroundColor = UIColor.redColor()
-    DefaultKeyboardRowStyle.buttonsPadding = 5
-    defaultKeyboard = DefaultKeyboard()
-    defaultKeyboard.delegate = self
-    view.addSubview(defaultKeyboard)
+    CustomKeyboardLayoutStyle.backgroundColor = UIColor.redColor()
+    CustomKeyboardRowStyle.buttonsPadding = 5
+    customKeyboard = CustomKeyboard()
+    customKeyboard.delegate = self
+    view.addSubview(customKeyboard)
 }
 ```
 
-#### DefaultKeyboard styles
+#### CustomKeyboard styles
 
-* DefaultKeyboardLayoutStyle: `KeyboardLayoutStyle`
-* DefaultKeyboardRowStyle: `KeyboardRowStyle`
-* DefaultKeyboardSecondRowStyle: `KeyboardRowStyle`
-* DefaultKeyboardChildRowStyle: `KeyboardRowStyle`
-* DefaultKeyboardSpaceButtonStyle: `KeyboardButtonStyle`
-* DefaultKeyboardBackspaceButtonStyle: `KeyboardButtonStyle`
-* DefaultKeyboardShiftButtonStyle: `KeyboardButtonStyle`
-* DefaultKeyboardGlobeButtonStyle: `KeyboardButtonStyle`
-* DefaultKeyboardReturnButtonStyle: `KeyboardButtonStyle`
-* DefaultKeyboardNumbersButtonStyle: `KeyboardButtonStyle`
-* DefaultKeyboardKeyButtonStyle: `KeyboardButtonStyle`
+* CustomKeyboardLayoutStyle: `KeyboardLayoutStyle`
+* CustomKeyboardRowStyle: `KeyboardRowStyle`
+* CustomKeyboardSecondRowStyle: `KeyboardRowStyle`
+* CustomKeyboardChildRowStyle: `KeyboardRowStyle`
+* CustomKeyboardSpaceButtonStyle: `KeyboardButtonStyle`
+* CustomKeyboardBackspaceButtonStyle: `KeyboardButtonStyle`
+* CustomKeyboardShiftButtonStyle: `KeyboardButtonStyle`
+* CustomKeyboardGlobeButtonStyle: `KeyboardButtonStyle`
+* CustomKeyboardReturnButtonStyle: `KeyboardButtonStyle`
+* CustomKeyboardNumbersButtonStyle: `KeyboardButtonStyle`
+* CustomKeyboardKeyButtonStyle: `KeyboardButtonStyle`
 
-DefaultKeyboardDelegate
+CustomKeyboardDelegate
 ----
 
 * Provides information about key and special button presses.  
 
 ``` swift
-@objc public protocol DefaultKeyboardDelegate {
-  optional func defaultKeyboardDidPressKeyButton(defaultKeyboard: DefaultKeyboard, key: String)
-  optional func defaultKeyboardDidPressSpaceButton(defaultKeyboard: DefaultKeyboard)
-  optional func defaultKeyboardDidPressBackspaceButton(defaultKeyboard: DefaultKeyboard)
-  optional func defaultKeyboardDidPressGlobeButton(defaultKeyboard: DefaultKeyboard)
-  optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboard)
+@objc public protocol CustomKeyboardDelegate {
+  optional func customKeyboardDidPressKeyButton(customKeyboard: CustomKeyboard, key: String)
+  optional func customKeyboardDidPressSpaceButton(customKeyboard: CustomKeyboard)
+  optional func customKeyboardDidPressBackspaceButton(customKeyboard: CustomKeyboard)
+  optional func customKeyboardDidPressGlobeButton(customKeyboard: CustomKeyboard)
+  optional func customKeyboardDidPressReturnButton(customKeyboard: CustomKeyboard)
 }
 ```
