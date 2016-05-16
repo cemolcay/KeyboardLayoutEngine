@@ -20,12 +20,6 @@ import UIKit
 
 // MARK: - CustomKeyboard
 public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
-  public var uppercaseToggledLayout: KeyboardLayout!
-  public var uppercaseLayout: KeyboardLayout!
-  public var lowercaseLayout: KeyboardLayout!
-  public var numbersLayout: KeyboardLayout!
-  public var symbolsLayout: KeyboardLayout!
-
   public var shiftToggleInterval: NSTimeInterval = 0.5
   private var shiftToggleTimer: NSTimer?
   private var shiftCanBeToggled: Bool = false
@@ -35,6 +29,51 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   public var backspaceAutoDeleteModeInterval: NSTimeInterval = 0.5
   private var backspaceDeleteTimer: NSTimer?
   private var backspaceAutoDeleteModeTimer: NSTimer?
+
+  public var uppercaseToggledLayout: KeyboardLayout! {
+    didSet {
+      guard currentLayout != nil && oldValue != nil else { return }
+      if currentLayout == oldValue {
+        currentLayout = uppercaseToggledLayout
+      }
+    }
+  }
+
+  public var uppercaseLayout: KeyboardLayout! {
+    didSet {
+      guard currentLayout != nil && oldValue != nil else { return }
+      if currentLayout == oldValue {
+        currentLayout = uppercaseLayout
+      }
+    }
+  }
+
+  public var lowercaseLayout: KeyboardLayout! {
+    didSet {
+      guard currentLayout != nil && oldValue != nil else { return }
+      if currentLayout == oldValue {
+        currentLayout = lowercaseLayout
+      }
+    }
+  }
+
+  public var numbersLayout: KeyboardLayout! {
+    didSet {
+      guard currentLayout != nil && oldValue != nil else { return }
+      if currentLayout == oldValue {
+        currentLayout = numbersLayout
+      }
+    }
+  }
+
+  public var symbolsLayout: KeyboardLayout! {
+    didSet {
+      guard currentLayout != nil && oldValue != nil else { return }
+      if currentLayout == oldValue {
+        currentLayout = symbolsLayout
+      }
+    }
+  }
 
   private var lastLetterLayout: KeyboardLayout?
   private(set) var currentLayout: KeyboardLayout! {
@@ -65,16 +104,12 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   private func defaultInit() {
-    uppercaseToggledLayout = CustomKeyboardLayout.UppercaseToggled.keyboardLayout
-    uppercaseLayout = CustomKeyboardLayout.Uppercase.keyboardLayout
-    lowercaseLayout = CustomKeyboardLayout.Lowercase.keyboardLayout
-    numbersLayout = CustomKeyboardLayout.Numbers.keyboardLayout
-    symbolsLayout = CustomKeyboardLayout.Symbols.keyboardLayout
-    
+    reload()
     currentLayout = uppercaseLayout
     addSubview(currentLayout)
   }
 
+  // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
     currentLayout?.frame = CGRect(
@@ -82,6 +117,15 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
       y: 0,
       width: frame.size.width,
       height: frame.size.height)
+  }
+
+  // MARK: Reload
+  public func reload() {
+    uppercaseToggledLayout = CustomKeyboardLayout.UppercaseToggled.keyboardLayout
+    uppercaseLayout = CustomKeyboardLayout.Uppercase.keyboardLayout
+    lowercaseLayout = CustomKeyboardLayout.Lowercase.keyboardLayout
+    numbersLayout = CustomKeyboardLayout.Numbers.keyboardLayout
+    symbolsLayout = CustomKeyboardLayout.Symbols.keyboardLayout
   }
 
   // MARK: Backspace Auto Delete
