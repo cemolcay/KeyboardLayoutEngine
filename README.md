@@ -3,6 +3,7 @@ KeyboardLayoutEngine
 
 [![Version](https://img.shields.io/cocoapods/v/KeyboardLayoutEngine.svg?style=flat)](http://cocoapods.org/pods/KeyboardLayoutEngine)
 [![License](https://img.shields.io/cocoapods/l/KeyboardLayoutEngine.svg?style=flat)](http://cocoapods.org/pods/KeyboardLayoutEngine)
+[![codebeat badge](https://codebeat.co/badges/e491a6e1-4b47-45dc-9e5c-09a33e130b62)](https://codebeat.co/projects/github-com-cemolcay-keyboardlayoutengine)
 
 ⌨️ Simplest custom keyboard generator for iOS ever!  
   
