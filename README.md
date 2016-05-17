@@ -8,11 +8,11 @@ KeyboardLayoutEngine
   
 ![alt tag](https://raw.githubusercontent.com/cemolcay/KeyboardLayoutEngine/master/demo.gif)
   
-`KeyboardLayoutEngine` is all about laying out keyboard buttons dynamically in a rectangle in a custom style easily but in fashion of original keyboard. For the sake of flexiblity, KeyboardLayoutEngine provides:
+`KeyboardLayoutEngine` is all about laying out keyboard buttons dynamically in a rectangle with a custom style easily. For the sake of flexiblity, KeyboardLayoutEngine provides:
 
 * `KeyboardLayout`: For laying out rows with custom paddings, colors.
 * `KeyboardRow`: For laying out buttons or another set of KeyboardRow's inside.
-* `KeyboardButton`: For rendering buttons in rows. Also provides flexible width, type and other very useful API's for flexiblty.
+* `KeyboardButton`: For rendering buttons in rows. Also provides flexible width, type and other very useful API's.
 * They are also `UIView`s and handles their layout in their `layoutSubviews` function.
 * They are faster than autolayout yet they can adopt perfectly any `CGFrame` you want apply a keyboard layout.
 * That means they are play very well with orientation changes. (Layout for size class and/or orientation support is on the way.)
