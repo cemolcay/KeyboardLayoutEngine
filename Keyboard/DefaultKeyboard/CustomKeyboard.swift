@@ -32,46 +32,41 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
 
   public var uppercaseToggledLayout: KeyboardLayout! {
     didSet {
-      guard currentLayout != nil && oldValue != nil else { return }
-      if currentLayout == oldValue {
-        currentLayout = uppercaseToggledLayout
-      }
+      layoutDidChange(
+        oldLayout: oldValue,
+        newLayout: uppercaseToggledLayout)
     }
   }
 
   public var uppercaseLayout: KeyboardLayout! {
     didSet {
-      guard currentLayout != nil && oldValue != nil else { return }
-      if currentLayout == oldValue {
-        currentLayout = uppercaseLayout
-      }
+      layoutDidChange(
+        oldLayout: oldValue,
+        newLayout: uppercaseLayout)
     }
   }
 
   public var lowercaseLayout: KeyboardLayout! {
     didSet {
-      guard currentLayout != nil && oldValue != nil else { return }
-      if currentLayout == oldValue {
-        currentLayout = lowercaseLayout
-      }
+      layoutDidChange(
+        oldLayout: oldValue,
+        newLayout: lowercaseLayout)
     }
   }
 
   public var numbersLayout: KeyboardLayout! {
     didSet {
-      guard currentLayout != nil && oldValue != nil else { return }
-      if currentLayout == oldValue {
-        currentLayout = numbersLayout
-      }
+      layoutDidChange(
+        oldLayout: oldValue,
+        newLayout: numbersLayout)
     }
   }
 
   public var symbolsLayout: KeyboardLayout! {
     didSet {
-      guard currentLayout != nil && oldValue != nil else { return }
-      if currentLayout == oldValue {
-        currentLayout = symbolsLayout
-      }
+      layoutDidChange(
+        oldLayout: oldValue,
+        newLayout: symbolsLayout)
     }
   }
 
@@ -117,6 +112,13 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
       y: 0,
       width: frame.size.width,
       height: frame.size.height)
+  }
+
+  private func layoutDidChange(oldLayout oldLayout: KeyboardLayout?, newLayout: KeyboardLayout) {
+    guard currentLayout != nil && oldLayout != nil else { return }
+    if currentLayout == oldLayout {
+      currentLayout = newLayout
+    }
   }
 
   // MARK: Reload
