@@ -15,8 +15,8 @@ public struct KeyboardRowStyle {
   public var buttonsPadding: CGFloat
 
   public init(
-    leadingPadding: CGFloat = 5,
-    trailingPadding: CGFloat = 5,
+    leadingPadding: CGFloat = 3,
+    trailingPadding: CGFloat = 3,
     buttonsPadding: CGFloat = 6) {
     
     self.leadingPadding = leadingPadding

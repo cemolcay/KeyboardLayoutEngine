@@ -31,9 +31,9 @@ public struct KeyboardLayoutStyle {
   public var backgroundColor: UIColor
 
   public init(
-    topPadding: CGFloat = 5,
-    bottomPadding: CGFloat = 5,
-    rowPadding: CGFloat = 15,
+    topPadding: CGFloat = 10,
+    bottomPadding: CGFloat = 4,
+    rowPadding: CGFloat = 12,
     rowPaddingLandscape: CGFloat = 8,
     backgroundColor: UIColor = UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)) {
     self.topPadding = topPadding
@@ -95,7 +95,7 @@ public class KeyboardLayout: UIView {
   }
 
   private func getRowPadding() -> CGFloat {
-    return frame.size.width > frame.size.height ? style.rowPaddingLandscape : style.rowPadding
+    return frame.size.width > UIScreen.mainScreen().bounds.width ? style.rowPaddingLandscape : style.rowPadding
   }
 
   // MARK: Manage Buttons

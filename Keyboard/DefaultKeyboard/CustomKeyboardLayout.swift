@@ -10,16 +10,10 @@ import UIKit
 
 // MARK: - Layout Style
 public var CustomKeyboardLayoutStyle = KeyboardLayoutStyle(
-  topPadding: 10,
-  bottomPadding: 4,
-  rowPadding: 12,
   backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
 
 // MARK: - Row Style
-public var CustomKeyboardRowStyle = KeyboardRowStyle(
-  leadingPadding: 3,
-  trailingPadding: 3,
-  buttonsPadding: 6)
+public var CustomKeyboardRowStyle = KeyboardRowStyle()
 
 public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
   leadingPadding: 22,
@@ -27,8 +21,8 @@ public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
   buttonsPadding: 6)
 
 public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
-  leadingPadding: 12,
-  trailingPadding: 12,
+  leadingPadding: 8,
+  trailingPadding: 8,
   buttonsPadding: 6)
 
 // MARK: - Button Style

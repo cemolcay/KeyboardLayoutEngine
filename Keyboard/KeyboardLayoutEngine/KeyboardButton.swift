@@ -50,6 +50,7 @@ public struct KeyboardButtonStyle {
   public var showsPopup: Bool
   public var popupWidthMultiplier: CGFloat
   public var popupHeightMultiplier: CGFloat
+  public var popupContainerView: UIView?
 
   public init(
     backgroundColor: UIColor = UIColor.whiteColor(),
@@ -57,8 +58,8 @@ public struct KeyboardButtonStyle {
     borderColor: UIColor = UIColor.clearColor(),
     borderWidth: CGFloat = 0,
     shadowEnabled: Bool = true,
-    shadowColor: UIColor = UIColor.blackColor(),
-    shadowOpacity: Float = 0.4,
+    shadowColor: UIColor = UIColor(red: 138.0/255.0, green: 139.0/255.0, blue: 143.0/255.0, alpha: 1),
+    shadowOpacity: Float = 1,
     shadowOffset: CGSize = CGSize(width: 0, height: 1),
     shadowRadius: CGFloat = 1 / UIScreen.mainScreen().scale,
     shadowPath: UIBezierPath? = nil,
@@ -67,7 +68,8 @@ public struct KeyboardButtonStyle {
     imageSize: CGFloat? = nil,
     showsPopup: Bool = true,
     popupWidthMultiplier: CGFloat = 1.7,
-    popupHeightMultiplier: CGFloat = 1.4) {
+    popupHeightMultiplier: CGFloat = 1.4,
+    popupContainerView: UIView? = nil) {
     self.backgroundColor = backgroundColor
     self.cornerRadius = cornerRadius
     self.borderColor = borderColor
@@ -84,10 +86,13 @@ public struct KeyboardButtonStyle {
     self.showsPopup = showsPopup
     self.popupWidthMultiplier = popupWidthMultiplier
     self.popupHeightMultiplier = popupHeightMultiplier
+    self.popupContainerView = popupContainerView
   }
 }
 
 // MARK: - KeyboardButton
+private let KeyboardButtonPopupViewTag: Int = 101
+
 public class KeyboardButton: UIView {
   public var type: KeyboardButtonType = .Key("")
   public var width: KeyboardButtonWidth = .Dynamic
@@ -136,6 +141,8 @@ public class KeyboardButton: UIView {
       textLabel?.font = style.font
       textLabel?.textAlignment = .Center
       textLabel?.translatesAutoresizingMaskIntoConstraints = false
+      textLabel?.adjustsFontSizeToFitWidth = true
+      textLabel?.minimumScaleFactor = 0.5
       addSubview(textLabel!)
     case .Image(let image):
       imageView = UIImageView(image: image)
@@ -176,6 +183,13 @@ public class KeyboardButton: UIView {
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
 
+    switch type {
+    case .Key(_):
+      textLabel?.font = textLabel?.font.fontWithSize(min(textLabel!.frame.size.height, textLabel!.frame.size.width))
+    default:
+      break
+    }
+
     if let imageSize = style.imageSize {
       padding = (min(frame.size.height, frame.size.width) - imageSize) / 2
     }
@@ -187,15 +201,17 @@ public class KeyboardButton: UIView {
       height: frame.size.height - (padding * 2))
   }
 
-  // MARK: Popup
   private func showPopup(show show: Bool) {
     if show {
-      if viewWithTag(101) != nil { return }
+      if viewWithTag(KeyboardButtonPopupViewTag) != nil { return }
+      let containerView = style.popupContainerView ?? self
       let popup = createPopup()
-      popup.tag = 101
-      addSubview(popup)
+      popup.tag = KeyboardButtonPopupViewTag
+      popup.frame.origin = convertPoint(popup.frame.origin, toView: containerView)
+      containerView.addSubview(popup)
     } else {
-      if let popup = viewWithTag(101) {
+      let containerView = style.popupContainerView ?? self
+      if let popup = containerView.viewWithTag(KeyboardButtonPopupViewTag) {
         popup.removeFromSuperview()
       }
     }
@@ -241,15 +257,23 @@ public class KeyboardButton: UIView {
       let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
       label.text = text
       label.textColor = style.textColor
-      label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
       label.textAlignment = .Center
+      if let textLabel = self.textLabel {
+        label.font = textLabel.font.fontWithSize(label.frame.size.height - 1)
+      } else {
+        label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
+      }
       contentView.addSubview(label)
     case .Text(let text):
       let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
       label.text = text
       label.textColor = style.textColor
-      label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
       label.textAlignment = .Center
+      if let textLabel = self.textLabel {
+        label.font = textLabel.font.fontWithSize(label.frame.size.height - 1)
+      } else {
+        label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
+      }
       contentView.addSubview(label)
     case .Image(let image):
       let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
