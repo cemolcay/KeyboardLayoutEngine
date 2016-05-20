@@ -51,6 +51,10 @@ public class KeyboardLayout: UIView {
 
   public weak var delegate: KeyboardLayoutDelegate?
 
+  private var isPortrait: Bool {
+    return frame.size.width <= UIScreen.mainScreen().bounds.size.width
+  }
+
   // MARK: Init
   public init(style: KeyboardLayoutStyle, rows: [KeyboardRow]) {
     super.init(frame: CGRect.zero)
@@ -78,24 +82,33 @@ public class KeyboardLayout: UIView {
     let optimumRowHeight = getOptimumRowHeight(forView: superview)
     var currentY: CGFloat = 0
     for row in rows {
+      row.isPortrait = isPortrait
       row.frame = CGRect(
         x: 0,
         y: currentY,
         width: frame.size.width,
         height: optimumRowHeight)
-      currentY += optimumRowHeight + getRowPadding()
+      currentY += optimumRowHeight + getRowPadding(forRow: row)
     }
+  }
+
+  private func getRowPadding(forRow row: KeyboardRow) -> CGFloat {
+    return isPortrait ? row.style.bottomPadding ?? style.rowPadding : row.style.bottomPaddingLandscape ?? row.style.bottomPadding ?? style.rowPadding
+  }
+
+  private func getRowPaddings() -> CGFloat {
+    var total = CGFloat(0)
+    for row in rows {
+      if row == rows.last { break }
+      total = total + getRowPadding(forRow: row)
+    }
+    return total
   }
 
   private func getOptimumRowHeight(forView view: UIView) -> CGFloat {
     let height = view.frame.size.height
-    let rowPaddings = CGFloat(max(rows.count - 1, 0)) * getRowPadding()
-    let totalPaddings = rowPaddings + style.topPadding + style.bottomPadding
+    let totalPaddings = getRowPaddings() + style.topPadding + style.bottomPadding
     return max(0, (height - totalPaddings) / CGFloat(rows.count))
-  }
-
-  private func getRowPadding() -> CGFloat {
-    return frame.size.width > UIScreen.mainScreen().bounds.width ? style.rowPaddingLandscape : style.rowPadding
   }
 
   // MARK: Manage Buttons

@@ -42,6 +42,7 @@ public struct KeyboardButtonStyle {
   // Text
   public var textColor: UIColor
   public var font: UIFont
+  public var textOffsetY: CGFloat
 
   // Image
   public var imageSize: CGFloat?
@@ -65,6 +66,7 @@ public struct KeyboardButtonStyle {
     shadowPath: UIBezierPath? = nil,
     textColor: UIColor = UIColor.blackColor(),
     font: UIFont = UIFont.systemFontOfSize(20),
+    textOffsetY: CGFloat = 0,
     imageSize: CGFloat? = nil,
     showsPopup: Bool = true,
     popupWidthMultiplier: CGFloat = 1.7,
@@ -82,6 +84,7 @@ public struct KeyboardButtonStyle {
     self.shadowPath = shadowPath
     self.textColor = textColor
     self.font = font
+    self.textOffsetY = textOffsetY
     self.imageSize = imageSize
     self.showsPopup = showsPopup
     self.popupWidthMultiplier = popupWidthMultiplier
@@ -179,7 +182,7 @@ public class KeyboardButton: UIView {
     var padding = CGFloat(5)
     textLabel?.frame = CGRect(
       x: padding,
-      y: padding,
+      y: padding + style.textOffsetY,
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
 
@@ -245,7 +248,7 @@ public class KeyboardButton: UIView {
   }
 
   private func copyContentIntoView(view: UIView) -> UIView {
-    let padding = CGFloat(5)
+    let padding = CGFloat(2)
     let contentView = UIView(frame: CGRect(
       x: padding,
       y: padding,

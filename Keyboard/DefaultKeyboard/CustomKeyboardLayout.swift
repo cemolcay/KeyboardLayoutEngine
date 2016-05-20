@@ -17,16 +17,21 @@ public var CustomKeyboardRowStyle = KeyboardRowStyle()
 
 public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
   leadingPadding: 22,
+  leadingPaddingLandscape: 30,
   trailingPadding: 22,
-  buttonsPadding: 6)
+  trailingPaddingLandscape: 30)
+
+public var CustomKeyboardThirdRowStyle = KeyboardRowStyle(bottomPadding: 10)
 
 public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
   leadingPadding: 8,
+  leadingPaddingLandscape: 15,
   trailingPadding: 8,
-  buttonsPadding: 6)
+  trailingPaddingLandscape: 15)
 
 // MARK: - Button Style
 public var CustomKeyboardKeyButtonStyle = KeyboardButtonStyle(showsPopup: true)
+public var CustomKeyboardLowercaseKeyButtonStyle = KeyboardButtonStyle(showsPopup: true, textOffsetY: -2)
 
 public var CustomKeyboardSpaceButtonStyle = KeyboardButtonStyle(
   font: UIFont.systemFontOfSize(15),
@@ -128,7 +133,7 @@ public enum CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardThirdRowStyle,
           characters: [
             KeyboardButton(
               type: .Image(UIImage(named: toggled ? "shiftToggled" : "shiftToggledOnce", inBundle: NSBundle(forClass: CustomKeyboard.self), compatibleWithTraitCollection: nil)),
@@ -189,34 +194,34 @@ public enum CustomKeyboardLayout {
         KeyboardRow(
           style: CustomKeyboardRowStyle,
           characters: [
-            KeyboardButton(type: .Key("q"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("w"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("e"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("r"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("t"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("y"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("u"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("i"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("o"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("p"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("q"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("w"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("e"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("r"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("t"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("y"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("u"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("i"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("o"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("p"), style: CustomKeyboardLowercaseKeyButtonStyle),
           ]
         ),
         KeyboardRow(
           style: CustomKeyboardSecondRowStyle,
           characters: [
-            KeyboardButton(type: .Key("a"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("s"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("d"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("f"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("g"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("h"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("j"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("k"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("l"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("a"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("s"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("d"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("f"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("g"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("h"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("j"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("k"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("l"), style: CustomKeyboardLowercaseKeyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardThirdRowStyle,
           characters: [
             KeyboardButton(
               type: .Image(UIImage(named: "shift", inBundle: NSBundle(forClass: CustomKeyboard.self), compatibleWithTraitCollection: nil)),
@@ -226,13 +231,13 @@ public enum CustomKeyboardLayout {
             KeyboardRow(
               style: CustomKeyboardChildRowStyle,
               characters: [
-                KeyboardButton(type: .Key("z"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("x"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("c"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("v"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("b"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("n"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("m"), style: CustomKeyboardKeyButtonStyle),
+                KeyboardButton(type: .Key("z"), style: CustomKeyboardLowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("x"), style: CustomKeyboardLowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("c"), style: CustomKeyboardLowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("v"), style: CustomKeyboardLowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("b"), style: CustomKeyboardLowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("n"), style: CustomKeyboardLowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("m"), style: CustomKeyboardLowercaseKeyButtonStyle),
               ]
             ),
             KeyboardButton(
@@ -305,7 +310,7 @@ public enum CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardThirdRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("#+="),
@@ -392,7 +397,7 @@ public enum CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardThirdRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("123"),

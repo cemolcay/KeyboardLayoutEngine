@@ -11,17 +11,34 @@ import UIKit
 // MARK: - KeyboardRowStyle
 public struct KeyboardRowStyle {
   public var leadingPadding: CGFloat
+  public var leadingPaddingLandscape: CGFloat?
   public var trailingPadding: CGFloat
+  public var trailingPaddingLandscape: CGFloat?
+  public var bottomPadding: CGFloat?
+  public var bottomPaddingLandscape: CGFloat?
   public var buttonsPadding: CGFloat
+  public var buttonsPaddingLandscape: CGFloat?
 
   public init(
     leadingPadding: CGFloat = 3,
+    leadingPaddingLandscape: CGFloat? = nil,
     trailingPadding: CGFloat = 3,
-    buttonsPadding: CGFloat = 6) {
-    
+    trailingPaddingLandscape: CGFloat? = nil,
+    topPadding: CGFloat? = nil,
+    topPaddingLandscape: CGFloat? = nil,
+    bottomPadding: CGFloat? = nil,
+    bottomPaddingLandscape: CGFloat? = nil,
+    buttonsPadding: CGFloat = 6,
+    buttonsPaddingLandscape: CGFloat? = nil) {
+
     self.leadingPadding = leadingPadding
+    self.leadingPaddingLandscape = leadingPaddingLandscape
     self.trailingPadding = trailingPadding
+    self.trailingPaddingLandscape = trailingPaddingLandscape
+    self.bottomPadding = bottomPadding
+    self.bottomPaddingLandscape = bottomPaddingLandscape
     self.buttonsPadding = buttonsPadding
+    self.buttonsPaddingLandscape = buttonsPaddingLandscape
   }
 }
 
@@ -30,6 +47,8 @@ public class KeyboardRow: UIView {
   public var style: KeyboardRowStyle!
   /// Characters should be eighter `KeyboardButton` or `KeyboardRow`
   public var characters: [AnyObject]!
+  /// Managed by KeyboardLayout
+  internal var isPortrait: Bool = true
 
   // MARK: Init
   public init(style: KeyboardRowStyle, characters: [AnyObject]) {
@@ -53,11 +72,25 @@ public class KeyboardRow: UIView {
     super.init(coder: aDecoder)
   }
 
+  // MARK: Paddings
+
+  func getLeadingPadding() -> CGFloat {
+    return isPortrait ? style.leadingPadding : style.leadingPaddingLandscape ?? style.leadingPadding
+  }
+
+  func getTrailingPadding() -> CGFloat {
+    return isPortrait ? style.trailingPadding : style.trailingPaddingLandscape ?? style.trailingPadding
+  }
+
+  func getButtonsPadding() -> CGFloat {
+    return isPortrait ? style.buttonsPadding : style.buttonsPaddingLandscape ?? style.buttonsPadding
+  }
+
   // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
     let optimumButtonWidth = getOptimumButtonWidth()
-    var currentX = style.leadingPadding
+    var currentX = getLeadingPadding()
     for character in characters {
       if let character = character as? KeyboardButton {
         character.frame = CGRect(
@@ -65,23 +98,24 @@ public class KeyboardRow: UIView {
           y: 0,
           width: getWidthForKeyboardButton(character),
           height: frame.size.height)
-        currentX += character.frame.size.width + style.buttonsPadding
+        currentX += character.frame.size.width + getButtonsPadding()
       }
       if let childRow = character as? KeyboardRow {
+        childRow.isPortrait = isPortrait
         childRow.frame = CGRect(
           x: currentX,
           y: 0,
-          width: childRow.style.leadingPadding + optimumButtonWidth  + childRow.style.trailingPadding,
+          width: childRow.getLeadingPadding() + optimumButtonWidth  + childRow.getTrailingPadding(),
           height: frame.size.height)
-        currentX += childRow.frame.size.width + style.buttonsPadding
+        currentX += childRow.frame.size.width + getButtonsPadding()
       }
     }
-    currentX += style.trailingPadding
+    currentX += getTrailingPadding()
   }
 
   private func getRelativeWidthForPercent(percent: CGFloat) -> CGFloat {
-    let buttonsPadding = max(0, CGFloat(characters.count - 1)) * style.buttonsPadding
-    let totalPadding = buttonsPadding + style.leadingPadding + style.trailingPadding
+    let buttonsPadding = max(0, CGFloat(characters.count - 1)) * getButtonsPadding()
+    let totalPadding = buttonsPadding + getLeadingPadding() + getTrailingPadding()
     let cleanWidth = frame.size.width - totalPadding
     return cleanWidth * percent
   }
@@ -114,18 +148,18 @@ public class KeyboardRow: UIView {
           break
          }
       } else if let row = character as? KeyboardRow {
-        totalChildRowPadding += row.style.leadingPadding + row.style.trailingPadding
+        totalChildRowPadding += row.getLeadingPadding() + row.getTrailingPadding()
         charactersWithDynamicWidthCount += 1
       }
     }
 
     let width = frame.size.width
-    let totalButtonPadding: CGFloat = max(0, CGFloat(characters.count - 1) * style.buttonsPadding)
+    let totalButtonPadding: CGFloat = max(0, CGFloat(characters.count - 1) * getButtonsPadding())
     let totalPadding = totalButtonPadding +
       totalStaticWidthButtonsWidth +
       totalChildRowPadding +
-      style.leadingPadding +
-      style.trailingPadding
+      getLeadingPadding() +
+      getTrailingPadding()
     let opt = (width - totalPadding) / CGFloat(charactersWithDynamicWidthCount)
     return opt
   }
