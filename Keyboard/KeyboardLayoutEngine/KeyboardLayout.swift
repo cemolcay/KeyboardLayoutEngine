@@ -20,6 +20,8 @@ extension CollectionType {
 @objc public protocol KeyboardLayoutDelegate {
   optional func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
   optional func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
+  optional func keyboardLayoutDidDraggedInButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
+  optional func keyboardLayoutDidEndTouches(keyboardLayout: KeyboardLayout)
 }
 
 // MARK: - KeyboardLayoutStyle
@@ -149,9 +151,9 @@ public class KeyboardLayout: UIView {
     super.touchesBegan(touches, withEvent: event)
     for touch in touches {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
+        delegate?.keyboardLayoutDidStartPressingButton?(self, keyboardButton: button)
         for row in rows {
           row.highlightButton(button)
-          delegate?.keyboardLayoutDidStartPressingButton?(self, keyboardButton: button)
         }
       }
     }
@@ -161,6 +163,7 @@ public class KeyboardLayout: UIView {
     super.touchesMoved(touches, withEvent: event)
     if let touch = touches.first {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
+        delegate?.keyboardLayoutDidDraggedInButton?(self, keyboardButton: button)
         for row in rows {
           row.highlightButton(button)
         }
@@ -170,6 +173,7 @@ public class KeyboardLayout: UIView {
 
   public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesEnded(touches, withEvent: event)
+    delegate?.keyboardLayoutDidEndTouches?(self)
     for row in rows {
       row.unhighlightButtons()
     }
@@ -182,6 +186,7 @@ public class KeyboardLayout: UIView {
 
   public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
+    delegate?.keyboardLayoutDidEndTouches?(self)
     for row in rows {
       row.unhighlightButtons()
     }

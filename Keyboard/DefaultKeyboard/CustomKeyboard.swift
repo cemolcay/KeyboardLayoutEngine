@@ -219,7 +219,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     delegate?.customKeyboardButtonPressed?(self, keyboardButton: keyboardButton)
     invalidateBackspaceAutoDeleteModeTimer()
     invalidateBackspaceDeleteTimer()
-    removeKeyPopup()
     if keyboardLayout == currentLayout {
       switch keyboardButton.type {
       case .Key(let key):
@@ -293,5 +292,9 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   public func keyboardLayoutDidDraggedInButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
     removeKeyPopup()
     addKeyPopup(forKey: keyboardButton)
+  }
+
+  public func keyboardLayoutDidEndTouches(keyboardLayout: KeyboardLayout) {
+    removeKeyPopup()
   }
 }
