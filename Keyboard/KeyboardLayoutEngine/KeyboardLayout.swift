@@ -20,6 +20,8 @@ extension CollectionType {
 @objc public protocol KeyboardLayoutDelegate {
   optional func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
   optional func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
+  optional func keyboardLayoutDidDraggedInButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
+  optional func keyboardLayoutDidEndTouches(keyboardLayout: KeyboardLayout)
 }
 
 // MARK: - KeyboardLayoutStyle
@@ -31,10 +33,10 @@ public struct KeyboardLayoutStyle {
   public var backgroundColor: UIColor
 
   public init(
-    topPadding: CGFloat = 5,
-    bottomPadding: CGFloat = 5,
-    rowPadding: CGFloat = 15,
-    rowPaddingLandscape: CGFloat = 8,
+    topPadding: CGFloat = 10,
+    bottomPadding: CGFloat = 4,
+    rowPadding: CGFloat = 12,
+    rowPaddingLandscape: CGFloat = 6,
     backgroundColor: UIColor = UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)) {
     self.topPadding = topPadding
     self.bottomPadding = bottomPadding
@@ -50,6 +52,10 @@ public class KeyboardLayout: UIView {
   public var rows: [KeyboardRow]!
 
   public weak var delegate: KeyboardLayoutDelegate?
+
+  private var isPortrait: Bool {
+    return UIScreen.mainScreen().bounds.size.width < UIScreen.mainScreen().bounds.size.height
+  }
 
   // MARK: Init
   public init(style: KeyboardLayoutStyle, rows: [KeyboardRow]) {
@@ -78,24 +84,33 @@ public class KeyboardLayout: UIView {
     let optimumRowHeight = getOptimumRowHeight(forView: superview)
     var currentY: CGFloat = 0
     for row in rows {
+      row.isPortrait = isPortrait
       row.frame = CGRect(
         x: 0,
         y: currentY,
         width: frame.size.width,
         height: optimumRowHeight)
-      currentY += optimumRowHeight + getRowPadding()
+      currentY += optimumRowHeight + getRowPadding(forRow: row)
     }
+  }
+
+  private func getRowPadding(forRow row: KeyboardRow) -> CGFloat {
+    return isPortrait ? row.style.bottomPadding ?? style.rowPadding : row.style.bottomPaddingLandscape ?? row.style.bottomPadding ?? style.rowPaddingLandscape
+  }
+
+  private func getRowPaddings() -> CGFloat {
+    var total = CGFloat(0)
+    for row in rows {
+      if row == rows.last { break }
+      total = total + getRowPadding(forRow: row)
+    }
+    return total
   }
 
   private func getOptimumRowHeight(forView view: UIView) -> CGFloat {
     let height = view.frame.size.height
-    let rowPaddings = CGFloat(max(rows.count - 1, 0)) * getRowPadding()
-    let totalPaddings = rowPaddings + style.topPadding + style.bottomPadding
+    let totalPaddings = getRowPaddings() + style.topPadding + style.bottomPadding
     return max(0, (height - totalPaddings) / CGFloat(rows.count))
-  }
-
-  private func getRowPadding() -> CGFloat {
-    return frame.size.width > frame.size.height ? style.rowPaddingLandscape : style.rowPadding
   }
 
   // MARK: Manage Buttons
@@ -127,13 +142,18 @@ public class KeyboardLayout: UIView {
   }
 
   // MARK: Touch Handling
+  private func getKeyboardButton(atPoint point: CGPoint) -> KeyboardButton? {
+    
+    return nil
+  }
+
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesBegan(touches, withEvent: event)
-    if let touch = touches.first {
+    for touch in touches {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
+        delegate?.keyboardLayoutDidStartPressingButton?(self, keyboardButton: button)
         for row in rows {
           row.highlightButton(button)
-          delegate?.keyboardLayoutDidStartPressingButton?(self, keyboardButton: button)
         }
       }
     }
@@ -143,6 +163,7 @@ public class KeyboardLayout: UIView {
     super.touchesMoved(touches, withEvent: event)
     if let touch = touches.first {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
+        delegate?.keyboardLayoutDidDraggedInButton?(self, keyboardButton: button)
         for row in rows {
           row.highlightButton(button)
         }
@@ -152,10 +173,11 @@ public class KeyboardLayout: UIView {
 
   public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesEnded(touches, withEvent: event)
+    delegate?.keyboardLayoutDidEndTouches?(self)
     for row in rows {
       row.unhighlightButtons()
     }
-    if let touch = touches.first {
+    for touch in touches {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
         delegate?.keyboardLayoutDidPressButton?(self, keyboardButton: button)
       }
@@ -164,6 +186,7 @@ public class KeyboardLayout: UIView {
 
   public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
+    delegate?.keyboardLayoutDidEndTouches?(self)
     for row in rows {
       row.unhighlightButtons()
     }

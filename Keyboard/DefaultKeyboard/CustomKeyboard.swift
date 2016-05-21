@@ -19,7 +19,11 @@ import UIKit
 }
 
 // MARK: - CustomKeyboard
+public var CustomKeyboardKeyButtonPopupTag: Int = 101
+
 public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
+  public var keyButtonPopupContainer: UIView?
+
   public var shiftToggleInterval: NSTimeInterval = 0.5
   private var shiftToggleTimer: NSTimer?
   private var shiftCanBeToggled: Bool = false
@@ -185,6 +189,31 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     shiftCanBeToggled = false
   }
 
+  // MARK: Key popup in custom container
+  public func addKeyPopup(forKey key: KeyboardButton) {
+    switch  key.type {
+    case .Key(_):
+      if let container = keyButtonPopupContainer {
+        if container.viewWithTag(CustomKeyboardKeyButtonPopupTag) == nil {
+          let popup = key.createPopup()
+          popup.tag = CustomKeyboardKeyButtonPopupTag
+          popup.frame.origin = key.convertPoint(popup.frame.origin, toView: container)
+          container.addSubview(popup)
+        }
+      }
+    default:
+      return
+    }
+  }
+
+  public func removeKeyPopup() {
+    if let container = keyButtonPopupContainer {
+      if let popup = container.viewWithTag(CustomKeyboardKeyButtonPopupTag) {
+        popup.removeFromSuperview()
+      }
+    }
+  }
+
   // MARK: KeyboardLayoutDelegate
   public func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
     delegate?.customKeyboardButtonPressed?(self, keyboardButton: keyboardButton)
@@ -252,10 +281,20 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   public func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
     invalidateBackspaceAutoDeleteModeTimer()
     invalidateBackspaceDeleteTimer()
+    addKeyPopup(forKey: keyboardButton)
     if keyboardLayout == currentLayout {
       if keyboardButton.identifier == CustomKeyboardIdentifier.Backspace.rawValue {
         startBackspaceAutoDeleteModeTimer()
       }
     }
+  }
+
+  public func keyboardLayoutDidDraggedInButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
+    removeKeyPopup()
+    addKeyPopup(forKey: keyboardButton)
+  }
+
+  public func keyboardLayoutDidEndTouches(keyboardLayout: KeyboardLayout) {
+    removeKeyPopup()
   }
 }

@@ -42,6 +42,7 @@ public struct KeyboardButtonStyle {
   // Text
   public var textColor: UIColor
   public var font: UIFont
+  public var textOffsetY: CGFloat
 
   // Image
   public var imageSize: CGFloat?
@@ -57,13 +58,14 @@ public struct KeyboardButtonStyle {
     borderColor: UIColor = UIColor.clearColor(),
     borderWidth: CGFloat = 0,
     shadowEnabled: Bool = true,
-    shadowColor: UIColor = UIColor.blackColor(),
-    shadowOpacity: Float = 0.4,
+    shadowColor: UIColor = UIColor(red: 138.0/255.0, green: 139.0/255.0, blue: 143.0/255.0, alpha: 1),
+    shadowOpacity: Float = 1,
     shadowOffset: CGSize = CGSize(width: 0, height: 1),
     shadowRadius: CGFloat = 1 / UIScreen.mainScreen().scale,
     shadowPath: UIBezierPath? = nil,
     textColor: UIColor = UIColor.blackColor(),
     font: UIFont = UIFont.systemFontOfSize(20),
+    textOffsetY: CGFloat = 0,
     imageSize: CGFloat? = nil,
     showsPopup: Bool = true,
     popupWidthMultiplier: CGFloat = 1.7,
@@ -80,6 +82,7 @@ public struct KeyboardButtonStyle {
     self.shadowPath = shadowPath
     self.textColor = textColor
     self.font = font
+    self.textOffsetY = textOffsetY
     self.imageSize = imageSize
     self.showsPopup = showsPopup
     self.popupWidthMultiplier = popupWidthMultiplier
@@ -88,6 +91,8 @@ public struct KeyboardButtonStyle {
 }
 
 // MARK: - KeyboardButton
+private let KeyboardButtonPopupViewTag: Int = 101
+
 public class KeyboardButton: UIView {
   public var type: KeyboardButtonType = .Key("")
   public var width: KeyboardButtonWidth = .Dynamic
@@ -111,7 +116,7 @@ public class KeyboardButton: UIView {
     style: KeyboardButtonStyle,
     width: KeyboardButtonWidth = .Dynamic,
     identifier: String? = nil) {
-    
+
     super.init(frame: CGRect.zero)
     self.type = type
     self.style = style
@@ -128,6 +133,8 @@ public class KeyboardButton: UIView {
       textLabel?.font = style.font
       textLabel?.textAlignment = .Center
       textLabel?.translatesAutoresizingMaskIntoConstraints = false
+      textLabel?.adjustsFontSizeToFitWidth = true
+      textLabel?.minimumScaleFactor = 0.5
       addSubview(textLabel!)
     case .Text(let text):
       textLabel = UILabel()
@@ -136,6 +143,8 @@ public class KeyboardButton: UIView {
       textLabel?.font = style.font
       textLabel?.textAlignment = .Center
       textLabel?.translatesAutoresizingMaskIntoConstraints = false
+      textLabel?.adjustsFontSizeToFitWidth = true
+      textLabel?.minimumScaleFactor = 0.5
       addSubview(textLabel!)
     case .Image(let image):
       imageView = UIImageView(image: image)
@@ -172,9 +181,16 @@ public class KeyboardButton: UIView {
     var padding = CGFloat(5)
     textLabel?.frame = CGRect(
       x: padding,
-      y: padding,
+      y: padding + style.textOffsetY,
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
+
+    switch type {
+    case .Key(_):
+      textLabel?.font = textLabel?.font.fontWithSize(min(textLabel!.frame.size.height, textLabel!.frame.size.width) + 1)
+    default:
+      break
+    }
 
     if let imageSize = style.imageSize {
       padding = (min(frame.size.height, frame.size.width) - imageSize) / 2
@@ -187,21 +203,20 @@ public class KeyboardButton: UIView {
       height: frame.size.height - (padding * 2))
   }
 
-  // MARK: Popup
   private func showPopup(show show: Bool) {
     if show {
-      if viewWithTag(101) != nil { return }
+      if viewWithTag(KeyboardButtonPopupViewTag) != nil { return }
       let popup = createPopup()
-      popup.tag = 101
+      popup.tag = KeyboardButtonPopupViewTag
       addSubview(popup)
     } else {
-      if let popup = viewWithTag(101) {
+      if let popup = viewWithTag(KeyboardButtonPopupViewTag) {
         popup.removeFromSuperview()
       }
     }
   }
 
-  private func createPopup() -> UIView {
+  public func createPopup() -> UIView {
     let topCornerRadius = style.cornerRadius * style.popupWidthMultiplier
     let topWidth = frame.size.width * style.popupWidthMultiplier
     let topHeight = frame.size.height * style.popupHeightMultiplier
@@ -223,6 +238,7 @@ public class KeyboardButton: UIView {
     top.addSubview(copyContentIntoView(top))
     // popup
     let popup = UIView()
+    popup.userInteractionEnabled = false
     popup.addSubview(middle)
     popup.addSubview(top)
     return popup
@@ -241,15 +257,27 @@ public class KeyboardButton: UIView {
       let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
       label.text = text
       label.textColor = style.textColor
-      label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
       label.textAlignment = .Center
+      label.adjustsFontSizeToFitWidth = true
+      label.minimumScaleFactor = 0.5
+      if let textLabel = self.textLabel {
+        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.popupWidthMultiplier)
+      } else {
+        label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
+      }
       contentView.addSubview(label)
     case .Text(let text):
       let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
       label.text = text
       label.textColor = style.textColor
-      label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
       label.textAlignment = .Center
+      label.adjustsFontSizeToFitWidth = true
+      label.minimumScaleFactor = 0.5
+      if let textLabel = self.textLabel {
+        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.popupWidthMultiplier)
+      } else {
+        label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
+      }
       contentView.addSubview(label)
     case .Image(let image):
       let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
@@ -257,7 +285,7 @@ public class KeyboardButton: UIView {
       imageView.image = image
       contentView.addSubview(imageView)
     }
-
+    
     return contentView
   }
 }
