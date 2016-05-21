@@ -34,7 +34,7 @@ public struct KeyboardLayoutStyle {
     topPadding: CGFloat = 10,
     bottomPadding: CGFloat = 4,
     rowPadding: CGFloat = 12,
-    rowPaddingLandscape: CGFloat = 8,
+    rowPaddingLandscape: CGFloat = 6,
     backgroundColor: UIColor = UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)) {
     self.topPadding = topPadding
     self.bottomPadding = bottomPadding
@@ -52,7 +52,7 @@ public class KeyboardLayout: UIView {
   public weak var delegate: KeyboardLayoutDelegate?
 
   private var isPortrait: Bool {
-    return frame.size.width <= UIScreen.mainScreen().bounds.size.width
+    return UIScreen.mainScreen().bounds.size.width < UIScreen.mainScreen().bounds.size.height
   }
 
   // MARK: Init
@@ -93,7 +93,7 @@ public class KeyboardLayout: UIView {
   }
 
   private func getRowPadding(forRow row: KeyboardRow) -> CGFloat {
-    return isPortrait ? row.style.bottomPadding ?? style.rowPadding : row.style.bottomPaddingLandscape ?? row.style.bottomPadding ?? style.rowPadding
+    return isPortrait ? row.style.bottomPadding ?? style.rowPadding : row.style.bottomPaddingLandscape ?? row.style.bottomPadding ?? style.rowPaddingLandscape
   }
 
   private func getRowPaddings() -> CGFloat {
@@ -140,9 +140,14 @@ public class KeyboardLayout: UIView {
   }
 
   // MARK: Touch Handling
+  private func getKeyboardButton(atPoint point: CGPoint) -> KeyboardButton? {
+    
+    return nil
+  }
+
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesBegan(touches, withEvent: event)
-    if let touch = touches.first {
+    for touch in touches {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
         for row in rows {
           row.highlightButton(button)
@@ -168,7 +173,7 @@ public class KeyboardLayout: UIView {
     for row in rows {
       row.unhighlightButtons()
     }
-    if let touch = touches.first {
+    for touch in touches {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
         delegate?.keyboardLayoutDidPressButton?(self, keyboardButton: button)
       }

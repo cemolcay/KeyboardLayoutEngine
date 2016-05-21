@@ -21,13 +21,14 @@ public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
   trailingPadding: 22,
   trailingPaddingLandscape: 30)
 
-public var CustomKeyboardThirdRowStyle = KeyboardRowStyle(bottomPadding: 10)
+public var CustomKeyboardThirdRowStyle = KeyboardRowStyle(
+  bottomPadding: 10,
+  bottomPaddingLandscape: 6,
+  buttonsPadding: 15)
 
 public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
-  leadingPadding: 8,
-  leadingPaddingLandscape: 15,
-  trailingPadding: 8,
-  trailingPaddingLandscape: 15)
+  leadingPadding: 0,
+  trailingPadding: 0)
 
 // MARK: - Button Style
 public var CustomKeyboardKeyButtonStyle = KeyboardButtonStyle(showsPopup: true)

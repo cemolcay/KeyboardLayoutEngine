@@ -136,6 +136,8 @@ public class KeyboardButton: UIView {
       textLabel?.font = style.font
       textLabel?.textAlignment = .Center
       textLabel?.translatesAutoresizingMaskIntoConstraints = false
+      textLabel?.adjustsFontSizeToFitWidth = true
+      textLabel?.minimumScaleFactor = 0.5
       addSubview(textLabel!)
     case .Text(let text):
       textLabel = UILabel()
@@ -188,7 +190,7 @@ public class KeyboardButton: UIView {
 
     switch type {
     case .Key(_):
-      textLabel?.font = textLabel?.font.fontWithSize(min(textLabel!.frame.size.height, textLabel!.frame.size.width))
+      textLabel?.font = textLabel?.font.fontWithSize(min(textLabel!.frame.size.height, textLabel!.frame.size.width) + 1)
     default:
       break
     }
@@ -210,7 +212,7 @@ public class KeyboardButton: UIView {
       let containerView = style.popupContainerView ?? self
       let popup = createPopup()
       popup.tag = KeyboardButtonPopupViewTag
-      popup.frame.origin = convertPoint(popup.frame.origin, toView: containerView)
+      popup.frame = convertRect(popup.frame, toView: containerView) // convertPoint(popup.frame.origin, toView: containerView)
       containerView.addSubview(popup)
     } else {
       let containerView = style.popupContainerView ?? self
@@ -248,7 +250,7 @@ public class KeyboardButton: UIView {
   }
 
   private func copyContentIntoView(view: UIView) -> UIView {
-    let padding = CGFloat(2)
+    let padding = CGFloat(5)
     let contentView = UIView(frame: CGRect(
       x: padding,
       y: padding,
@@ -261,8 +263,10 @@ public class KeyboardButton: UIView {
       label.text = text
       label.textColor = style.textColor
       label.textAlignment = .Center
+      label.adjustsFontSizeToFitWidth = true
+      label.minimumScaleFactor = 0.5
       if let textLabel = self.textLabel {
-        label.font = textLabel.font.fontWithSize(label.frame.size.height - 1)
+        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.popupWidthMultiplier)
       } else {
         label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
       }
@@ -272,8 +276,10 @@ public class KeyboardButton: UIView {
       label.text = text
       label.textColor = style.textColor
       label.textAlignment = .Center
+      label.adjustsFontSizeToFitWidth = true
+      label.minimumScaleFactor = 0.5
       if let textLabel = self.textLabel {
-        label.font = textLabel.font.fontWithSize(label.frame.size.height - 1)
+        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.popupWidthMultiplier)
       } else {
         label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
       }
@@ -286,5 +292,15 @@ public class KeyboardButton: UIView {
     }
 
     return contentView
+  }
+
+  public override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    let offset = CGFloat(5)
+    let rect = CGRect(
+      x: bounds.origin.x - offset,
+      y: bounds.origin.y - offset,
+      width: bounds.size.width + (offset * 2),
+      height: bounds.size.height + (offset * 2))
+    return CGRectContainsPoint(rect, point)
   }
 }
