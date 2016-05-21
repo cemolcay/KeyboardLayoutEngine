@@ -51,7 +51,6 @@ public struct KeyboardButtonStyle {
   public var showsPopup: Bool
   public var popupWidthMultiplier: CGFloat
   public var popupHeightMultiplier: CGFloat
-  public var popupContainerView: UIView?
 
   public init(
     backgroundColor: UIColor = UIColor.whiteColor(),
@@ -70,8 +69,7 @@ public struct KeyboardButtonStyle {
     imageSize: CGFloat? = nil,
     showsPopup: Bool = true,
     popupWidthMultiplier: CGFloat = 1.7,
-    popupHeightMultiplier: CGFloat = 1.4,
-    popupContainerView: UIView? = nil) {
+    popupHeightMultiplier: CGFloat = 1.4) {
     self.backgroundColor = backgroundColor
     self.cornerRadius = cornerRadius
     self.borderColor = borderColor
@@ -89,7 +87,6 @@ public struct KeyboardButtonStyle {
     self.showsPopup = showsPopup
     self.popupWidthMultiplier = popupWidthMultiplier
     self.popupHeightMultiplier = popupHeightMultiplier
-    self.popupContainerView = popupContainerView
   }
 }
 
@@ -119,7 +116,7 @@ public class KeyboardButton: UIView {
     style: KeyboardButtonStyle,
     width: KeyboardButtonWidth = .Dynamic,
     identifier: String? = nil) {
-    
+
     super.init(frame: CGRect.zero)
     self.type = type
     self.style = style
@@ -209,20 +206,17 @@ public class KeyboardButton: UIView {
   private func showPopup(show show: Bool) {
     if show {
       if viewWithTag(KeyboardButtonPopupViewTag) != nil { return }
-      let containerView = style.popupContainerView ?? self
       let popup = createPopup()
       popup.tag = KeyboardButtonPopupViewTag
-      popup.frame = convertRect(popup.frame, toView: containerView) // convertPoint(popup.frame.origin, toView: containerView)
-      containerView.addSubview(popup)
+      addSubview(popup)
     } else {
-      let containerView = style.popupContainerView ?? self
-      if let popup = containerView.viewWithTag(KeyboardButtonPopupViewTag) {
+      if let popup = viewWithTag(KeyboardButtonPopupViewTag) {
         popup.removeFromSuperview()
       }
     }
   }
 
-  private func createPopup() -> UIView {
+  public func createPopup() -> UIView {
     let topCornerRadius = style.cornerRadius * style.popupWidthMultiplier
     let topWidth = frame.size.width * style.popupWidthMultiplier
     let topHeight = frame.size.height * style.popupHeightMultiplier
@@ -244,6 +238,7 @@ public class KeyboardButton: UIView {
     top.addSubview(copyContentIntoView(top))
     // popup
     let popup = UIView()
+    popup.userInteractionEnabled = false
     popup.addSubview(middle)
     popup.addSubview(top)
     return popup
@@ -290,17 +285,7 @@ public class KeyboardButton: UIView {
       imageView.image = image
       contentView.addSubview(imageView)
     }
-
+    
     return contentView
-  }
-
-  public override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-    let offset = CGFloat(5)
-    let rect = CGRect(
-      x: bounds.origin.x - offset,
-      y: bounds.origin.y - offset,
-      width: bounds.size.width + (offset * 2),
-      height: bounds.size.height + (offset * 2))
-    return CGRectContainsPoint(rect, point)
   }
 }
