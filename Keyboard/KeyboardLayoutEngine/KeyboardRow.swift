@@ -49,6 +49,7 @@ public class KeyboardRow: UIView {
   public var characters: [AnyObject]!
   /// Managed by KeyboardLayout
   internal var isPortrait: Bool = true
+  public var hitTestEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: -6, left: -6, bottom: -6, right: -6)
 
   // MARK: Init
   public init(style: KeyboardRowStyle, characters: [AnyObject]) {
@@ -162,6 +163,16 @@ public class KeyboardRow: UIView {
       getTrailingPadding()
     let opt = (width - totalPadding) / CGFloat(charactersWithDynamicWidthCount)
     return opt
+  }
+
+  // MARK: Hit Test
+  public override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    if UIEdgeInsetsEqualToEdgeInsets(hitTestEdgeInsets, UIEdgeInsetsZero) {
+      return super.pointInside(point, withEvent: event)
+    }
+
+    let hitFrame = UIEdgeInsetsInsetRect(bounds, hitTestEdgeInsets)
+    return CGRectContainsPoint(hitFrame, point)
   }
 
   // MARK: Button Highlighting
