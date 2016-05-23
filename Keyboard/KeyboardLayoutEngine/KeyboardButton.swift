@@ -101,6 +101,8 @@ public class KeyboardButton: UIView {
   public var textLabel: UILabel?
   public var imageView: UIImageView?
 
+  public var hitTestEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: -6, left: -6, bottom: -6, right: -6)
+
   public var identifier: String?
   public var highlighted: Bool = false {
     didSet {
@@ -287,5 +289,15 @@ public class KeyboardButton: UIView {
     }
     
     return contentView
+  }
+
+  // MARK: Hit Test
+  public override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    if UIEdgeInsetsEqualToEdgeInsets(hitTestEdgeInsets, UIEdgeInsetsZero) {
+      return super.pointInside(point, withEvent: event)
+    }
+
+    let hitFrame = UIEdgeInsetsInsetRect(bounds, hitTestEdgeInsets)
+    return CGRectContainsPoint(hitFrame, point)
   }
 }
