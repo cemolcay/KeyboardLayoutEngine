@@ -34,7 +34,7 @@ Usage
 ----
 
 * Describe your keyboard with custom styles, rows and buttons with either text or image in it.  
-* Checkout the [CustomKeyboardLayout](https://github.com/cemolcay/KeyboardLayoutEngine/blob/master/Keyboard/CustomKeyboard/CustomKeyboardLayout.swift) for detailed usage.
+* Checkout the [CustomKeyboardLayout](https://github.com/cemolcay/KeyboardLayoutEngine/blob/master/Keyboard/DefaultKeyboard/CustomKeyboardLayout.swift) for detailed usage.
 
 ``` swift
 let keyboardLayout = KeyboardLayout(
