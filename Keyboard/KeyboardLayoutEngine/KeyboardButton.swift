@@ -64,7 +64,7 @@ public struct KeyboardButtonStyle {
     shadowRadius: CGFloat = 1 / UIScreen.mainScreen().scale,
     shadowPath: UIBezierPath? = nil,
     textColor: UIColor = UIColor.blackColor(),
-    font: UIFont = UIFont.systemFontOfSize(18),
+    font: UIFont = UIFont.systemFontOfSize(21),
     textOffsetY: CGFloat = 0,
     imageSize: CGFloat? = nil,
     showsPopup: Bool = true,
