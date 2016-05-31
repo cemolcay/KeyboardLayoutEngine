@@ -18,6 +18,7 @@ public struct KeyboardRowStyle {
   public var bottomPaddingLandscape: CGFloat?
   public var buttonsPadding: CGFloat
   public var buttonsPaddingLandscape: CGFloat?
+  public var buttonHitTestEdgeInsests: UIEdgeInsets
 
   public init(
     leadingPadding: CGFloat = 3,
@@ -29,7 +30,8 @@ public struct KeyboardRowStyle {
     bottomPadding: CGFloat? = nil,
     bottomPaddingLandscape: CGFloat? = nil,
     buttonsPadding: CGFloat = 6,
-    buttonsPaddingLandscape: CGFloat? = nil) {
+    buttonsPaddingLandscape: CGFloat? = nil,
+    buttonHitTestEdgeInsests: UIEdgeInsets = UIEdgeInsets(top: -6, left: -6, bottom: -6, right: -6)) {
 
     self.leadingPadding = leadingPadding
     self.leadingPaddingLandscape = leadingPaddingLandscape
@@ -39,6 +41,7 @@ public struct KeyboardRowStyle {
     self.bottomPaddingLandscape = bottomPaddingLandscape
     self.buttonsPadding = buttonsPadding
     self.buttonsPaddingLandscape = buttonsPaddingLandscape
+    self.buttonHitTestEdgeInsests = buttonHitTestEdgeInsests
   }
 }
 
@@ -49,7 +52,6 @@ public class KeyboardRow: UIView {
   public var characters: [AnyObject]!
   /// Managed by KeyboardLayout
   internal var isPortrait: Bool = true
-  public var hitTestEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: -6, left: -6, bottom: -6, right: -6)
 
   // MARK: Init
   public init(style: KeyboardRowStyle, characters: [AnyObject]) {
@@ -167,11 +169,11 @@ public class KeyboardRow: UIView {
 
   // MARK: Hit Test
   public override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-    if UIEdgeInsetsEqualToEdgeInsets(hitTestEdgeInsets, UIEdgeInsetsZero) {
+    if UIEdgeInsetsEqualToEdgeInsets(style.buttonHitTestEdgeInsests, UIEdgeInsetsZero) {
       return super.pointInside(point, withEvent: event)
     }
 
-    let hitFrame = UIEdgeInsetsInsetRect(bounds, hitTestEdgeInsets)
+    let hitFrame = UIEdgeInsetsInsetRect(bounds, style.buttonHitTestEdgeInsests)
     return CGRectContainsPoint(hitFrame, point)
   }
 
