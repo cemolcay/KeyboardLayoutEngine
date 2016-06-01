@@ -64,7 +64,7 @@ public struct KeyboardButtonStyle {
     shadowRadius: CGFloat = 1 / UIScreen.mainScreen().scale,
     shadowPath: UIBezierPath? = nil,
     textColor: UIColor = UIColor.blackColor(),
-    font: UIFont = UIFont.systemFontOfSize(20),
+    font: UIFont = UIFont.systemFontOfSize(21),
     textOffsetY: CGFloat = 0,
     imageSize: CGFloat? = nil,
     showsPopup: Bool = true,
@@ -91,7 +91,7 @@ public struct KeyboardButtonStyle {
 }
 
 // MARK: - KeyboardButton
-private let KeyboardButtonPopupViewTag: Int = 101
+public var KeyboardButtonPopupViewTag: Int = 101
 
 public class KeyboardButton: UIView {
   public var type: KeyboardButtonType = .Key("")
@@ -186,13 +186,6 @@ public class KeyboardButton: UIView {
       y: padding + style.textOffsetY,
       width: frame.size.width - (padding * 2),
       height: frame.size.height - (padding * 2))
-
-    switch type {
-    case .Key(_):
-      textLabel?.font = textLabel?.font.fontWithSize(min(textLabel!.frame.size.height, textLabel!.frame.size.width) + 1)
-    default:
-      break
-    }
 
     if let imageSize = style.imageSize {
       padding = (min(frame.size.height, frame.size.width) - imageSize) / 2

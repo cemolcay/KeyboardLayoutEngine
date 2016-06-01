@@ -142,11 +142,6 @@ public class KeyboardLayout: UIView {
   }
 
   // MARK: Touch Handling
-  private func getKeyboardButton(atPoint point: CGPoint) -> KeyboardButton? {
-    
-    return nil
-  }
-
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesBegan(touches, withEvent: event)
     for touch in touches {
