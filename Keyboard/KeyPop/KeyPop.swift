@@ -9,6 +9,13 @@
 import UIKit
 import Shadow
 
+// MARK: - KeyPopType
+public enum KeyPopType {
+  case Default
+  case Left
+  case Right
+}
+
 // MARK: - KeyPopStyle
 public struct KeyPopStyle {
   public var backgroundColor: UIColor
@@ -29,8 +36,8 @@ public struct KeyPopStyle {
     textColor: UIColor? = nil,
     contentInset: CGSize? = nil,
     contentOffset: CGSize? = nil) {
-    self.backgroundColor = backgroundColor ?? UIColor.grayColor()
-    self.shadow = shadow
+    self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
+    self.shadow = shadow ?? nil
     self.widthMultiplier = widthMultiplier ?? 1.2
     self.heightMultiplier = heightMultiplier ?? 1.2
     self.font = font ?? UIFont.systemFontOfSize(15)
@@ -42,18 +49,19 @@ public struct KeyPopStyle {
 
 // MARK: - KeyPop
 public class KeyPop: UIView {
+  public var type: KeyPopType = .Default
   public var style: KeyPopStyle = KeyPopStyle()
   private(set) var keyboardButton: KeyboardButton?
   private(set) var contentView: UIView?
 
   // MARK: Init
-  public init(style: KeyPopStyle = KeyPopStyle(), referenceButton: KeyboardButton) {
+  public init(referenceButton keyboardButton: KeyboardButton, style: KeyPopStyle = KeyPopStyle()) {
     super.init(frame: CGRect.zero)
     self.style = style
-    self.keyboardButton = referenceButton
+    self.keyboardButton = keyboardButton
     userInteractionEnabled = false
 
-    switch referenceButton.type {
+    switch keyboardButton.type {
     case .Key(let text):
       let label = UILabel()
       label.text = text
@@ -61,7 +69,7 @@ public class KeyPop: UIView {
       label.textAlignment = .Center
       label.adjustsFontSizeToFitWidth = true
       label.minimumScaleFactor = 0.5
-      if let textLabel = referenceButton.textLabel {
+      if let textLabel = keyboardButton.textLabel {
         label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.widthMultiplier)
       } else {
         label.font = style.font.fontWithSize(style.font.pointSize * style.widthMultiplier)
@@ -75,7 +83,7 @@ public class KeyPop: UIView {
       label.textAlignment = .Center
       label.adjustsFontSizeToFitWidth = true
       label.minimumScaleFactor = 0.5
-      if let textLabel = referenceButton.textLabel {
+      if let textLabel = keyboardButton.textLabel {
         label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.widthMultiplier)
       } else {
         label.font = style.font.fontWithSize(style.font.pointSize * style.widthMultiplier)

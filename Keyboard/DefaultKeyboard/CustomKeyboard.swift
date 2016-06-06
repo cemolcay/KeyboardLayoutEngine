@@ -34,6 +34,8 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   private var backspaceDeleteTimer: NSTimer?
   private var backspaceAutoDeleteModeTimer: NSTimer?
 
+  private var isKeyMenuIsOpen: Bool = false
+
   public var uppercaseToggledLayout: KeyboardLayout! {
     didSet {
       layoutDidChange(
@@ -189,9 +191,21 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     shiftCanBeToggled = false
   }
 
-  // MARK: Key popup in custom container
-  public func addKeyPopup(forKey key: KeyboardButton) {
-    switch  key.type {
+  // MARK: KeyMenu
+  public func addKeyMenu(forKey key: KeyboardButton) {
+    if let container = keyButtonPopupContainer {
+      if container.viewWithTag(CustomKeyboardKeyButtonPopupTag) == nil {
+        let popup = key.createMenu()
+        popup.tag = CustomKeyboardKeyButtonPopupTag
+        popup.frame.origin = key.convertPoint(popup.frame.origin, toView: container)
+        container.addSubview(popup)
+      }
+    }
+  }
+
+  // MARK: KeyPop
+  public func addKeyPop(forKey key: KeyboardButton) {
+    switch key.type {
     case .Key(_):
       if let container = keyButtonPopupContainer {
         if container.viewWithTag(CustomKeyboardKeyButtonPopupTag) == nil {
@@ -206,7 +220,8 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     }
   }
 
-  public func removeKeyPopup() {
+  /// Removes either KeyPop or KeyMenu whichever is visible
+  public func removeKeyPop() {
     if let container = keyButtonPopupContainer {
       if let popup = container.viewWithTag(CustomKeyboardKeyButtonPopupTag) {
         popup.removeFromSuperview()
@@ -281,7 +296,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   public func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
     invalidateBackspaceAutoDeleteModeTimer()
     invalidateBackspaceDeleteTimer()
-    addKeyPopup(forKey: keyboardButton)
+    addKeyPop(forKey: keyboardButton)
     if keyboardLayout == currentLayout {
       if keyboardButton.identifier == CustomKeyboardIdentifier.Backspace.rawValue {
         startBackspaceAutoDeleteModeTimer()
@@ -290,11 +305,11 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   public func keyboardLayoutDidDraggedInButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
-    removeKeyPopup()
-    addKeyPopup(forKey: keyboardButton)
+    removeKeyPop()
+    addKeyPop(forKey: keyboardButton)
   }
 
   public func keyboardLayoutDidEndTouches(keyboardLayout: KeyboardLayout) {
-    removeKeyPopup()
+    removeKeyPop()
   }
 }

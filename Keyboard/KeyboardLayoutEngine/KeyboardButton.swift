@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ManualLayout
 
 // MARK: - KeyboardButtonType
 public enum KeyboardButtonType {
@@ -48,7 +49,7 @@ public struct KeyboardButtonStyle {
   public var imageSize: CGFloat?
 
   // Popup
-  public var showsPopup: Bool
+  public var popupType: KeyPopType?
   public var popupWidthMultiplier: CGFloat
   public var popupHeightMultiplier: CGFloat
 
@@ -67,7 +68,7 @@ public struct KeyboardButtonStyle {
     font: UIFont = UIFont.systemFontOfSize(21),
     textOffsetY: CGFloat = 0,
     imageSize: CGFloat? = nil,
-    showsPopup: Bool = true,
+    popupType: KeyPopType? = nil,
     popupWidthMultiplier: CGFloat = 1.7,
     popupHeightMultiplier: CGFloat = 1.4) {
     self.backgroundColor = backgroundColor
@@ -84,7 +85,7 @@ public struct KeyboardButtonStyle {
     self.font = font
     self.textOffsetY = textOffsetY
     self.imageSize = imageSize
-    self.showsPopup = showsPopup
+    self.popupType = popupType
     self.popupWidthMultiplier = popupWidthMultiplier
     self.popupHeightMultiplier = popupHeightMultiplier
   }
@@ -96,7 +97,7 @@ public var KeyboardButtonMenuViewTag: Int = 102
 
 public class KeyboardButton: UIView {
   public var type: KeyboardButtonType = .Key("")
-  public var width: KeyboardButtonWidth = .Dynamic
+  public var widthInRow: KeyboardButtonWidth = .Dynamic
   public var style: KeyboardButtonStyle!
   public var menu: KeyMenu?
 
@@ -108,7 +109,7 @@ public class KeyboardButton: UIView {
   public var identifier: String?
   public var highlighted: Bool = false {
     didSet {
-      if style.showsPopup {
+      if style.popupType != nil {
         showPopup(show: highlighted)
       } else if menu != nil {
         showMenu(show: highlighted)
@@ -127,7 +128,7 @@ public class KeyboardButton: UIView {
     super.init(frame: CGRect.zero)
     self.type = type
     self.style = style
-    self.width = width
+    self.widthInRow = width
     self.identifier = identifier
     userInteractionEnabled = true
     setupAppearance()
@@ -203,6 +204,7 @@ public class KeyboardButton: UIView {
       height: frame.size.height - (padding * 2))
   }
 
+  // MARK: KeyPop
   private func showPopup(show show: Bool) {
     if show {
       if viewWithTag(KeyboardButtonPopupViewTag) != nil { return }
@@ -216,6 +218,70 @@ public class KeyboardButton: UIView {
     }
   }
 
+  public func createPopup() -> UIView {
+    let padding = CGFloat(5)
+    let popStyle = KeyPopStyle(
+      widthMultiplier: style.popupWidthMultiplier,
+      heightMultiplier: style.popupHeightMultiplier)
+    let content = KeyPop(referenceButton: self, style: popStyle)
+    let contentWidth = frame.size.width * content.style.widthMultiplier
+
+    var contentX = CGFloat(0)
+    var contentRoundCorners = UIRectCorner.AllCorners
+    switch style.popupType! {
+    case .Default:
+      contentX = (contentWidth - width) / -2.0
+    case .Right:
+      contentX = width - contentWidth
+      contentRoundCorners = [.TopLeft, .TopRight, .BottomLeft]
+    case .Left:
+      contentX = 0
+      contentRoundCorners = [.TopLeft, .TopRight, .BottomRight]
+    }
+
+    content.frame = CGRect(
+      x: contentX,
+      y: 0,
+      width: contentWidth,
+      height: frame.size.height * content.style.heightMultiplier)
+    content.bottom = -padding
+
+    let bottomRect = CGRect(
+      x: 0,
+      y: -padding - 1, // a little hack for filling the gap
+      width: width,
+      height: height + padding)
+
+    let path = UIBezierPath(
+      roundedRect: content.frame,
+      byRoundingCorners: contentRoundCorners,
+      cornerRadii: CGSize(
+        width: style.cornerRadius * style.popupWidthMultiplier,
+        height: style.cornerRadius * style.popupHeightMultiplier))
+    path.appendPath(UIBezierPath(
+      roundedRect: bottomRect,
+      byRoundingCorners: [.BottomLeft, .BottomRight],
+      cornerRadii: CGSize(
+        width: style.cornerRadius,
+        height: style.cornerRadius)))
+
+    let mask = CAShapeLayer()
+    mask.path = path.CGPath
+    mask.fillColor = popStyle.backgroundColor.CGColor
+    mask.applyShadow(shadow: popStyle.shadow)
+
+    let popup = UIView(
+      frame: CGRect(
+        x: 0,
+        y: 0,
+        width: content.width,
+        height: content.height + padding + frame.size.height))
+    popup.addSubview(content)
+    popup.layer.insertSublayer(mask, atIndex: 0)
+    return popup
+  }
+
+  // MARK: KeyMenu
   private func showMenu(show show: Bool) {
     if show {
       if viewWithTag(KeyboardButtonMenuViewTag) != nil { return }
@@ -229,22 +295,8 @@ public class KeyboardButton: UIView {
     }
   }
 
-  private func createMenu() -> UIView {
-    return maskPopup(menu ?? UIView())
-  }
-
-  private func createPopup() -> UIView {
-    let popup = KeyPop(referenceButton: self)
-    popup.frame = CGRect(
-      x: 0,
-      y: 0,
-      width: frame.size.width * popup.style.widthMultiplier,
-      height: frame.size.height * popup.style.heightMultiplier)
-    return maskPopup(popup)
-  }
-
-  private func maskPopup(popup: UIView) -> UIView {
-    return popup
+  public func createMenu() -> UIView {
+    return UIView()
   }
 
   // MARK: Hit Test

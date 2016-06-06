@@ -31,37 +31,33 @@ public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
   trailingPadding: 0)
 
 // MARK: - Button Style
-public var CustomKeyboardKeyButtonStyle = KeyboardButtonStyle(showsPopup: true)
-public var CustomKeyboardLowercaseKeyButtonStyle = KeyboardButtonStyle(showsPopup: true, textOffsetY: -2)
-
-public var CustomKeyboardSpaceButtonStyle = KeyboardButtonStyle(
-  font: UIFont.systemFontOfSize(15),
-  showsPopup: false)
+public var CustomKeyboardKeyButtonStyle = KeyboardButtonStyle(popupType: .Default)
+public var CustomKeyboardLeftKeyButtonStyle = KeyboardButtonStyle(popupType: .Left)
+public var CustomKeyboardRightKeyButtonStyle = KeyboardButtonStyle(popupType: .Right)
+public var CustomKeyboardLowercaseKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, popupType: .Default)
+public var CustomKeyboardLowercaseLeftKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, popupType: .Left)
+public var CustomKeyboardLowercaseRightKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, popupType: .Right)
+public var CustomKeyboardSpaceButtonStyle = KeyboardButtonStyle(font: UIFont.systemFontOfSize(15))
 
 public var CustomKeyboardBackspaceButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
-  imageSize: 20,
-  showsPopup: false)
+  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+  imageSize: 20)
 
 public var CustomKeyboardShiftButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
-  imageSize: 20,
-  showsPopup: false)
+  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+  imageSize: 20)
 
 public var CustomKeyboardGlobeButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
-  imageSize: 20,
-  showsPopup: false)
+  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+  imageSize: 20)
 
 public var CustomKeyboardReturnButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 201.0/255.0, alpha: 1),
-  font: UIFont.systemFontOfSize(15),
-  showsPopup: false)
+  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+  font: UIFont.systemFontOfSize(15))
 
 public var CustomKeyboardNumbersButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 180.0/255.0, green: 188.0/255.0, blue: 201.0/255.0, alpha: 1),
-  font: UIFont.systemFontOfSize(15),
-  showsPopup: false)
+  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+  font: UIFont.systemFontOfSize(15))
 
 // MARK: - Identifier
 public enum CustomKeyboardIdentifier: String {
@@ -107,7 +103,7 @@ public enum CustomKeyboardLayout {
         KeyboardRow(
           style: CustomKeyboardRowStyle,
           characters: [
-            KeyboardButton(type: .Key("Q"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("Q"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("W"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("E"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("R"), style: CustomKeyboardKeyButtonStyle),
@@ -116,7 +112,7 @@ public enum CustomKeyboardLayout {
             KeyboardButton(type: .Key("U"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("I"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("O"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("P"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("P"), style: CustomKeyboardRightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
@@ -195,7 +191,7 @@ public enum CustomKeyboardLayout {
         KeyboardRow(
           style: CustomKeyboardRowStyle,
           characters: [
-            KeyboardButton(type: .Key("q"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("q"), style: CustomKeyboardLowercaseLeftKeyButtonStyle),
             KeyboardButton(type: .Key("w"), style: CustomKeyboardLowercaseKeyButtonStyle),
             KeyboardButton(type: .Key("e"), style: CustomKeyboardLowercaseKeyButtonStyle),
             KeyboardButton(type: .Key("r"), style: CustomKeyboardLowercaseKeyButtonStyle),
@@ -204,7 +200,7 @@ public enum CustomKeyboardLayout {
             KeyboardButton(type: .Key("u"), style: CustomKeyboardLowercaseKeyButtonStyle),
             KeyboardButton(type: .Key("i"), style: CustomKeyboardLowercaseKeyButtonStyle),
             KeyboardButton(type: .Key("o"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("p"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("p"), style: CustomKeyboardLowercaseRightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
@@ -283,7 +279,7 @@ public enum CustomKeyboardLayout {
         KeyboardRow(
           style: CustomKeyboardRowStyle,
           characters: [
-            KeyboardButton(type: .Key("1"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("1"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("2"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("3"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("4"), style: CustomKeyboardKeyButtonStyle),
@@ -292,13 +288,13 @@ public enum CustomKeyboardLayout {
             KeyboardButton(type: .Key("7"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("8"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("9"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("0"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("0"), style: CustomKeyboardRightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
           style: CustomKeyboardRowStyle,
           characters: [
-            KeyboardButton(type: .Key("-"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("-"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("/"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key(":"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key(";"), style: CustomKeyboardKeyButtonStyle),
@@ -307,7 +303,7 @@ public enum CustomKeyboardLayout {
             KeyboardButton(type: .Key("$"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("&"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("@"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("\""), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("\""), style: CustomKeyboardRightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
@@ -370,7 +366,7 @@ public enum CustomKeyboardLayout {
         KeyboardRow(
           style: CustomKeyboardRowStyle,
           characters: [
-            KeyboardButton(type: .Key("["), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("["), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("]"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("{"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("}"), style: CustomKeyboardKeyButtonStyle),
@@ -379,13 +375,13 @@ public enum CustomKeyboardLayout {
             KeyboardButton(type: .Key("^"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("*"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("+"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("="), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("="), style: CustomKeyboardRightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
           style: CustomKeyboardRowStyle,
           characters: [
-            KeyboardButton(type: .Key("_"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("_"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("\\"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("|"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("~"), style: CustomKeyboardKeyButtonStyle),
@@ -394,7 +390,7 @@ public enum CustomKeyboardLayout {
             KeyboardButton(type: .Key("€"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("£"), style: CustomKeyboardKeyButtonStyle),
             KeyboardButton(type: .Key("¥"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("•"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("•"), style: CustomKeyboardRightKeyButtonStyle),
           ]
         ),
         KeyboardRow(

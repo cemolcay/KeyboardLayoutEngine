@@ -124,7 +124,7 @@ public class KeyboardRow: UIView {
   }
 
   private func getWidthForKeyboardButton(button: KeyboardButton) -> CGFloat {
-    switch button.width {
+    switch button.widthInRow {
     case .Dynamic:
       return getOptimumButtonWidth()
     case .Static(let width):
@@ -141,7 +141,7 @@ public class KeyboardRow: UIView {
 
     for character in characters {
       if let button = character as? KeyboardButton {
-        switch button.width {
+        switch button.widthInRow {
         case .Dynamic:
           charactersWithDynamicWidthCount += 1
         case .Static(let width):

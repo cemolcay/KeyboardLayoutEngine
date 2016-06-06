@@ -389,5 +389,6 @@ optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboa
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.dependency "Shadow"
+  s.dependency "ManualLayout"
 
 end
