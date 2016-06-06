@@ -1,0 +1,6 @@
+framework module Shadow {
+  umbrella header "Shadow-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,10 @@
+PODS:
+  - Shadow (0.0.1)
+
+DEPENDENCIES:
+  - Shadow
+
+SPEC CHECKSUMS:
+  Shadow: 91f6f948a7a9322b4590a9ed810cb98da7d1419c
+
+COCOAPODS: 0.39.0
