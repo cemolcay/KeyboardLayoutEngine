@@ -7,15 +7,101 @@
 //
 
 import UIKit
+import Shadow
 
-class KeyPop: UIView {
+// MARK: - KeyPopStyle
+public struct KeyPopStyle {
+  public var backgroundColor: UIColor
+  public var shadow: Shadow?
+  public var widthMultiplier: CGFloat
+  public var heightMultiplier: CGFloat
+  public var font: UIFont
+  public var textColor: UIColor
+  public var contentInset: CGSize
+  public var contentOffset: CGSize
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+  public init(
+    backgroundColor: UIColor? = nil,
+    shadow: Shadow? = nil,
+    widthMultiplier: CGFloat? = nil,
+    heightMultiplier: CGFloat? = nil,
+    font: UIFont? = nil,
+    textColor: UIColor? = nil,
+    contentInset: CGSize? = nil,
+    contentOffset: CGSize? = nil) {
+    self.backgroundColor = backgroundColor ?? UIColor.grayColor()
+    self.shadow = shadow
+    self.widthMultiplier = widthMultiplier ?? 1.2
+    self.heightMultiplier = heightMultiplier ?? 1.2
+    self.font = font ?? UIFont.systemFontOfSize(15)
+    self.textColor = textColor ?? UIColor.blackColor()
+    self.contentInset = contentInset ?? CGSize(width: 5, height: 5)
+    self.contentOffset = contentOffset ?? CGSize.zero
+  }
+}
+
+// MARK: - KeyPop
+public class KeyPop: UIView {
+  public var style: KeyPopStyle = KeyPopStyle()
+  private(set) var keyboardButton: KeyboardButton?
+  private(set) var contentView: UIView?
+
+  // MARK: Init
+  public init(style: KeyPopStyle = KeyPopStyle(), referenceButton: KeyboardButton) {
+    super.init(frame: CGRect.zero)
+    self.style = style
+    self.keyboardButton = referenceButton
+    userInteractionEnabled = false
+
+    switch referenceButton.type {
+    case .Key(let text):
+      let label = UILabel()
+      label.text = text
+      label.textColor = style.textColor
+      label.textAlignment = .Center
+      label.adjustsFontSizeToFitWidth = true
+      label.minimumScaleFactor = 0.5
+      if let textLabel = referenceButton.textLabel {
+        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.widthMultiplier)
+      } else {
+        label.font = style.font.fontWithSize(style.font.pointSize * style.widthMultiplier)
+      }
+      addSubview(label)
+      contentView = label
+    case .Text(let text):
+      let label = UILabel()
+      label.text = text
+      label.textColor = style.textColor
+      label.textAlignment = .Center
+      label.adjustsFontSizeToFitWidth = true
+      label.minimumScaleFactor = 0.5
+      if let textLabel = referenceButton.textLabel {
+        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.widthMultiplier)
+      } else {
+        label.font = style.font.fontWithSize(style.font.pointSize * style.widthMultiplier)
+      }
+      contentView = label
+      addSubview(label)
+    case .Image(let image):
+      let imageView = UIImageView()
+      imageView.contentMode = .ScaleAspectFit
+      imageView.image = image
+      contentView = imageView
+      addSubview(imageView)
     }
-    */
+  }
 
+  required public init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+
+  // MARK: Layout
+  public override func layoutSubviews() {
+    super.layoutSubviews()
+    contentView?.frame = CGRect(
+      x: style.contentInset.width + style.contentOffset.width,
+      y: style.contentInset.height + style.contentOffset.height,
+      width: frame.size.width - (style.contentInset.width * 2),
+      height: frame.size.height - (style.contentInset.height * 2))
+  }
 }

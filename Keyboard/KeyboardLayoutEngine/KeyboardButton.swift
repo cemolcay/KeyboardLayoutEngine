@@ -92,11 +92,13 @@ public struct KeyboardButtonStyle {
 
 // MARK: - KeyboardButton
 public var KeyboardButtonPopupViewTag: Int = 101
+public var KeyboardButtonMenuViewTag: Int = 102
 
 public class KeyboardButton: UIView {
   public var type: KeyboardButtonType = .Key("")
   public var width: KeyboardButtonWidth = .Dynamic
   public var style: KeyboardButtonStyle!
+  public var menu: KeyMenu?
 
   public var textLabel: UILabel?
   public var imageView: UIImageView?
@@ -108,6 +110,8 @@ public class KeyboardButton: UIView {
     didSet {
       if style.showsPopup {
         showPopup(show: highlighted)
+      } else if menu != nil {
+        showMenu(show: highlighted)
       }
     }
   }
@@ -117,6 +121,7 @@ public class KeyboardButton: UIView {
     type: KeyboardButtonType,
     style: KeyboardButtonStyle,
     width: KeyboardButtonWidth = .Dynamic,
+    menu: KeyMenu? = nil,
     identifier: String? = nil) {
 
     super.init(frame: CGRect.zero)
@@ -211,77 +216,35 @@ public class KeyboardButton: UIView {
     }
   }
 
-  public func createPopup() -> UIView {
-    let topCornerRadius = style.cornerRadius * style.popupWidthMultiplier
-    let topWidth = frame.size.width * style.popupWidthMultiplier
-    let topHeight = frame.size.height * style.popupHeightMultiplier
-    let middleWidth = frame.size.width
-    let middleHeight = CGFloat(3) + style.cornerRadius
-    // middle
-    let middle = UIView(frame: CGRect(x: 0, y: -middleHeight + (style.cornerRadius / 2) + 1, width: middleWidth, height: middleHeight))
-    middle.backgroundColor = style.backgroundColor
-    middle.center.x = frame.size.width / 2
-    // top
-    let top = UIView(frame: CGRect(
-      x: 0,
-      y: middle.frame.origin.y - topHeight,
-      width: topWidth,
-      height: topHeight))
-    top.backgroundColor = style.backgroundColor
-    top.layer.cornerRadius = topCornerRadius
-    top.center.x = frame.size.width / 2
-    top.addSubview(copyContentIntoView(top))
-    // popup
-    let popup = UIView()
-    popup.userInteractionEnabled = false
-    popup.addSubview(middle)
-    popup.addSubview(top)
-    return popup
+  private func showMenu(show show: Bool) {
+    if show {
+      if viewWithTag(KeyboardButtonMenuViewTag) != nil { return }
+      let menu = createMenu()
+      menu.tag = KeyboardButtonMenuViewTag
+      addSubview(menu)
+    } else {
+      if let menu = viewWithTag(KeyboardButtonMenuViewTag) {
+        menu.removeFromSuperview()
+      }
+    }
   }
 
-  private func copyContentIntoView(view: UIView) -> UIView {
-    let padding = CGFloat(5)
-    let contentView = UIView(frame: CGRect(
-      x: padding,
-      y: padding,
-      width: view.frame.size.width - (padding * 2),
-      height: view.frame.size.height - (padding * 2)))
+  private func createMenu() -> UIView {
+    return maskPopup(menu ?? UIView())
+  }
 
-    switch type {
-    case .Key(let text):
-      let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
-      label.text = text
-      label.textColor = style.textColor
-      label.textAlignment = .Center
-      label.adjustsFontSizeToFitWidth = true
-      label.minimumScaleFactor = 0.5
-      if let textLabel = self.textLabel {
-        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.popupWidthMultiplier)
-      } else {
-        label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
-      }
-      contentView.addSubview(label)
-    case .Text(let text):
-      let label = UILabel(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
-      label.text = text
-      label.textColor = style.textColor
-      label.textAlignment = .Center
-      label.adjustsFontSizeToFitWidth = true
-      label.minimumScaleFactor = 0.5
-      if let textLabel = self.textLabel {
-        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.popupWidthMultiplier)
-      } else {
-        label.font = style.font.fontWithSize(style.font.pointSize * style.popupWidthMultiplier)
-      }
-      contentView.addSubview(label)
-    case .Image(let image):
-      let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width, height: contentView.frame.size.height))
-      imageView.contentMode = .ScaleAspectFit
-      imageView.image = image
-      contentView.addSubview(imageView)
-    }
-    
-    return contentView
+  private func createPopup() -> UIView {
+    let popup = KeyPop(referenceButton: self)
+    popup.frame = CGRect(
+      x: 0,
+      y: 0,
+      width: frame.size.width * popup.style.widthMultiplier,
+      height: frame.size.height * popup.style.heightMultiplier)
+    return maskPopup(popup)
+  }
+
+  private func maskPopup(popup: UIView) -> UIView {
+    return popup
   }
 
   // MARK: Hit Test

@@ -178,7 +178,12 @@ public class KeyMenu: UIView {
       case items.count - 1:
         item.highlighted = isBelowMenu
       default:
-        item.highlighted = CGRectContainsPoint(view.convertRect(item.frame, fromView: self), location)
+        let rect = CGRect(
+          x: item.frame.origin.x,
+          y: item.frame.origin.y,
+          width: item.frame.size.width,
+          height: item.frame.size.height)
+        item.highlighted = CGRectContainsPoint(view.convertRect(rect, fromView: self), location)
       }
     }
   }
