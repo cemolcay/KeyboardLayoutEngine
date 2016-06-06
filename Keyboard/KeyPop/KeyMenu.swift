@@ -32,10 +32,6 @@ public struct KeyMenuStyle {
   public var horizontalMenuLeftPadding: CGFloat
   public var horizontalMenuRightPadding: CGFloat
 
-  // MARK: Separator
-  public var verticalMenuSeparatorColor: UIColor
-  public var verticalMenuSeparatorWidth: CGFloat
-
   // MARK: Init
   init(
     shadow: Shadow? = nil,
@@ -44,18 +40,14 @@ public struct KeyMenuStyle {
     itemSize: CGSize? = nil,
     horizontalMenuItemPadding: CGFloat? = nil,
     horizontalMenuLeftPadding: CGFloat? = nil,
-    horizontalMenuRightPadding: CGFloat? = nil,
-    verticalMenuSeparatorColor: UIColor? = nil,
-    verticalMenuSeparatorWidth: CGFloat? = nil) {
+    horizontalMenuRightPadding: CGFloat? = nil) {
     self.shadow = shadow
-    self.backgroundColor = backgroundColor ?? UIColor.grayColor()
+    self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
     self.itemStyle = itemStyle ?? KeyMenuItemStyle()
     self.itemSize = itemSize ?? CGSize(width: 40, height: 40)
     self.horizontalMenuItemPadding = horizontalMenuItemPadding ?? 5
     self.horizontalMenuLeftPadding = horizontalMenuLeftPadding ?? 5
     self.horizontalMenuRightPadding = horizontalMenuRightPadding ?? 5
-    self.verticalMenuSeparatorColor = verticalMenuSeparatorColor ?? UIColor.blackColor()
-    self.verticalMenuSeparatorWidth = verticalMenuSeparatorWidth ?? 1
   }
 }
 
@@ -134,23 +126,16 @@ public class KeyMenu: UIView {
       height: CGFloat(items.count) * style.itemSize.height)
 
     var currentY = CGFloat(0)
-    for item in items {
-      // Menu Item
+    for (index, item) in items.enumerate() {
+      if index == items.count - 1 {
+        item.separator = nil
+      }
       item.frame = CGRect(
         x: 0,
         y: currentY,
         width: style.itemSize.width,
-        height: style.itemSize.height + style.verticalMenuSeparatorWidth)
+        height: style.itemSize.height)
       currentY += item.frame.size.height
-      // Separator
-      let seperatorLayer = CALayer()
-      seperatorLayer.frame = CGRect(
-        x: 0,
-        y: style.itemSize.height,
-        width: style.itemSize.width,
-        height: style.verticalMenuSeparatorWidth)
-      seperatorLayer.backgroundColor = style.verticalMenuSeparatorColor.CGColor
-      item.layer.addSublayer(seperatorLayer)
     }
   }
 

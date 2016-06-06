@@ -321,7 +321,7 @@ public enum CustomKeyboardLayout {
                 KeyboardButton(type: .Key(","), style: CustomKeyboardKeyButtonStyle),
                 KeyboardButton(type: .Key("?"), style: CustomKeyboardKeyButtonStyle),
                 KeyboardButton(type: .Key("!"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key(","), style: CustomKeyboardKeyButtonStyle),
+                KeyboardButton(type: .Key("'"), style: CustomKeyboardKeyButtonStyle),
               ]
             ),
             KeyboardButton(
@@ -408,7 +408,7 @@ public enum CustomKeyboardLayout {
                 KeyboardButton(type: .Key(","), style: CustomKeyboardKeyButtonStyle),
                 KeyboardButton(type: .Key("?"), style: CustomKeyboardKeyButtonStyle),
                 KeyboardButton(type: .Key("!"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key(","), style: CustomKeyboardKeyButtonStyle),
+                KeyboardButton(type: .Key("'"), style: CustomKeyboardKeyButtonStyle),
               ]
             ),
             KeyboardButton(

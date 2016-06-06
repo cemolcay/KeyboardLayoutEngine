@@ -347,7 +347,7 @@ optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboa
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Keyboard/KeyboardLayoutEngine/*.swift", "Keyboard/DefaultKeyboard/*.swift"
+  s.source_files  = "Keyboard/KeyboardLayoutEngine/*.swift", "Keyboard/DefaultKeyboard/*.swift", "Keyboard/KeyPop/*.swift"
 
   # s.public_header_files = "Classes/**/*.h"
 

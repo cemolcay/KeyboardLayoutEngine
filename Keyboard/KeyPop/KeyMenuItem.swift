@@ -21,18 +21,26 @@ public struct KeyMenuItemStyle {
   public var font: UIFont
   public var highlightedFont: UIFont
 
+  // MARK: Separator
+  public var separatorColor: UIColor
+  public var separatorWidth: CGFloat
+
   // MARK: Init
   public init(
     highlightedBackgroundColor: UIColor? = nil,
     textColor: UIColor? = nil,
     highlightedTextColor: UIColor? = nil,
     font: UIFont? = nil,
-    highlightedFont: UIFont? = nil) {
+    highlightedFont: UIFont? = nil,
+    separatorColor: UIColor? = nil,
+    separatorWidth: CGFloat? = nil) {
     self.highlightedBackgroundColor = highlightedBackgroundColor ?? UIColor.blueColor()
     self.textColor = textColor ?? UIColor.blackColor()
     self.highlightedTextColor = highlightedTextColor ?? UIColor.whiteColor()
     self.font = font ?? UIFont.systemFontOfSize(15)
     self.highlightedFont = highlightedFont ?? UIFont.boldSystemFontOfSize(15)
+    self.separatorColor = separatorColor ?? UIColor.blackColor()
+    self.separatorWidth = separatorWidth ?? 1
   }
 }
 
@@ -51,6 +59,7 @@ public class KeyMenuItem: UIView {
   }
 
   public var titleLabel: UILabel?
+  public var separator: CALayer?
 
   // MARK: Init
   public init(
@@ -66,6 +75,10 @@ public class KeyMenuItem: UIView {
     titleLabel?.text = title
     titleLabel?.textAlignment = .Center
     addSubview(titleLabel!)
+
+    separator = CALayer()
+    separator?.backgroundColor = style.separatorColor.CGColor
+    layer.addSublayer(separator!)
   }
 
   required public init?(coder aDecoder: NSCoder) {
@@ -75,7 +88,18 @@ public class KeyMenuItem: UIView {
   // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
-    titleLabel?.frame = superview?.frame ?? CGRect.zero
+    titleLabel?.frame = CGRect(
+      x: 0,
+      y: 0,
+      width: frame.size.width,
+      height: frame.size.height)
+
+    separator?.frame = CGRect(
+      x: 0,
+      y: frame.size.height - style.separatorWidth,
+      width: frame.size.width,
+      height: style.separatorWidth)
+
     if highlighted {
       titleLabel?.textColor = style.highlightedTextColor
       titleLabel?.font = style.highlightedFont

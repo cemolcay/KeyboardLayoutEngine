@@ -296,7 +296,44 @@ public class KeyboardButton: UIView {
   }
 
   public func createMenu() -> UIView {
-    return UIView()
+    guard let content = menu else { return UIView() }
+    let padding = CGFloat(5)
+    content.bottom = -padding
+    content.layer.cornerRadius = style.cornerRadius * style.popupWidthMultiplier
+
+    let bottomRect = CGRect(
+      x: 0,
+      y: -padding - 1, // a little hack for filling the gap
+      width: width,
+      height: height + padding)
+
+    let path = UIBezierPath(
+      roundedRect: content.frame,
+      byRoundingCorners: [.TopLeft, .TopRight, .BottomRight],
+      cornerRadii: CGSize(
+        width: style.cornerRadius * style.popupWidthMultiplier,
+        height: style.cornerRadius * style.popupHeightMultiplier))
+    path.appendPath(UIBezierPath(
+      roundedRect: bottomRect,
+      byRoundingCorners: [.BottomLeft, .BottomRight],
+      cornerRadii: CGSize(
+        width: style.cornerRadius,
+        height: style.cornerRadius)))
+
+    let mask = CAShapeLayer()
+    mask.path = path.CGPath
+    mask.fillColor = content.style.backgroundColor.CGColor
+    mask.applyShadow(shadow: content.style.shadow)
+
+    let popup = UIView(
+      frame: CGRect(
+        x: 0,
+        y: 0,
+        width: content.width,
+        height: content.height + padding + frame.size.height))
+    popup.addSubview(content)
+    popup.layer.insertSublayer(mask, atIndex: 0)
+    return popup
   }
 
   // MARK: Hit Test
