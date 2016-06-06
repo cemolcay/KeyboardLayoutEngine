@@ -1,1601 +1,762 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>0BEDBDFBB792E0B471493E94</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-Keyboard.release.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>20725571D69C1572CBCF18C3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F29D8C34F3E6C94E058CF7AB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>317CBD166FA4E20B527542E8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>34CB21C117DF6EE7A1A99DC6</string>
-				<string>0BEDBDFBB792E0B471493E94</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>34CB21C117DF6EE7A1A99DC6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-Keyboard.debug.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6E7B1BA8EE6D41AD774FB061</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>8FE3D59CCAA1ABA4EF07640C</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Embed Pods Frameworks</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>B29423E31CE3C46400973547</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B29423E41CE3C47A00973547</string>
-				<string>B29423E61CE3C64100973547</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>CustomKeyboard</string>
-			<key>path</key>
-			<string>DefaultKeyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B29423E41CE3C47A00973547</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CustomKeyboard.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B29423E51CE3C47A00973547</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B29423E41CE3C47A00973547</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B29423E61CE3C64100973547</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CustomKeyboardLayout.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B29423E71CE3C64100973547</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B29423E61CE3C64100973547</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B29ADFFE1D050F8D003C94E5</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B29ADFFF1D050F99003C94E5</string>
-				<string>B29AE0011D050FA9003C94E5</string>
-				<string>B29AE0031D050FB4003C94E5</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>KeyPop</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B29ADFFF1D050F99003C94E5</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyPop.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B29AE0001D050F99003C94E5</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B29ADFFF1D050F99003C94E5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B29AE0011D050FA9003C94E5</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyMenu.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B29AE0021D050FA9003C94E5</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B29AE0011D050FA9003C94E5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B29AE0031D050FB4003C94E5</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyMenuItem.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B29AE0041D050FB4003C94E5</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B29AE0031D050FB4003C94E5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDCBF1CDD2224008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B2FBDCCA1CDD2224008D6100</string>
-				<string>B2FBDCDF1CDD2224008D6100</string>
-				<string>B2FBDCEA1CDD2224008D6100</string>
-				<string>B2FBDCFE1CDD2292008D6100</string>
-				<string>B2FBDCC91CDD2224008D6100</string>
-				<string>317CBD166FA4E20B527542E8</string>
-				<string>DCE97A9A3951E20BE9204270</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCC01CDD2224008D6100</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastSwiftUpdateCheck</key>
-				<string>0730</string>
-				<key>LastUpgradeCheck</key>
-				<string>0730</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>Prototapp</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>B2FBDCC71CDD2224008D6100</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3</string>
-					</dict>
-					<key>B2FBDCDB1CDD2224008D6100</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3</string>
-						<key>TestTargetID</key>
-						<string>B2FBDCC71CDD2224008D6100</string>
-					</dict>
-					<key>B2FBDCE61CDD2224008D6100</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3</string>
-						<key>TestTargetID</key>
-						<string>B2FBDCC71CDD2224008D6100</string>
-					</dict>
-					<key>B2FBDCFC1CDD2292008D6100</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>B2FBDCC31CDD2224008D6100</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-				<string>Base</string>
-			</array>
-			<key>mainGroup</key>
-			<string>B2FBDCBF1CDD2224008D6100</string>
-			<key>productRefGroup</key>
-			<string>B2FBDCC91CDD2224008D6100</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>B2FBDCC71CDD2224008D6100</string>
-				<string>B2FBDCDB1CDD2224008D6100</string>
-				<string>B2FBDCE61CDD2224008D6100</string>
-				<string>B2FBDCFC1CDD2292008D6100</string>
-			</array>
-		</dict>
-		<key>B2FBDCC31CDD2224008D6100</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>B2FBDCEE1CDD2224008D6100</string>
-				<string>B2FBDCEF1CDD2224008D6100</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>B2FBDCC41CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B2FBDCCE1CDD2224008D6100</string>
-				<string>B2FBDCCC1CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCC51CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCC61CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B2FBDCD61CDD2224008D6100</string>
-				<string>B2FBDCD31CDD2224008D6100</string>
-				<string>B2FBDCD11CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCC71CDD2224008D6100</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>B2FBDCF01CDD2224008D6100</string>
-			<key>buildPhases</key>
-			<array>
-				<string>B2FBDCC41CDD2224008D6100</string>
-				<string>B2FBDCC51CDD2224008D6100</string>
-				<string>B2FBDCC61CDD2224008D6100</string>
-				<string>B2FBDD081CDD2292008D6100</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>B2FBDD031CDD2292008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>KeyboardLayoutEngine</string>
-			<key>productName</key>
-			<string>KeyboardLayoutEngine</string>
-			<key>productReference</key>
-			<string>B2FBDCC81CDD2224008D6100</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>B2FBDCC81CDD2224008D6100</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngine.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>B2FBDCC91CDD2224008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B2FBDCC81CDD2224008D6100</string>
-				<string>B2FBDCDC1CDD2224008D6100</string>
-				<string>B2FBDCE71CDD2224008D6100</string>
-				<string>B2FBDCFD1CDD2292008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCCA1CDD2224008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B2FBDCCB1CDD2224008D6100</string>
-				<string>B2FBDCCD1CDD2224008D6100</string>
-				<string>B2FBDCCF1CDD2224008D6100</string>
-				<string>B2FBDCD21CDD2224008D6100</string>
-				<string>B2FBDCD41CDD2224008D6100</string>
-				<string>B2FBDCD71CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngine</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCCB1CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>AppDelegate.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCCC1CDD2224008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCCB1CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDCCD1CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>ViewController.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCCE1CDD2224008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCCD1CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDCCF1CDD2224008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B2FBDCD01CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCD01CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCD11CDD2224008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCCF1CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDCD21CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Assets.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCD31CDD2224008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCD21CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDCD41CDD2224008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B2FBDCD51CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>LaunchScreen.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCD51CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/LaunchScreen.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCD61CDD2224008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCD41CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDCD71CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCD81CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B2FBDCE11CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCD91CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCDA1CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCDB1CDD2224008D6100</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>B2FBDCF31CDD2224008D6100</string>
-			<key>buildPhases</key>
-			<array>
-				<string>B2FBDCD81CDD2224008D6100</string>
-				<string>B2FBDCD91CDD2224008D6100</string>
-				<string>B2FBDCDA1CDD2224008D6100</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>B2FBDCDE1CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>KeyboardLayoutEngineTests</string>
-			<key>productName</key>
-			<string>KeyboardLayoutEngineTests</string>
-			<key>productReference</key>
-			<string>B2FBDCDC1CDD2224008D6100</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>B2FBDCDC1CDD2224008D6100</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngineTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>B2FBDCDD1CDD2224008D6100</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>B2FBDCC01CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>B2FBDCC71CDD2224008D6100</string>
-			<key>remoteInfo</key>
-			<string>KeyboardLayoutEngine</string>
-		</dict>
-		<key>B2FBDCDE1CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>B2FBDCC71CDD2224008D6100</string>
-			<key>targetProxy</key>
-			<string>B2FBDCDD1CDD2224008D6100</string>
-		</dict>
-		<key>B2FBDCDF1CDD2224008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B2FBDCE01CDD2224008D6100</string>
-				<string>B2FBDCE21CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngineTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCE01CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngineTests.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCE11CDD2224008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCE01CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDCE21CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCE31CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B2FBDCEC1CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCE41CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCE51CDD2224008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCE61CDD2224008D6100</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>B2FBDCF61CDD2224008D6100</string>
-			<key>buildPhases</key>
-			<array>
-				<string>B2FBDCE31CDD2224008D6100</string>
-				<string>B2FBDCE41CDD2224008D6100</string>
-				<string>B2FBDCE51CDD2224008D6100</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>B2FBDCE91CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>KeyboardLayoutEngineUITests</string>
-			<key>productName</key>
-			<string>KeyboardLayoutEngineUITests</string>
-			<key>productReference</key>
-			<string>B2FBDCE71CDD2224008D6100</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.ui-testing</string>
-		</dict>
-		<key>B2FBDCE71CDD2224008D6100</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngineUITests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>B2FBDCE81CDD2224008D6100</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>B2FBDCC01CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>B2FBDCC71CDD2224008D6100</string>
-			<key>remoteInfo</key>
-			<string>KeyboardLayoutEngine</string>
-		</dict>
-		<key>B2FBDCE91CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>B2FBDCC71CDD2224008D6100</string>
-			<key>targetProxy</key>
-			<string>B2FBDCE81CDD2224008D6100</string>
-		</dict>
-		<key>B2FBDCEA1CDD2224008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B2FBDCEB1CDD2224008D6100</string>
-				<string>B2FBDCED1CDD2224008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngineUITests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCEB1CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngineUITests.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCEC1CDD2224008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCEB1CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDCED1CDD2224008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCEE1CDD2224008D6100</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_ANALYZER_NONNULL</key>
-				<string>YES</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>B2FBDCEF1CDD2224008D6100</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_ANALYZER_NONNULL</key>
-				<string>YES</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>B2FBDCF01CDD2224008D6100</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>B2FBDCF11CDD2224008D6100</string>
-				<string>B2FBDCF21CDD2224008D6100</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>B2FBDCF11CDD2224008D6100</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>EMBEDDED_CONTENT_CONTAINS_SWIFT</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>KeyboardLayoutEngine/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>co.prototapp.KeyboardLayoutEngine</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>B2FBDCF21CDD2224008D6100</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>EMBEDDED_CONTENT_CONTAINS_SWIFT</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>KeyboardLayoutEngine/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>co.prototapp.KeyboardLayoutEngine</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>B2FBDCF31CDD2224008D6100</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>B2FBDCF41CDD2224008D6100</string>
-				<string>B2FBDCF51CDD2224008D6100</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>B2FBDCF41CDD2224008D6100</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>INFOPLIST_FILE</key>
-				<string>KeyboardLayoutEngineTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>co.prototapp.KeyboardLayoutEngineTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/KeyboardLayoutEngine.app/KeyboardLayoutEngine</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>B2FBDCF51CDD2224008D6100</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>INFOPLIST_FILE</key>
-				<string>KeyboardLayoutEngineTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>co.prototapp.KeyboardLayoutEngineTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/KeyboardLayoutEngine.app/KeyboardLayoutEngine</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>B2FBDCF61CDD2224008D6100</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>B2FBDCF71CDD2224008D6100</string>
-				<string>B2FBDCF81CDD2224008D6100</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>B2FBDCF71CDD2224008D6100</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>KeyboardLayoutEngineUITests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>co.prototapp.KeyboardLayoutEngineUITests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>KeyboardLayoutEngine</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>B2FBDCF81CDD2224008D6100</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>KeyboardLayoutEngineUITests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>co.prototapp.KeyboardLayoutEngineUITests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>KeyboardLayoutEngine</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>B2FBDCF91CDD2292008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B29AE0041D050FB4003C94E5</string>
-				<string>B2FBDD0F1CDD22CC008D6100</string>
-				<string>B29423E51CE3C47A00973547</string>
-				<string>B2FBDD0D1CDD22C3008D6100</string>
-				<string>B2FBDD0B1CDD22B8008D6100</string>
-				<string>B29423E71CE3C64100973547</string>
-				<string>B2FBDD001CDD2292008D6100</string>
-				<string>B29AE0021D050FA9003C94E5</string>
-				<string>B29AE0001D050F99003C94E5</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCFA1CDD2292008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>20725571D69C1572CBCF18C3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCFB1CDD2292008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B2FBDD401CDD4EDB008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDCFC1CDD2292008D6100</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>B2FBDD051CDD2292008D6100</string>
-			<key>buildPhases</key>
-			<array>
-				<string>6E7B1BA8EE6D41AD774FB061</string>
-				<string>B2FBDCF91CDD2292008D6100</string>
-				<string>B2FBDCFA1CDD2292008D6100</string>
-				<string>B2FBDCFB1CDD2292008D6100</string>
-				<string>8FE3D59CCAA1ABA4EF07640C</string>
-				<string>CA7F73BC6D37D7A26A423B21</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Keyboard</string>
-			<key>productName</key>
-			<string>Keyboard</string>
-			<key>productReference</key>
-			<string>B2FBDCFD1CDD2292008D6100</string>
-			<key>productType</key>
-			<string>com.apple.product-type.app-extension</string>
-		</dict>
-		<key>B2FBDCFD1CDD2292008D6100</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.app-extension</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Keyboard.appex</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>B2FBDCFE1CDD2292008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B29ADFFE1D050F8D003C94E5</string>
-				<string>B2FBDD091CDD22AE008D6100</string>
-				<string>B29423E31CE3C46400973547</string>
-				<string>B2FBDCFF1CDD2292008D6100</string>
-				<string>B2FBDD011CDD2292008D6100</string>
-				<string>B2FBDD3F1CDD4EDB008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>Keyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDCFF1CDD2292008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyboardViewController.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDD001CDD2292008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCFF1CDD2292008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDD011CDD2292008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDD021CDD2292008D6100</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>B2FBDCC01CDD2224008D6100</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>B2FBDCFC1CDD2292008D6100</string>
-			<key>remoteInfo</key>
-			<string>Keyboard</string>
-		</dict>
-		<key>B2FBDD031CDD2292008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>B2FBDCFC1CDD2292008D6100</string>
-			<key>targetProxy</key>
-			<string>B2FBDD021CDD2292008D6100</string>
-		</dict>
-		<key>B2FBDD041CDD2292008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDCFD1CDD2292008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>RemoveHeadersOnCopy</string>
-				</array>
-			</dict>
-		</dict>
-		<key>B2FBDD051CDD2292008D6100</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>B2FBDD061CDD2292008D6100</string>
-				<string>B2FBDD071CDD2292008D6100</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>B2FBDD061CDD2292008D6100</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>34CB21C117DF6EE7A1A99DC6</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>Keyboard/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>co.prototapp.KeyboardLayoutEngine.Keyboard</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>B2FBDD071CDD2292008D6100</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>0BEDBDFBB792E0B471493E94</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>Keyboard/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>co.prototapp.KeyboardLayoutEngine.Keyboard</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>B2FBDD081CDD2292008D6100</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>dstPath</key>
-			<string></string>
-			<key>dstSubfolderSpec</key>
-			<string>13</string>
-			<key>files</key>
-			<array>
-				<string>B2FBDD041CDD2292008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXCopyFilesBuildPhase</string>
-			<key>name</key>
-			<string>Embed App Extensions</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B2FBDD091CDD22AE008D6100</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B2FBDD0A1CDD22B8008D6100</string>
-				<string>B2FBDD0C1CDD22C3008D6100</string>
-				<string>B2FBDD0E1CDD22CC008D6100</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>KeyboardLayoutEngine</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDD0A1CDD22B8008D6100</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyboardLayout.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDD0B1CDD22B8008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDD0A1CDD22B8008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDD0C1CDD22C3008D6100</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyboardRow.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDD0D1CDD22C3008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDD0C1CDD22C3008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDD0E1CDD22CC008D6100</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>KeyboardButton.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDD0F1CDD22CC008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDD0E1CDD22CC008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>B2FBDD3F1CDD4EDB008D6100</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Resources.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B2FBDD401CDD4EDB008D6100</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B2FBDD3F1CDD4EDB008D6100</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CA7F73BC6D37D7A26A423B21</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>DCE97A9A3951E20BE9204270</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F29D8C34F3E6C94E058CF7AB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F29D8C34F3E6C94E058CF7AB</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Pods_Keyboard.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>B2FBDCC01CDD2224008D6100</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		20725571D69C1572CBCF18C3 /* Pods_Keyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29D8C34F3E6C94E058CF7AB /* Pods_Keyboard.framework */; };
+		B29423E51CE3C47A00973547 /* CustomKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29423E41CE3C47A00973547 /* CustomKeyboard.swift */; };
+		B29423E71CE3C64100973547 /* CustomKeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29423E61CE3C64100973547 /* CustomKeyboardLayout.swift */; };
+		B29AE0001D050F99003C94E5 /* KeyPop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29ADFFF1D050F99003C94E5 /* KeyPop.swift */; };
+		B29AE0021D050FA9003C94E5 /* KeyMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AE0011D050FA9003C94E5 /* KeyMenu.swift */; };
+		B2FBDCCC1CDD2224008D6100 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCCB1CDD2224008D6100 /* AppDelegate.swift */; };
+		B2FBDCCE1CDD2224008D6100 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCCD1CDD2224008D6100 /* ViewController.swift */; };
+		B2FBDCD11CDD2224008D6100 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2FBDCCF1CDD2224008D6100 /* Main.storyboard */; };
+		B2FBDCD31CDD2224008D6100 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2FBDCD21CDD2224008D6100 /* Assets.xcassets */; };
+		B2FBDCD61CDD2224008D6100 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2FBDCD41CDD2224008D6100 /* LaunchScreen.storyboard */; };
+		B2FBDCE11CDD2224008D6100 /* KeyboardLayoutEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCE01CDD2224008D6100 /* KeyboardLayoutEngineTests.swift */; };
+		B2FBDCEC1CDD2224008D6100 /* KeyboardLayoutEngineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCEB1CDD2224008D6100 /* KeyboardLayoutEngineUITests.swift */; };
+		B2FBDD001CDD2292008D6100 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCFF1CDD2292008D6100 /* KeyboardViewController.swift */; };
+		B2FBDD041CDD2292008D6100 /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B2FBDCFD1CDD2292008D6100 /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B2FBDD0B1CDD22B8008D6100 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDD0A1CDD22B8008D6100 /* KeyboardLayout.swift */; };
+		B2FBDD0D1CDD22C3008D6100 /* KeyboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDD0C1CDD22C3008D6100 /* KeyboardRow.swift */; };
+		B2FBDD0F1CDD22CC008D6100 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDD0E1CDD22CC008D6100 /* KeyboardButton.swift */; };
+		B2FBDD401CDD4EDB008D6100 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B2FBDCDD1CDD2224008D6100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2FBDCC01CDD2224008D6100 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B2FBDCC71CDD2224008D6100;
+			remoteInfo = KeyboardLayoutEngine;
+		};
+		B2FBDCE81CDD2224008D6100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2FBDCC01CDD2224008D6100 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B2FBDCC71CDD2224008D6100;
+			remoteInfo = KeyboardLayoutEngine;
+		};
+		B2FBDD021CDD2292008D6100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2FBDCC01CDD2224008D6100 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B2FBDCFC1CDD2292008D6100;
+			remoteInfo = Keyboard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B2FBDD081CDD2292008D6100 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B2FBDD041CDD2292008D6100 /* Keyboard.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0BEDBDFBB792E0B471493E94 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
+		34CB21C117DF6EE7A1A99DC6 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
+		B29423E41CE3C47A00973547 /* CustomKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboard.swift; sourceTree = "<group>"; };
+		B29423E61CE3C64100973547 /* CustomKeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboardLayout.swift; sourceTree = "<group>"; };
+		B29ADFFF1D050F99003C94E5 /* KeyPop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyPop.swift; sourceTree = "<group>"; };
+		B29AE0011D050FA9003C94E5 /* KeyMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMenu.swift; sourceTree = "<group>"; };
+		B2FBDCC81CDD2224008D6100 /* KeyboardLayoutEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardLayoutEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2FBDCCB1CDD2224008D6100 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B2FBDCCD1CDD2224008D6100 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B2FBDCD01CDD2224008D6100 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B2FBDCD21CDD2224008D6100 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B2FBDCD51CDD2224008D6100 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B2FBDCD71CDD2224008D6100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2FBDCDC1CDD2224008D6100 /* KeyboardLayoutEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardLayoutEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2FBDCE01CDD2224008D6100 /* KeyboardLayoutEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutEngineTests.swift; sourceTree = "<group>"; };
+		B2FBDCE21CDD2224008D6100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2FBDCE71CDD2224008D6100 /* KeyboardLayoutEngineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyboardLayoutEngineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2FBDCEB1CDD2224008D6100 /* KeyboardLayoutEngineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutEngineUITests.swift; sourceTree = "<group>"; };
+		B2FBDCED1CDD2224008D6100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2FBDCFD1CDD2292008D6100 /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2FBDCFF1CDD2292008D6100 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		B2FBDD011CDD2292008D6100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2FBDD0A1CDD22B8008D6100 /* KeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
+		B2FBDD0C1CDD22C3008D6100 /* KeyboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardRow.swift; sourceTree = "<group>"; };
+		B2FBDD0E1CDD22CC008D6100 /* KeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
+		B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources.xcassets; sourceTree = "<group>"; };
+		F29D8C34F3E6C94E058CF7AB /* Pods_Keyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Keyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B2FBDCC51CDD2224008D6100 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCD91CDD2224008D6100 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCE41CDD2224008D6100 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCFA1CDD2292008D6100 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20725571D69C1572CBCF18C3 /* Pods_Keyboard.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		317CBD166FA4E20B527542E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				34CB21C117DF6EE7A1A99DC6 /* Pods-Keyboard.debug.xcconfig */,
+				0BEDBDFBB792E0B471493E94 /* Pods-Keyboard.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B29423E31CE3C46400973547 /* CustomKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B29423E41CE3C47A00973547 /* CustomKeyboard.swift */,
+				B29423E61CE3C64100973547 /* CustomKeyboardLayout.swift */,
+			);
+			name = CustomKeyboard;
+			path = DefaultKeyboard;
+			sourceTree = "<group>";
+		};
+		B29ADFFE1D050F8D003C94E5 /* KeyPop */ = {
+			isa = PBXGroup;
+			children = (
+				B29ADFFF1D050F99003C94E5 /* KeyPop.swift */,
+				B29AE0011D050FA9003C94E5 /* KeyMenu.swift */,
+			);
+			path = KeyPop;
+			sourceTree = "<group>";
+		};
+		B2FBDCBF1CDD2224008D6100 = {
+			isa = PBXGroup;
+			children = (
+				B2FBDCCA1CDD2224008D6100 /* KeyboardLayoutEngine */,
+				B2FBDCDF1CDD2224008D6100 /* KeyboardLayoutEngineTests */,
+				B2FBDCEA1CDD2224008D6100 /* KeyboardLayoutEngineUITests */,
+				B2FBDCFE1CDD2292008D6100 /* Keyboard */,
+				B2FBDCC91CDD2224008D6100 /* Products */,
+				317CBD166FA4E20B527542E8 /* Pods */,
+				DCE97A9A3951E20BE9204270 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B2FBDCC91CDD2224008D6100 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B2FBDCC81CDD2224008D6100 /* KeyboardLayoutEngine.app */,
+				B2FBDCDC1CDD2224008D6100 /* KeyboardLayoutEngineTests.xctest */,
+				B2FBDCE71CDD2224008D6100 /* KeyboardLayoutEngineUITests.xctest */,
+				B2FBDCFD1CDD2292008D6100 /* Keyboard.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B2FBDCCA1CDD2224008D6100 /* KeyboardLayoutEngine */ = {
+			isa = PBXGroup;
+			children = (
+				B2FBDCCB1CDD2224008D6100 /* AppDelegate.swift */,
+				B2FBDCCD1CDD2224008D6100 /* ViewController.swift */,
+				B2FBDCCF1CDD2224008D6100 /* Main.storyboard */,
+				B2FBDCD21CDD2224008D6100 /* Assets.xcassets */,
+				B2FBDCD41CDD2224008D6100 /* LaunchScreen.storyboard */,
+				B2FBDCD71CDD2224008D6100 /* Info.plist */,
+			);
+			path = KeyboardLayoutEngine;
+			sourceTree = "<group>";
+		};
+		B2FBDCDF1CDD2224008D6100 /* KeyboardLayoutEngineTests */ = {
+			isa = PBXGroup;
+			children = (
+				B2FBDCE01CDD2224008D6100 /* KeyboardLayoutEngineTests.swift */,
+				B2FBDCE21CDD2224008D6100 /* Info.plist */,
+			);
+			path = KeyboardLayoutEngineTests;
+			sourceTree = "<group>";
+		};
+		B2FBDCEA1CDD2224008D6100 /* KeyboardLayoutEngineUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B2FBDCEB1CDD2224008D6100 /* KeyboardLayoutEngineUITests.swift */,
+				B2FBDCED1CDD2224008D6100 /* Info.plist */,
+			);
+			path = KeyboardLayoutEngineUITests;
+			sourceTree = "<group>";
+		};
+		B2FBDCFE1CDD2292008D6100 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B29ADFFE1D050F8D003C94E5 /* KeyPop */,
+				B2FBDD091CDD22AE008D6100 /* KeyboardLayoutEngine */,
+				B29423E31CE3C46400973547 /* CustomKeyboard */,
+				B2FBDCFF1CDD2292008D6100 /* KeyboardViewController.swift */,
+				B2FBDD011CDD2292008D6100 /* Info.plist */,
+				B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		B2FBDD091CDD22AE008D6100 /* KeyboardLayoutEngine */ = {
+			isa = PBXGroup;
+			children = (
+				B2FBDD0A1CDD22B8008D6100 /* KeyboardLayout.swift */,
+				B2FBDD0C1CDD22C3008D6100 /* KeyboardRow.swift */,
+				B2FBDD0E1CDD22CC008D6100 /* KeyboardButton.swift */,
+			);
+			path = KeyboardLayoutEngine;
+			sourceTree = "<group>";
+		};
+		DCE97A9A3951E20BE9204270 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F29D8C34F3E6C94E058CF7AB /* Pods_Keyboard.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B2FBDCC71CDD2224008D6100 /* KeyboardLayoutEngine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2FBDCF01CDD2224008D6100 /* Build configuration list for PBXNativeTarget "KeyboardLayoutEngine" */;
+			buildPhases = (
+				B2FBDCC41CDD2224008D6100 /* Sources */,
+				B2FBDCC51CDD2224008D6100 /* Frameworks */,
+				B2FBDCC61CDD2224008D6100 /* Resources */,
+				B2FBDD081CDD2292008D6100 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B2FBDD031CDD2292008D6100 /* PBXTargetDependency */,
+			);
+			name = KeyboardLayoutEngine;
+			productName = KeyboardLayoutEngine;
+			productReference = B2FBDCC81CDD2224008D6100 /* KeyboardLayoutEngine.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B2FBDCDB1CDD2224008D6100 /* KeyboardLayoutEngineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2FBDCF31CDD2224008D6100 /* Build configuration list for PBXNativeTarget "KeyboardLayoutEngineTests" */;
+			buildPhases = (
+				B2FBDCD81CDD2224008D6100 /* Sources */,
+				B2FBDCD91CDD2224008D6100 /* Frameworks */,
+				B2FBDCDA1CDD2224008D6100 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B2FBDCDE1CDD2224008D6100 /* PBXTargetDependency */,
+			);
+			name = KeyboardLayoutEngineTests;
+			productName = KeyboardLayoutEngineTests;
+			productReference = B2FBDCDC1CDD2224008D6100 /* KeyboardLayoutEngineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B2FBDCE61CDD2224008D6100 /* KeyboardLayoutEngineUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2FBDCF61CDD2224008D6100 /* Build configuration list for PBXNativeTarget "KeyboardLayoutEngineUITests" */;
+			buildPhases = (
+				B2FBDCE31CDD2224008D6100 /* Sources */,
+				B2FBDCE41CDD2224008D6100 /* Frameworks */,
+				B2FBDCE51CDD2224008D6100 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B2FBDCE91CDD2224008D6100 /* PBXTargetDependency */,
+			);
+			name = KeyboardLayoutEngineUITests;
+			productName = KeyboardLayoutEngineUITests;
+			productReference = B2FBDCE71CDD2224008D6100 /* KeyboardLayoutEngineUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B2FBDCFC1CDD2292008D6100 /* Keyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2FBDD051CDD2292008D6100 /* Build configuration list for PBXNativeTarget "Keyboard" */;
+			buildPhases = (
+				6E7B1BA8EE6D41AD774FB061 /* Check Pods Manifest.lock */,
+				B2FBDCF91CDD2292008D6100 /* Sources */,
+				B2FBDCFA1CDD2292008D6100 /* Frameworks */,
+				B2FBDCFB1CDD2292008D6100 /* Resources */,
+				8FE3D59CCAA1ABA4EF07640C /* Embed Pods Frameworks */,
+				CA7F73BC6D37D7A26A423B21 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Keyboard;
+			productName = Keyboard;
+			productReference = B2FBDCFD1CDD2292008D6100 /* Keyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B2FBDCC01CDD2224008D6100 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Prototapp;
+				TargetAttributes = {
+					B2FBDCC71CDD2224008D6100 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					B2FBDCDB1CDD2224008D6100 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = B2FBDCC71CDD2224008D6100;
+					};
+					B2FBDCE61CDD2224008D6100 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = B2FBDCC71CDD2224008D6100;
+					};
+					B2FBDCFC1CDD2292008D6100 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = B2FBDCC31CDD2224008D6100 /* Build configuration list for PBXProject "KeyboardLayoutEngine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B2FBDCBF1CDD2224008D6100;
+			productRefGroup = B2FBDCC91CDD2224008D6100 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B2FBDCC71CDD2224008D6100 /* KeyboardLayoutEngine */,
+				B2FBDCDB1CDD2224008D6100 /* KeyboardLayoutEngineTests */,
+				B2FBDCE61CDD2224008D6100 /* KeyboardLayoutEngineUITests */,
+				B2FBDCFC1CDD2292008D6100 /* Keyboard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B2FBDCC61CDD2224008D6100 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2FBDCD61CDD2224008D6100 /* LaunchScreen.storyboard in Resources */,
+				B2FBDCD31CDD2224008D6100 /* Assets.xcassets in Resources */,
+				B2FBDCD11CDD2224008D6100 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCDA1CDD2224008D6100 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCE51CDD2224008D6100 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCFB1CDD2292008D6100 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2FBDD401CDD4EDB008D6100 /* Resources.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6E7B1BA8EE6D41AD774FB061 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8FE3D59CCAA1ABA4EF07640C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA7F73BC6D37D7A26A423B21 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B2FBDCC41CDD2224008D6100 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2FBDCCE1CDD2224008D6100 /* ViewController.swift in Sources */,
+				B2FBDCCC1CDD2224008D6100 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCD81CDD2224008D6100 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2FBDCE11CDD2224008D6100 /* KeyboardLayoutEngineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCE31CDD2224008D6100 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2FBDCEC1CDD2224008D6100 /* KeyboardLayoutEngineUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B2FBDCF91CDD2292008D6100 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2FBDD0F1CDD22CC008D6100 /* KeyboardButton.swift in Sources */,
+				B29423E51CE3C47A00973547 /* CustomKeyboard.swift in Sources */,
+				B2FBDD0D1CDD22C3008D6100 /* KeyboardRow.swift in Sources */,
+				B2FBDD0B1CDD22B8008D6100 /* KeyboardLayout.swift in Sources */,
+				B29423E71CE3C64100973547 /* CustomKeyboardLayout.swift in Sources */,
+				B2FBDD001CDD2292008D6100 /* KeyboardViewController.swift in Sources */,
+				B29AE0021D050FA9003C94E5 /* KeyMenu.swift in Sources */,
+				B29AE0001D050F99003C94E5 /* KeyPop.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B2FBDCDE1CDD2224008D6100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B2FBDCC71CDD2224008D6100 /* KeyboardLayoutEngine */;
+			targetProxy = B2FBDCDD1CDD2224008D6100 /* PBXContainerItemProxy */;
+		};
+		B2FBDCE91CDD2224008D6100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B2FBDCC71CDD2224008D6100 /* KeyboardLayoutEngine */;
+			targetProxy = B2FBDCE81CDD2224008D6100 /* PBXContainerItemProxy */;
+		};
+		B2FBDD031CDD2292008D6100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B2FBDCFC1CDD2292008D6100 /* Keyboard */;
+			targetProxy = B2FBDD021CDD2292008D6100 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B2FBDCCF1CDD2224008D6100 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2FBDCD01CDD2224008D6100 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B2FBDCD41CDD2224008D6100 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2FBDCD51CDD2224008D6100 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B2FBDCEE1CDD2224008D6100 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B2FBDCEF1CDD2224008D6100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B2FBDCF11CDD2224008D6100 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = KeyboardLayoutEngine/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B2FBDCF21CDD2224008D6100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = KeyboardLayoutEngine/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B2FBDCF41CDD2224008D6100 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = KeyboardLayoutEngineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KeyboardLayoutEngine.app/KeyboardLayoutEngine";
+			};
+			name = Debug;
+		};
+		B2FBDCF51CDD2224008D6100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = KeyboardLayoutEngineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KeyboardLayoutEngine.app/KeyboardLayoutEngine";
+			};
+			name = Release;
+		};
+		B2FBDCF71CDD2224008D6100 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = KeyboardLayoutEngineUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngineUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = KeyboardLayoutEngine;
+			};
+			name = Debug;
+		};
+		B2FBDCF81CDD2224008D6100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = KeyboardLayoutEngineUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngineUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = KeyboardLayoutEngine;
+			};
+			name = Release;
+		};
+		B2FBDD061CDD2292008D6100 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34CB21C117DF6EE7A1A99DC6 /* Pods-Keyboard.debug.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = Keyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngine.Keyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B2FBDD071CDD2292008D6100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BEDBDFBB792E0B471493E94 /* Pods-Keyboard.release.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = Keyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngine.Keyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B2FBDCC31CDD2224008D6100 /* Build configuration list for PBXProject "KeyboardLayoutEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2FBDCEE1CDD2224008D6100 /* Debug */,
+				B2FBDCEF1CDD2224008D6100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B2FBDCF01CDD2224008D6100 /* Build configuration list for PBXNativeTarget "KeyboardLayoutEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2FBDCF11CDD2224008D6100 /* Debug */,
+				B2FBDCF21CDD2224008D6100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B2FBDCF31CDD2224008D6100 /* Build configuration list for PBXNativeTarget "KeyboardLayoutEngineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2FBDCF41CDD2224008D6100 /* Debug */,
+				B2FBDCF51CDD2224008D6100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B2FBDCF61CDD2224008D6100 /* Build configuration list for PBXNativeTarget "KeyboardLayoutEngineUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2FBDCF71CDD2224008D6100 /* Debug */,
+				B2FBDCF81CDD2224008D6100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B2FBDD051CDD2292008D6100 /* Build configuration list for PBXNativeTarget "Keyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2FBDD061CDD2292008D6100 /* Debug */,
+				B2FBDD071CDD2292008D6100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B2FBDCC01CDD2224008D6100 /* Project object */;
+}
