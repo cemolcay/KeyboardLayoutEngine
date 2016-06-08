@@ -32,7 +32,7 @@ public struct KeyMenuStyle {
   public var horizontalMenuRightPadding: CGFloat
 
   // MARK: Init
-  init(
+  public init(
     shadow: Shadow? = nil,
     backgroundColor: UIColor? = nil,
     itemSize: CGSize? = nil,
