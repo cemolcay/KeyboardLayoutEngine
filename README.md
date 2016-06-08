@@ -76,8 +76,15 @@ KeyboardLayoutDelegate
 
 ``` swift
 @objc public protocol KeyboardLayoutDelegate {
-  optional func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
-  optional func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
+  // Key Press Events
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressStart keyboardButton: KeyboardButton)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressEnd keyboardButton: KeyboardButton)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didDraggedIn fromKeyboardButton: KeyboardButton, toKeyboardButton: KeyboardButton)
+  // Touch Events
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesBegin touches: Set<UITouch>)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesMove touches: Set<UITouch>)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesEnd touches: Set<UITouch>?)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesCancel touches: Set<UITouch>?)
 }
 ```
 
@@ -253,10 +260,11 @@ CustomKeyboardDelegate
 
 ``` swift
 @objc public protocol CustomKeyboardDelegate {
-  optional func customKeyboardDidPressKeyButton(customKeyboard: CustomKeyboard, key: String)
-  optional func customKeyboardDidPressSpaceButton(customKeyboard: CustomKeyboard)
-  optional func customKeyboardDidPressBackspaceButton(customKeyboard: CustomKeyboard)
-  optional func customKeyboardDidPressGlobeButton(customKeyboard: CustomKeyboard)
-  optional func customKeyboardDidPressReturnButton(customKeyboard: CustomKeyboard)
+optional func customKeyboard(customKeyboard: CustomKeyboard, keyboardButtonPressed keyboardButton: KeyboardButton)
+optional func customKeyboard(customKeyboard: CustomKeyboard, keyButtonPressed key: String)
+optional func customKeyboardSpaceButtonPressed(customKeyboard: CustomKeyboard)
+optional func customKeyboardBackspaceButtonPressed(customKeyboard: CustomKeyboard)
+optional func customKeyboardGlobeButtonPressed(customKeyboard: CustomKeyboard)
+optional func customKeyboardReturnButtonPressed(customKeyboard: CustomKeyboard)
 }
 ```

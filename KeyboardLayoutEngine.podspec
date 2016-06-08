@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "KeyboardLayoutEngine"
-  s.version      = "0.8.3"
+  s.version      = "0.8.4"
   s.summary      = "⌨️ Simplest custom keyboard generator for iOS ever!"
 
   # This description is used to generate tags and improve search results.
@@ -336,7 +336,7 @@ optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboa
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/cemolcay/KeyboardLayoutEngine.git", :tag => "0.8.3" }
+  s.source       = { :git => "https://github.com/cemolcay/KeyboardLayoutEngine.git", :tag => "0.8.4" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -347,7 +347,7 @@ optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboa
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Keyboard/KeyboardLayoutEngine/*.swift", "Keyboard/DefaultKeyboard/*.swift"
+  s.source_files  = "Keyboard/KeyboardLayoutEngine/*.swift", "Keyboard/DefaultKeyboard/*.swift", "Keyboard/KeyPop/*.swift"
 
   # s.public_header_files = "Classes/**/*.h"
 
@@ -388,6 +388,7 @@ optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboa
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency "JSONKit", "~> 1.4"
+  s.dependency "Shadow"
+  s.dependency "ManualLayout"
 
 end

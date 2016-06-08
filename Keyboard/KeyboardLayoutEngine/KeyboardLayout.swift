@@ -18,10 +18,15 @@ extension CollectionType {
 
 // MARK: - KeyboardLayoutDelegate
 @objc public protocol KeyboardLayoutDelegate {
-  optional func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
-  optional func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
-  optional func keyboardLayoutDidDraggedInButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton)
-  optional func keyboardLayoutDidEndTouches(keyboardLayout: KeyboardLayout)
+  // Key Press Events
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressStart keyboardButton: KeyboardButton)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressEnd keyboardButton: KeyboardButton)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didDraggedIn fromKeyboardButton: KeyboardButton, toKeyboardButton: KeyboardButton)
+  // Touch Events
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesBegin touches: Set<UITouch>)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesMove touches: Set<UITouch>)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesEnd touches: Set<UITouch>?)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesCancel touches: Set<UITouch>?)
 }
 
 // MARK: - KeyboardLayoutStyle
@@ -55,6 +60,14 @@ public class KeyboardLayout: UIView {
 
   private var isPortrait: Bool {
     return UIScreen.mainScreen().bounds.size.width < UIScreen.mainScreen().bounds.size.height
+  }
+
+  public var typingEnabled: Bool = true
+  private var currentlyPressingKeyboardButton: KeyboardButton? {
+    didSet {
+      oldValue?.showKeyPop(show: false)
+      currentlyPressingKeyboardButton?.showKeyPop(show: true)
+    }
   }
 
   // MARK: Init
@@ -121,6 +134,17 @@ public class KeyboardLayout: UIView {
     return nil
   }
 
+  public func getKeyboardButton(withIdentifier identifier: String) -> KeyboardButton? {
+    for row in rows {
+      for button in row.characters {
+        if let button = button as? KeyboardButton where button.identifier == identifier {
+          return button
+        }
+      }
+    }
+    return nil
+  }
+
   public func addKeyboardButton(keyboardButton button: KeyboardButton, rowAtIndex: Int, buttonIndex: Int?) {
     if let row = rows[safe: rowAtIndex] {
       if let index = buttonIndex where buttonIndex < row.characters.count {
@@ -144,46 +168,65 @@ public class KeyboardLayout: UIView {
   // MARK: Touch Handling
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesBegan(touches, withEvent: event)
-    for touch in touches {
+    delegate?.keyboardLayout?(self, didTouchesBegin: touches)
+
+    if !typingEnabled {
+      return
+    }
+
+    for (index, touch) in touches.enumerate() {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
-        delegate?.keyboardLayoutDidStartPressingButton?(self, keyboardButton: button)
-        for row in rows {
-          row.highlightButton(button)
+        if index == touches.count - 1 {
+          currentlyPressingKeyboardButton = button
         }
+        delegate?.keyboardLayout?(self, didKeyPressStart: button)
       }
     }
   }
 
   public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesMoved(touches, withEvent: event)
+    delegate?.keyboardLayout?(self, didTouchesMove: touches)
+
+    if !typingEnabled {
+      return
+    }
+
+    // Check the first touch moving
     if let touch = touches.first {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
-        delegate?.keyboardLayoutDidDraggedInButton?(self, keyboardButton: button)
-        for row in rows {
-          row.highlightButton(button)
+        // Do nothing if still pressing the same button
+        if currentlyPressingKeyboardButton == button {
+          return
         }
+        // set current button
+        if let oldButton = currentlyPressingKeyboardButton {
+          delegate?.keyboardLayout?(self, didDraggedIn: oldButton, toKeyboardButton: button)
+        }
+        currentlyPressingKeyboardButton = button
       }
     }
   }
 
   public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     super.touchesEnded(touches, withEvent: event)
-    delegate?.keyboardLayoutDidEndTouches?(self)
-    for row in rows {
-      row.unhighlightButtons()
+    delegate?.keyboardLayout?(self, didTouchesEnd: touches)
+
+    if !typingEnabled {
+      return
     }
+
+    currentlyPressingKeyboardButton = nil
     for touch in touches {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
-        delegate?.keyboardLayoutDidPressButton?(self, keyboardButton: button)
+        delegate?.keyboardLayout?(self, didKeyPressEnd: button)
       }
     }
   }
 
   public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
-    delegate?.keyboardLayoutDidEndTouches?(self)
-    for row in rows {
-      row.unhighlightButtons()
-    }
+    currentlyPressingKeyboardButton = nil
+    delegate?.keyboardLayout?(self, didTouchesCancel: touches)
   }
 }

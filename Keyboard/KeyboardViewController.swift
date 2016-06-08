@@ -39,10 +39,43 @@ class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
       keyboardButton: customButton,
       rowAtIndex: 3,
       buttonIndex: 2)
+
+    // This is how you add a menu 
+    let globeButtons = [
+      customKeyboard.uppercaseLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.uppercaseToggledLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.lowercaseLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.numbersLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.symbolsLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+    ]
+
+    let menuItemStyle =  KeyMenuItemStyle(
+      separatorColor: UIColor(red: 210.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1),
+      separatorWidth: 0.5)
+
+    for globeButton in globeButtons {
+      let menu = KeyMenu(
+        items: [
+          KeyMenuItem(title: "Switch Keyboard", style: menuItemStyle, action: { _ in self.advanceToNextInputMode() }),
+          KeyMenuItem(title: "Settings", style: menuItemStyle, action: { _ in print("settings pressed") }),
+          KeyMenuItem(title: "About Us", style: menuItemStyle, action: { _ in print("about pressed") }),
+        ],
+        style: KeyMenuStyle(itemSize: CGSize(width: 150, height: 40)),
+        type: .Vertical)
+      globeButton?.keyMenu = menu
+    }
   }
 
   // MARK: CustomKeyboardDelegate
-  func customKeyboardKeyButtonPressed(customKeyboard: CustomKeyboard, key: String) {
+  func customKeyboard(customKeyboard: CustomKeyboard, keyboardButtonPressed keyboardButton: KeyboardButton) {
+    if customKeyboard == self.customKeyboard {
+      if keyboardButton.identifier == "customButton" {
+        print("custom button pressed")
+      }
+    }
+  }
+
+  func customKeyboard(customKeyboard: CustomKeyboard, keyButtonPressed key: String) {
     if customKeyboard == self.customKeyboard {
       textDocumentProxy.insertText(key)
     }
@@ -63,20 +96,6 @@ class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
   func customKeyboardReturnButtonPressed(customKeyboard: CustomKeyboard) {
     if customKeyboard == self.customKeyboard {
       textDocumentProxy.insertText("\n")
-    }
-  }
-
-  func customKeyboardGlobeButtonPressed(customKeyboard: CustomKeyboard) {
-    if customKeyboard == self.customKeyboard {
-      advanceToNextInputMode()
-    }
-  }
-
-  func customKeyboardButtonPressed(customKeyboard: CustomKeyboard, keyboardButton: KeyboardButton) {
-    if customKeyboard == self.customKeyboard {
-      if keyboardButton.identifier == "customButton" {
-        print("custom button pressed")
-      }
     }
   }
 }

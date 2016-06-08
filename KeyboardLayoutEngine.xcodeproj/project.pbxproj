@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20725571D69C1572CBCF18C3 /* Pods_Keyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29D8C34F3E6C94E058CF7AB /* Pods_Keyboard.framework */; };
 		B29423E51CE3C47A00973547 /* CustomKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29423E41CE3C47A00973547 /* CustomKeyboard.swift */; };
 		B29423E71CE3C64100973547 /* CustomKeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29423E61CE3C64100973547 /* CustomKeyboardLayout.swift */; };
+		B29AE0001D050F99003C94E5 /* KeyPop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29ADFFF1D050F99003C94E5 /* KeyPop.swift */; };
+		B29AE0021D050FA9003C94E5 /* KeyMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AE0011D050FA9003C94E5 /* KeyMenu.swift */; };
+		B29AE0421D05463E003C94E5 /* KeyMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AE0411D05463E003C94E5 /* KeyMenuItem.swift */; };
 		B2FBDCCC1CDD2224008D6100 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCCB1CDD2224008D6100 /* AppDelegate.swift */; };
 		B2FBDCCE1CDD2224008D6100 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FBDCCD1CDD2224008D6100 /* ViewController.swift */; };
 		B2FBDCD11CDD2224008D6100 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2FBDCCF1CDD2224008D6100 /* Main.storyboard */; };
@@ -63,8 +67,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0BEDBDFBB792E0B471493E94 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
+		34CB21C117DF6EE7A1A99DC6 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		B29423E41CE3C47A00973547 /* CustomKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboard.swift; sourceTree = "<group>"; };
 		B29423E61CE3C64100973547 /* CustomKeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboardLayout.swift; sourceTree = "<group>"; };
+		B29ADFFF1D050F99003C94E5 /* KeyPop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyPop.swift; sourceTree = "<group>"; };
+		B29AE0011D050FA9003C94E5 /* KeyMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMenu.swift; sourceTree = "<group>"; };
+		B29AE0411D05463E003C94E5 /* KeyMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMenuItem.swift; sourceTree = "<group>"; };
 		B2FBDCC81CDD2224008D6100 /* KeyboardLayoutEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardLayoutEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2FBDCCB1CDD2224008D6100 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2FBDCCD1CDD2224008D6100 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +94,7 @@
 		B2FBDD0C1CDD22C3008D6100 /* KeyboardRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardRow.swift; sourceTree = "<group>"; };
 		B2FBDD0E1CDD22CC008D6100 /* KeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
 		B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources.xcassets; sourceTree = "<group>"; };
+		F29D8C34F3E6C94E058CF7AB /* Pods_Keyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Keyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,12 +123,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20725571D69C1572CBCF18C3 /* Pods_Keyboard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		317CBD166FA4E20B527542E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				34CB21C117DF6EE7A1A99DC6 /* Pods-Keyboard.debug.xcconfig */,
+				0BEDBDFBB792E0B471493E94 /* Pods-Keyboard.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B29423E31CE3C46400973547 /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +149,16 @@
 			path = DefaultKeyboard;
 			sourceTree = "<group>";
 		};
+		B29ADFFE1D050F8D003C94E5 /* KeyPop */ = {
+			isa = PBXGroup;
+			children = (
+				B29ADFFF1D050F99003C94E5 /* KeyPop.swift */,
+				B29AE0011D050FA9003C94E5 /* KeyMenu.swift */,
+				B29AE0411D05463E003C94E5 /* KeyMenuItem.swift */,
+			);
+			path = KeyPop;
+			sourceTree = "<group>";
+		};
 		B2FBDCBF1CDD2224008D6100 = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +167,8 @@
 				B2FBDCEA1CDD2224008D6100 /* KeyboardLayoutEngineUITests */,
 				B2FBDCFE1CDD2292008D6100 /* Keyboard */,
 				B2FBDCC91CDD2224008D6100 /* Products */,
+				317CBD166FA4E20B527542E8 /* Pods */,
+				DCE97A9A3951E20BE9204270 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,6 +217,7 @@
 		B2FBDCFE1CDD2292008D6100 /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				B29ADFFE1D050F8D003C94E5 /* KeyPop */,
 				B2FBDD091CDD22AE008D6100 /* KeyboardLayoutEngine */,
 				B29423E31CE3C46400973547 /* CustomKeyboard */,
 				B2FBDCFF1CDD2292008D6100 /* KeyboardViewController.swift */,
@@ -202,6 +235,14 @@
 				B2FBDD0E1CDD22CC008D6100 /* KeyboardButton.swift */,
 			);
 			path = KeyboardLayoutEngine;
+			sourceTree = "<group>";
+		};
+		DCE97A9A3951E20BE9204270 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F29D8C34F3E6C94E058CF7AB /* Pods_Keyboard.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,9 +307,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B2FBDD051CDD2292008D6100 /* Build configuration list for PBXNativeTarget "Keyboard" */;
 			buildPhases = (
+				6E7B1BA8EE6D41AD774FB061 /* Check Pods Manifest.lock */,
 				B2FBDCF91CDD2292008D6100 /* Sources */,
 				B2FBDCFA1CDD2292008D6100 /* Frameworks */,
 				B2FBDCFB1CDD2292008D6100 /* Resources */,
+				8FE3D59CCAA1ABA4EF07640C /* Embed Pods Frameworks */,
+				CA7F73BC6D37D7A26A423B21 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -361,6 +405,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6E7B1BA8EE6D41AD774FB061 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8FE3D59CCAA1ABA4EF07640C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA7F73BC6D37D7A26A423B21 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B2FBDCC41CDD2224008D6100 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -391,12 +483,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B29AE0421D05463E003C94E5 /* KeyMenuItem.swift in Sources */,
 				B2FBDD0F1CDD22CC008D6100 /* KeyboardButton.swift in Sources */,
 				B29423E51CE3C47A00973547 /* CustomKeyboard.swift in Sources */,
 				B2FBDD0D1CDD22C3008D6100 /* KeyboardRow.swift in Sources */,
 				B2FBDD0B1CDD22B8008D6100 /* KeyboardLayout.swift in Sources */,
 				B29423E71CE3C64100973547 /* CustomKeyboardLayout.swift in Sources */,
 				B2FBDD001CDD2292008D6100 /* KeyboardViewController.swift in Sources */,
+				B29AE0021D050FA9003C94E5 /* KeyMenu.swift in Sources */,
+				B29AE0001D050F99003C94E5 /* KeyPop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +690,7 @@
 		};
 		B2FBDD061CDD2292008D6100 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34CB21C117DF6EE7A1A99DC6 /* Pods-Keyboard.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Keyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -606,6 +702,7 @@
 		};
 		B2FBDD071CDD2292008D6100 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BEDBDFBB792E0B471493E94 /* Pods-Keyboard.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Keyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
