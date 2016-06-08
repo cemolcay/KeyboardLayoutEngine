@@ -208,6 +208,7 @@ public class KeyboardButton: UIView {
       if view.viewWithTag(KeyboardButtonPopupViewTag) != nil { return }
       let popup = createKeyPop()
       popup.tag = KeyboardButtonPopupViewTag
+      popup.frame.origin = convertPoint(popup.frame.origin, toView: view)
       view.addSubview(popup)
     } else {
       if let popup = view.viewWithTag(KeyboardButtonPopupViewTag) {
