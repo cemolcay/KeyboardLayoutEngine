@@ -10,17 +10,15 @@ import UIKit
 
 // MARK: - CustomKeyboardDelegate
 @objc public protocol CustomKeyboardDelegate {
-  optional func customKeyboardKeyButtonPressed(customKeyboard: CustomKeyboard, key: String)
+  optional func customKeyboard(customKeyboard: CustomKeyboard, keyboardButtonPressed keyboardButton: KeyboardButton)
+  optional func customKeyboard(customKeyboard: CustomKeyboard, keyButtonPressed key: String)
   optional func customKeyboardSpaceButtonPressed(customKeyboard: CustomKeyboard)
   optional func customKeyboardBackspaceButtonPressed(customKeyboard: CustomKeyboard)
   optional func customKeyboardGlobeButtonPressed(customKeyboard: CustomKeyboard)
   optional func customKeyboardReturnButtonPressed(customKeyboard: CustomKeyboard)
-  optional func customKeyboardButtonPressed(customKeyboard: CustomKeyboard, keyboardButton: KeyboardButton)
 }
 
 // MARK: - CustomKeyboard
-public var CustomKeyboardKeyButtonPopupTag: Int = 101
-
 public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   public var keyButtonPopupContainer: UIView?
 
@@ -34,7 +32,23 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   private var backspaceDeleteTimer: NSTimer?
   private var backspaceAutoDeleteModeTimer: NSTimer?
 
-  private var isKeyMenuIsOpen: Bool = false
+  public var keyMenuLocked: Bool = false
+  public var keyMenuOpenTimer: NSTimer?
+  public var keyMenuOpenTimeInterval: NSTimeInterval = 1
+  public var keyMenuShowingKeyboardButton: KeyboardButton? {
+    didSet {
+      oldValue?.showKeyPop(show: false)
+      oldValue?.showKeyMenu(show: false)
+      keyMenuShowingKeyboardButton?.showKeyPop(show: false)
+      keyMenuShowingKeyboardButton?.showKeyMenu(show: true)
+
+      dispatch_after(
+        dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC))),
+        dispatch_get_main_queue()) { [weak self] in
+          self?.currentLayout.typingEnabled = self!.keyMenuShowingKeyboardButton == nil && self!.keyMenuLocked == false
+      }
+    }
+  }
 
   public var uppercaseToggledLayout: KeyboardLayout! {
     didSet {
@@ -76,7 +90,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     }
   }
 
-  private var lastLetterLayout: KeyboardLayout?
   private(set) var currentLayout: KeyboardLayout! {
     didSet {
       oldValue?.delegate = nil
@@ -185,59 +198,64 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
       repeats: false)
   }
 
-  public func invalidateShiftToggleTimer() {
+  internal func invalidateShiftToggleTimer() {
     shiftToggleTimer?.invalidate()
     shiftToggleTimer = nil
     shiftCanBeToggled = false
   }
 
-  // MARK: KeyMenu
-  public func addKeyMenu(forKey key: KeyboardButton) {
-    if let container = keyButtonPopupContainer {
-      if container.viewWithTag(CustomKeyboardKeyButtonPopupTag) == nil {
-        let popup = key.createMenu()
-        popup.tag = CustomKeyboardKeyButtonPopupTag
-        popup.frame.origin = key.convertPoint(popup.frame.origin, toView: container)
-        container.addSubview(popup)
-      }
-    }
+  // MARK: KeyMenu Toggle
+  private func startKeyMenuOpenTimer(forKeyboardButton keyboardButton: KeyboardButton) {
+    keyMenuOpenTimer = NSTimer.scheduledTimerWithTimeInterval(
+      keyMenuOpenTimeInterval,
+      target: self,
+      selector: #selector(CustomKeyboard.openKeyMenu(_:)),
+      userInfo: keyboardButton,
+      repeats: false)
   }
 
-  // MARK: KeyPop
-  public func addKeyPop(forKey key: KeyboardButton) {
-    switch key.type {
-    case .Key(_):
-      if let container = keyButtonPopupContainer {
-        if container.viewWithTag(CustomKeyboardKeyButtonPopupTag) == nil {
-          let popup = key.createPopup()
-          popup.tag = CustomKeyboardKeyButtonPopupTag
-          popup.frame.origin = key.convertPoint(popup.frame.origin, toView: container)
-          container.addSubview(popup)
-        }
-      }
-    default:
-      return
-    }
+  private func invalidateKeyMenuOpenTimer() {
+    keyMenuOpenTimer?.invalidate()
+    keyMenuOpenTimer = nil
   }
 
-  /// Removes either KeyPop or KeyMenu whichever is visible
-  public func removeKeyPop() {
-    if let container = keyButtonPopupContainer {
-      if let popup = container.viewWithTag(CustomKeyboardKeyButtonPopupTag) {
-        popup.removeFromSuperview()
-      }
+  public func openKeyMenu(timer: NSTimer) {
+    if let userInfo = timer.userInfo, keyboardButton = userInfo as? KeyboardButton {
+      keyMenuShowingKeyboardButton = keyboardButton
     }
   }
 
   // MARK: KeyboardLayoutDelegate
-  public func keyboardLayoutDidPressButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
-    delegate?.customKeyboardButtonPressed?(self, keyboardButton: keyboardButton)
+  public func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressStart keyboardButton: KeyboardButton) {
     invalidateBackspaceAutoDeleteModeTimer()
     invalidateBackspaceDeleteTimer()
+    invalidateKeyMenuOpenTimer()
+
     if keyboardLayout == currentLayout {
+      // Backspace
+      if keyboardButton.identifier == CustomKeyboardIdentifier.Backspace.rawValue {
+        startBackspaceAutoDeleteModeTimer()
+      }
+
+      // KeyPop and KeyMenu
+      if keyboardButton.style.keyPopType != nil {
+        keyboardButton.showKeyPop(show: true)
+        if keyboardButton.keyMenu != nil {
+          startKeyMenuOpenTimer(forKeyboardButton: keyboardButton)
+        }
+      } else if keyboardButton.keyMenu != nil {
+        keyMenuShowingKeyboardButton = keyboardButton
+        keyMenuLocked = false
+      }
+    }
+  }
+
+  public func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressEnd keyboardButton: KeyboardButton) {
+    if keyboardLayout == currentLayout {
+      delegate?.customKeyboard?(self, keyboardButtonPressed: keyboardButton)
       switch keyboardButton.type {
       case .Key(let key):
-        delegate?.customKeyboardKeyButtonPressed?(self, key: key)
+        delegate?.customKeyboard?(self, keyButtonPressed: key)
         if uppercaseOnce {
           uppercaseOnce = false
           currentLayout = lowercaseLayout
@@ -246,23 +264,23 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
         if let id = keyboardButton.identifier,
           let identifier = CustomKeyboardIdentifier(rawValue: id) {
           switch identifier {
+          case .Numbers:
+            currentLayout = numbersLayout
+          case .Symbols:
+            currentLayout = symbolsLayout
+          case .Letters:
+            currentLayout = uppercaseLayout
+            uppercaseOnce = true
+          case .Globe:
+            delegate?.customKeyboardGlobeButtonPressed?(self)
+          case .Return:
+            delegate?.customKeyboardReturnButtonPressed?(self)
           case .Space:
             delegate?.customKeyboardSpaceButtonPressed?(self)
             uppercaseOnce = false
           case .Backspace:
             delegate?.customKeyboardBackspaceButtonPressed?(self)
             uppercaseOnce = false
-          case .Globe:
-            delegate?.customKeyboardGlobeButtonPressed?(self)
-          case .Return:
-            delegate?.customKeyboardReturnButtonPressed?(self)
-          case .Letters:
-            currentLayout = uppercaseLayout
-            uppercaseOnce = true
-          case .Numbers:
-            currentLayout = numbersLayout
-          case .Symbols:
-            currentLayout = symbolsLayout
           case .Shift:
             if shiftCanBeToggled {
               currentLayout = uppercaseToggledLayout
@@ -273,9 +291,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
               uppercaseOnce = true
               startShiftToggleTimer()
             }
-          case .ShiftToggled:
-            currentLayout = lowercaseLayout
-            uppercaseOnce = false
           case .ShiftToggledOnce:
             if shiftCanBeToggled {
               currentLayout = uppercaseToggledLayout
@@ -286,30 +301,75 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
               currentLayout = lowercaseLayout
               startShiftToggleTimer()
             }
+          case .ShiftToggled:
+            currentLayout = lowercaseLayout
+            uppercaseOnce = false
           }
         }
-        break
       }
     }
   }
 
-  public func keyboardLayoutDidStartPressingButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
+  public func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesBegin touches: Set<UITouch>) {
+    if let menu = keyMenuShowingKeyboardButton?.keyMenu, touch = touches.first {
+      menu.updateSelection(touchLocation: touch.locationInView(self), inView: self)
+    }
+  }
+
+  public func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesMove touches: Set<UITouch>) {
+    if let menu = keyMenuShowingKeyboardButton?.keyMenu, touch = touches.first {
+      menu.updateSelection(touchLocation: touch.locationInView(self), inView: self)
+    }
+  }
+
+  public func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesEnd touches: Set<UITouch>?)  {
     invalidateBackspaceAutoDeleteModeTimer()
     invalidateBackspaceDeleteTimer()
-    addKeyPop(forKey: keyboardButton)
-    if keyboardLayout == currentLayout {
-      if keyboardButton.identifier == CustomKeyboardIdentifier.Backspace.rawValue {
-        startBackspaceAutoDeleteModeTimer()
+    invalidateKeyMenuOpenTimer()
+
+    if let menu = keyMenuShowingKeyboardButton?.keyMenu, touch = touches?.first {
+      menu.updateSelection(touchLocation: touch.locationInView(self), inView: self)
+      // select item
+      if menu.selectedIndex >= 0 {
+        if let item = menu.items[safe: menu.selectedIndex] {
+          item.action?(keyMenuItem: item)
+        }
+        keyMenuShowingKeyboardButton = nil
+        keyMenuLocked = false
+      } else {
+        if keyMenuLocked {
+          keyMenuShowingKeyboardButton = nil
+          keyMenuLocked = false
+          return
+        }
+        keyMenuLocked = true
       }
     }
   }
 
-  public func keyboardLayoutDidDraggedInButton(keyboardLayout: KeyboardLayout, keyboardButton: KeyboardButton) {
-    removeKeyPop()
-    addKeyPop(forKey: keyboardButton)
-  }
+  public func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesCancel touches: Set<UITouch>?) {
+    invalidateBackspaceAutoDeleteModeTimer()
+    invalidateBackspaceDeleteTimer()
+    invalidateKeyMenuOpenTimer()
 
-  public func keyboardLayoutDidEndTouches(keyboardLayout: KeyboardLayout) {
-    removeKeyPop()
+    if let menu = keyMenuShowingKeyboardButton?.keyMenu, touch = touches?.first {
+      menu.updateSelection(touchLocation: touch.locationInView(self), inView: self)
+      // select item
+      if menu.selectedIndex >= 0 {
+        if let item = menu.items[safe: menu.selectedIndex] {
+          item.action?(keyMenuItem: item)
+        }
+        keyMenuShowingKeyboardButton = nil
+        keyMenuLocked = false
+      } else {
+        if keyMenuLocked {
+          keyMenuShowingKeyboardButton = nil
+          keyMenuLocked = false
+          currentLayout.typingEnabled = true
+          return
+        }
+        keyMenuLocked = true
+      }
+    }
   }
 }

@@ -31,12 +31,12 @@ public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
   trailingPadding: 0)
 
 // MARK: - Button Style
-public var CustomKeyboardKeyButtonStyle = KeyboardButtonStyle(popupType: .Default)
-public var CustomKeyboardLeftKeyButtonStyle = KeyboardButtonStyle(popupType: .Left)
-public var CustomKeyboardRightKeyButtonStyle = KeyboardButtonStyle(popupType: .Right)
-public var CustomKeyboardLowercaseKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, popupType: .Default)
-public var CustomKeyboardLowercaseLeftKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, popupType: .Left)
-public var CustomKeyboardLowercaseRightKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, popupType: .Right)
+public var CustomKeyboardKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Default)
+public var CustomKeyboardLeftKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Left)
+public var CustomKeyboardRightKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Right)
+public var CustomKeyboardLowercaseKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Default)
+public var CustomKeyboardLowercaseLeftKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Left)
+public var CustomKeyboardLowercaseRightKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Right)
 public var CustomKeyboardSpaceButtonStyle = KeyboardButtonStyle(font: UIFont.systemFontOfSize(15))
 
 public var CustomKeyboardBackspaceButtonStyle = KeyboardButtonStyle(

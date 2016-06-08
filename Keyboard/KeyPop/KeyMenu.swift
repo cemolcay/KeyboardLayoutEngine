@@ -24,7 +24,6 @@ public struct KeyMenuStyle {
   public var backgroundColor: UIColor
 
   // MARK: Item Style
-  public var itemStyle: KeyMenuItemStyle
   public var itemSize: CGSize
 
   // MARK: Padding
@@ -36,14 +35,12 @@ public struct KeyMenuStyle {
   init(
     shadow: Shadow? = nil,
     backgroundColor: UIColor? = nil,
-    itemStyle: KeyMenuItemStyle? = nil,
     itemSize: CGSize? = nil,
     horizontalMenuItemPadding: CGFloat? = nil,
     horizontalMenuLeftPadding: CGFloat? = nil,
     horizontalMenuRightPadding: CGFloat? = nil) {
     self.shadow = shadow
     self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
-    self.itemStyle = itemStyle ?? KeyMenuItemStyle()
     self.itemSize = itemSize ?? CGSize(width: 40, height: 40)
     self.horizontalMenuItemPadding = horizontalMenuItemPadding ?? 5
     self.horizontalMenuLeftPadding = horizontalMenuLeftPadding ?? 5
@@ -61,6 +58,11 @@ public class KeyMenu: UIView {
 
   public var selectedIndex: Int = -1 {
     didSet {
+      if selectedIndex == -1 {
+        for item in items {
+          item.highlighted = false
+        }
+      }
       layoutIfNeeded()
     }
   }
@@ -141,35 +143,13 @@ public class KeyMenu: UIView {
 
   // MARK: Update Selection
   public func updateSelection(touchLocation location: CGPoint, inView view: UIView) {
-    var isAboveMenu = false
-    var isBelowMenu = false
-    switch type {
-    case .Horizontal:
-      let beginingOfMenu = view.convertPoint(frame.origin, fromView: self).x
-      let endOfMenu = view.convertPoint(CGPoint(x: frame.origin.x + frame.size.width, y: 0), fromView: self).x
-      isAboveMenu = location.x < beginingOfMenu
-      isBelowMenu = location.x > endOfMenu
-    case .Vertical:
-      let beginingOfMenu = view.convertPoint(frame.origin, fromView: self).y
-      let endOfMenu = view.convertPoint(CGPoint(x: 0, y: frame.origin.y + frame.size.height), fromView: self).y
-      isAboveMenu = location.y < beginingOfMenu
-      isBelowMenu = location.y > endOfMenu
-    }
-
+    var tempIndex = -1
     for (index, item) in items.enumerate() {
-      switch index {
-      case 0:
-        item.highlighted = isAboveMenu
-      case items.count - 1:
-        item.highlighted = isBelowMenu
-      default:
-        let rect = CGRect(
-          x: item.frame.origin.x,
-          y: item.frame.origin.y,
-          width: item.frame.size.width,
-          height: item.frame.size.height)
-        item.highlighted = CGRectContainsPoint(view.convertRect(rect, fromView: self), location)
+      item.highlighted = CGRectContainsPoint(view.convertRect(item.frame, fromView: self), location)
+      if item.highlighted {
+        tempIndex = index
       }
     }
+    selectedIndex = tempIndex
   }
 }

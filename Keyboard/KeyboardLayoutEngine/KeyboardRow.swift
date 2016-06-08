@@ -176,25 +176,4 @@ public class KeyboardRow: UIView {
     let hitFrame = UIEdgeInsetsInsetRect(bounds, style.buttonHitTestEdgeInsests)
     return CGRectContainsPoint(hitFrame, point)
   }
-
-  // MARK: Button Highlighting
-  public func highlightButton(button: KeyboardButton) {
-    for character in characters {
-      if let highlightedButton = character as? KeyboardButton {
-        highlightedButton.highlighted = highlightedButton == button
-      } else if let row = character as? KeyboardRow {
-        row.highlightButton(button)
-      }
-    }
-  }
-
-  public func unhighlightButtons() {
-    for character in characters {
-      if let highlightedButton = character as? KeyboardButton {
-        highlightedButton.highlighted = false
-      } else if let row = character as? KeyboardRow {
-        row.unhighlightButtons()
-      }
-    }
-  }
 }
