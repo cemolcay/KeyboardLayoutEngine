@@ -20,8 +20,6 @@ import UIKit
 
 // MARK: - CustomKeyboard
 public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
-  public var keyButtonPopupContainer: UIView?
-
   public var shiftToggleInterval: NSTimeInterval = 0.5
   private var shiftToggleTimer: NSTimer?
   private var shiftCanBeToggled: Bool = false
