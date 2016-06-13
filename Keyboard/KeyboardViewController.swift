@@ -35,18 +35,18 @@ class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
       style: CustomKeyboardKeyButtonStyle,
       width: .Static(width: 40),
       identifier: "customButton")
-    customKeyboard.numbersLayout.addKeyboardButton(
+    customKeyboard.keyboardLayout.symbols.addKeyboardButton(
       keyboardButton: customButton,
       rowAtIndex: 3,
       buttonIndex: 2)
 
     // This is how you add a menu 
     let globeButtons = [
-      customKeyboard.uppercaseLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
-      customKeyboard.uppercaseToggledLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
-      customKeyboard.lowercaseLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
-      customKeyboard.numbersLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
-      customKeyboard.symbolsLayout.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.keyboardLayout.uppercase.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.keyboardLayout.uppercaseToggled.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.keyboardLayout.lowercase.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.keyboardLayout.numbers.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
+      customKeyboard.keyboardLayout.symbols.getKeyboardButton(atRowIndex: 3, buttonIndex: 1),
     ]
 
     let menuItemStyle =  KeyMenuItemStyle(

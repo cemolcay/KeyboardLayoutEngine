@@ -20,16 +20,41 @@ import UIKit
 
 // MARK: - CustomKeyboard
 public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
+  private(set) var keyboardLayout = CustomKeyboardLayout()
+  public weak var delegate: CustomKeyboardDelegate?
+
+  // MARK: CustomKeyobardShiftState
+  public enum CustomKeyboardShiftState {
+    case Once
+    case Off
+    case On
+  }
+
+  // MARK: CustomKeyboardLayoutState
+  public enum CustomKeyboardLayoutState {
+    case Letters(shiftState: CustomKeyboardShiftState)
+    case Numbers
+    case Symbols
+  }
+
+  private(set) var previousShiftState: CustomKeyboardShiftState = .Once
+  private(set) var keyboardLayoutState: CustomKeyboardLayoutState = .Letters(shiftState: CustomKeyboardShiftState.Once) {
+    didSet {
+      keyboardLayoutStateDidChange(oldState: oldValue, newState: keyboardLayoutState)
+    }
+  }
+
+  // MARK: Shift
   public var shiftToggleInterval: NSTimeInterval = 0.5
   private var shiftToggleTimer: NSTimer?
-  private var shiftCanBeToggled: Bool = false
-  private var uppercaseOnce: Bool = true
 
+  // MARK: Backspace
   public var backspaceDeleteInterval: NSTimeInterval = 0.1
   public var backspaceAutoDeleteModeInterval: NSTimeInterval = 0.5
   private var backspaceDeleteTimer: NSTimer?
   private var backspaceAutoDeleteModeTimer: NSTimer?
 
+  // MARK: KeyMenu
   public var keyMenuLocked: Bool = false
   public var keyMenuOpenTimer: NSTimer?
   public var keyMenuOpenTimeInterval: NSTimeInterval = 1
@@ -43,61 +68,10 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
       dispatch_after(
         dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC))),
         dispatch_get_main_queue()) { [weak self] in
-          self?.currentLayout.typingEnabled = self!.keyMenuShowingKeyboardButton == nil && self!.keyMenuLocked == false
+          self?.getCurrentKeyboardLayout().typingEnabled = self!.keyMenuShowingKeyboardButton == nil && self!.keyMenuLocked == false
       }
     }
   }
-
-  public var uppercaseToggledLayout: KeyboardLayout! {
-    didSet {
-      layoutDidChange(
-        oldLayout: oldValue,
-        newLayout: uppercaseToggledLayout)
-    }
-  }
-
-  public var uppercaseLayout: KeyboardLayout! {
-    didSet {
-      layoutDidChange(
-        oldLayout: oldValue,
-        newLayout: uppercaseLayout)
-    }
-  }
-
-  public var lowercaseLayout: KeyboardLayout! {
-    didSet {
-      layoutDidChange(
-        oldLayout: oldValue,
-        newLayout: lowercaseLayout)
-    }
-  }
-
-  public var numbersLayout: KeyboardLayout! {
-    didSet {
-      layoutDidChange(
-        oldLayout: oldValue,
-        newLayout: numbersLayout)
-    }
-  }
-
-  public var symbolsLayout: KeyboardLayout! {
-    didSet {
-      layoutDidChange(
-        oldLayout: oldValue,
-        newLayout: symbolsLayout)
-    }
-  }
-
-  private(set) var currentLayout: KeyboardLayout! {
-    didSet {
-      oldValue?.delegate = nil
-      oldValue?.removeFromSuperview()
-      currentLayout.delegate = self
-      addSubview(currentLayout)
-    }
-  }
-
-  public weak var delegate: CustomKeyboardDelegate?
 
   // MARK: Init
   public init() {
@@ -116,35 +90,60 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   private func defaultInit() {
-    reload()
-    currentLayout = uppercaseLayout
-    addSubview(currentLayout)
+    keyboardLayoutStateDidChange(oldState: nil, newState: keyboardLayoutState)
   }
 
   // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
-    currentLayout?.frame = CGRect(
+
+    getCurrentKeyboardLayout().frame = CGRect(
       x: 0,
       y: 0,
       width: frame.size.width,
       height: frame.size.height)
   }
 
-  private func layoutDidChange(oldLayout oldLayout: KeyboardLayout?, newLayout: KeyboardLayout) {
-    guard currentLayout != nil && oldLayout != nil else { return }
-    if currentLayout == oldLayout {
-      currentLayout = newLayout
+  // MARK: KeyboardLayout
+  public func getKeyboardLayout(ofState state: CustomKeyboardLayoutState) -> KeyboardLayout {
+    switch state {
+    case .Letters(let shiftState):
+      switch shiftState {
+      case .Once:
+        return keyboardLayout.uppercase
+      case .On:
+        return keyboardLayout.uppercaseToggled
+      case .Off:
+        return keyboardLayout.lowercase
+      }
+    case .Numbers:
+      return keyboardLayout.numbers
+    case .Symbols:
+      return keyboardLayout.symbols
     }
   }
 
-  // MARK: Reload
-  public func reload() {
-    uppercaseToggledLayout = CustomKeyboardLayout.UppercaseToggled.keyboardLayout
-    uppercaseLayout = CustomKeyboardLayout.Uppercase.keyboardLayout
-    lowercaseLayout = CustomKeyboardLayout.Lowercase.keyboardLayout
-    numbersLayout = CustomKeyboardLayout.Numbers.keyboardLayout
-    symbolsLayout = CustomKeyboardLayout.Symbols.keyboardLayout
+  public func getCurrentKeyboardLayout() -> KeyboardLayout {
+    return getKeyboardLayout(ofState: keyboardLayoutState)
+  }
+
+  public func keyboardLayoutStateDidChange(oldState oldState: CustomKeyboardLayoutState?, newState: CustomKeyboardLayoutState) {
+    // Remove old keyboard layout
+    if let oldState = oldState {
+      let oldKeyboardLayout = getKeyboardLayout(ofState: oldState)
+      oldKeyboardLayout.delegate = nil
+      oldKeyboardLayout.removeFromSuperview()
+    }
+
+    // Add new keyboard layout
+    let newKeyboardLayout = getKeyboardLayout(ofState: newState)
+    newKeyboardLayout.delegate = self
+    addSubview(newKeyboardLayout)
+
+    // Set previous shift state
+    if case CustomKeyboardLayoutState.Letters(let shiftState) = newState {
+      previousShiftState = shiftState
+    }
   }
 
   // MARK: Backspace Auto Delete
@@ -187,7 +186,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
 
   // MARK: Shift Toggle
   private func startShiftToggleTimer() {
-    shiftCanBeToggled = true
     shiftToggleTimer = NSTimer.scheduledTimerWithTimeInterval(
       shiftToggleInterval,
       target: self,
@@ -199,7 +197,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   internal func invalidateShiftToggleTimer() {
     shiftToggleTimer?.invalidate()
     shiftToggleTimer = nil
-    shiftCanBeToggled = false
   }
 
   // MARK: KeyMenu Toggle
@@ -229,92 +226,91 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     invalidateBackspaceDeleteTimer()
     invalidateKeyMenuOpenTimer()
 
-    if keyboardLayout == currentLayout {
-      // Backspace
-      if keyboardButton.identifier == CustomKeyboardIdentifier.Backspace.rawValue {
-        startBackspaceAutoDeleteModeTimer()
-      }
+    // Backspace
+    if keyboardButton.identifier == CustomKeyboardIdentifier.Backspace.rawValue {
+      startBackspaceAutoDeleteModeTimer()
+    }
 
-      // KeyPop and KeyMenu
-      if keyboardButton.style.keyPopType != nil {
-        keyboardButton.showKeyPop(show: true)
-        if keyboardButton.keyMenu != nil {
-          startKeyMenuOpenTimer(forKeyboardButton: keyboardButton)
-        }
-      } else if keyboardButton.keyMenu != nil {
-        keyMenuShowingKeyboardButton = keyboardButton
-        keyMenuLocked = false
+    // KeyPop and KeyMenu
+    if keyboardButton.style.keyPopType != nil {
+      keyboardButton.showKeyPop(show: true)
+      if keyboardButton.keyMenu != nil {
+        startKeyMenuOpenTimer(forKeyboardButton: keyboardButton)
       }
+    } else if keyboardButton.keyMenu != nil {
+      keyMenuShowingKeyboardButton = keyboardButton
+      keyMenuLocked = false
     }
   }
 
   public func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressEnd keyboardButton: KeyboardButton) {
-    if keyboardLayout == currentLayout {
-      delegate?.customKeyboard?(self, keyboardButtonPressed: keyboardButton)
-      switch keyboardButton.type {
-      case .Key(let key):
-        delegate?.customKeyboard?(self, keyButtonPressed: key)
-        if uppercaseOnce {
-          uppercaseOnce = false
-          currentLayout = lowercaseLayout
+    // If keyboard key is pressed notify no questions asked
+    if case KeyboardButtonType.Key(let text) = keyboardButton.type {
+      delegate?.customKeyboard?(self, keyButtonPressed: text)
+
+      // If shift state was CustomKeyboardShiftState.Once then make keyboard layout lowercase
+      if case CustomKeyboardLayoutState.Letters(let shiftState) = keyboardLayoutState where shiftState == CustomKeyboardShiftState.Once {
+        keyboardLayoutState = CustomKeyboardLayoutState.Letters(shiftState: .Off)
+        return
+      }
+    }
+
+    // Chcek special keyboard buttons
+    if let keyId = keyboardButton.identifier, identifier = CustomKeyboardIdentifier(rawValue: keyId) {
+      switch identifier {
+
+      // Notify special keys
+      case .Backspace:
+        delegate?.customKeyboardBackspaceButtonPressed?(self)
+      case .Space:
+        delegate?.customKeyboardSpaceButtonPressed?(self)
+      case .Globe:
+        delegate?.customKeyboardGlobeButtonPressed?(self)
+      case .Return:
+        delegate?.customKeyboardReturnButtonPressed?(self)
+
+      // Update keyboard layout state
+      case .Letters:
+        keyboardLayoutState = .Letters(shiftState: previousShiftState)
+      case .Numbers:
+        keyboardLayoutState = .Numbers
+      case .Symbols:
+        keyboardLayoutState = .Symbols
+
+      // Update shift state
+      case .Shift:
+        if shiftToggleTimer == nil {
+          keyboardLayoutState = .Letters(shiftState: .Once)
+          startShiftToggleTimer()
+        } else {
+          keyboardLayoutState = .Letters(shiftState: .On)
+          invalidateShiftToggleTimer()
         }
-      default:
-        if let id = keyboardButton.identifier,
-          let identifier = CustomKeyboardIdentifier(rawValue: id) {
-          switch identifier {
-          case .Numbers:
-            currentLayout = numbersLayout
-          case .Symbols:
-            currentLayout = symbolsLayout
-          case .Letters:
-            currentLayout = uppercaseLayout
-            uppercaseOnce = true
-          case .Globe:
-            delegate?.customKeyboardGlobeButtonPressed?(self)
-          case .Return:
-            delegate?.customKeyboardReturnButtonPressed?(self)
-          case .Space:
-            delegate?.customKeyboardSpaceButtonPressed?(self)
-            uppercaseOnce = false
-          case .Backspace:
-            delegate?.customKeyboardBackspaceButtonPressed?(self)
-            uppercaseOnce = false
-          case .Shift:
-            if shiftCanBeToggled {
-              currentLayout = uppercaseToggledLayout
-              uppercaseOnce = false
-              invalidateShiftToggleTimer()
-            } else {
-              currentLayout = uppercaseLayout
-              uppercaseOnce = true
-              startShiftToggleTimer()
-            }
-          case .ShiftToggledOnce:
-            if shiftCanBeToggled {
-              currentLayout = uppercaseToggledLayout
-              uppercaseOnce = false
-              invalidateShiftToggleTimer()
-            } else {
-              uppercaseOnce = false
-              currentLayout = lowercaseLayout
-              startShiftToggleTimer()
-            }
-          case .ShiftToggled:
-            currentLayout = lowercaseLayout
-            uppercaseOnce = false
-          }
+      case .ShiftToggledOnce:
+        if shiftToggleTimer == nil {
+          keyboardLayoutState = .Letters(shiftState: .Off)
+          startShiftToggleTimer()
+        } else {
+          keyboardLayoutState = .Letters(shiftState: .On)
+          invalidateShiftToggleTimer()
+        }
+      case .ShiftToggled:
+        if shiftToggleTimer == nil {
+          keyboardLayoutState = .Letters(shiftState: .Off)
         }
       }
     }
   }
 
   public func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesBegin touches: Set<UITouch>) {
+    // KeyMenu
     if let menu = keyMenuShowingKeyboardButton?.keyMenu, touch = touches.first {
       menu.updateSelection(touchLocation: touch.locationInView(self), inView: self)
     }
   }
 
   public func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesMove touches: Set<UITouch>) {
+    // KeyMenu
     if let menu = keyMenuShowingKeyboardButton?.keyMenu, touch = touches.first {
       menu.updateSelection(touchLocation: touch.locationInView(self), inView: self)
     }
@@ -325,6 +321,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     invalidateBackspaceDeleteTimer()
     invalidateKeyMenuOpenTimer()
 
+    // KeyMenu
     if let menu = keyMenuShowingKeyboardButton?.keyMenu, touch = touches?.first {
       menu.updateSelection(touchLocation: touch.locationInView(self), inView: self)
       // select item
@@ -350,6 +347,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     invalidateBackspaceDeleteTimer()
     invalidateKeyMenuOpenTimer()
 
+    // KeyMenu
     if let menu = keyMenuShowingKeyboardButton?.keyMenu, touch = touches?.first {
       menu.updateSelection(touchLocation: touch.locationInView(self), inView: self)
       // select item
@@ -363,7 +361,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
         if keyMenuLocked {
           keyMenuShowingKeyboardButton = nil
           keyMenuLocked = false
-          currentLayout.typingEnabled = true
+          getCurrentKeyboardLayout().typingEnabled = true
           return
         }
         keyMenuLocked = true
