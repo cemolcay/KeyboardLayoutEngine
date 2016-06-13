@@ -8,59 +8,8 @@
 
 import UIKit
 
-// MARK: - Layout Style
-public var CustomKeyboardLayoutStyle = KeyboardLayoutStyle(
-  backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
-
-// MARK: - Row Style
-public var CustomKeyboardRowStyle = KeyboardRowStyle()
-
-public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
-  leadingPadding: 22,
-  leadingPaddingLandscape: 30,
-  trailingPadding: 22,
-  trailingPaddingLandscape: 30)
-
-public var CustomKeyboardThirdRowStyle = KeyboardRowStyle(
-  bottomPadding: 10,
-  bottomPaddingLandscape: 6,
-  buttonsPadding: 15)
-
-public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
-  leadingPadding: 0,
-  trailingPadding: 0)
-
-// MARK: - Button Style
-public var CustomKeyboardKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Default)
-public var CustomKeyboardLeftKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Left)
-public var CustomKeyboardRightKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Right)
-
-public var CustomKeyboardLowercaseKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Default)
-public var CustomKeyboardLowercaseLeftKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Left)
-public var CustomKeyboardLowercaseRightKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Right)
-
-public var CustomKeyboardSpaceButtonStyle = KeyboardButtonStyle(font: UIFont.systemFontOfSize(15))
-public var CustomKeyboardBackspaceButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
-  imageSize: 20)
-
-public var CustomKeyboardShiftButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
-  imageSize: 20)
-
-public var CustomKeyboardGlobeButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
-  imageSize: 20)
-
-public var CustomKeyboardReturnButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
-  font: UIFont.systemFontOfSize(15))
-
-public var CustomKeyboardNumbersButtonStyle = KeyboardButtonStyle(
-  backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
-  font: UIFont.systemFontOfSize(15))
-
-// MARK: - Identifier
+// MARK: - CustomKeyboardIdentifier
+/// CustomKeyboardLayout KeyboardButton identifiers
 public enum CustomKeyboardIdentifier: String {
   case Space = "Space"
   case Backspace = "Backspace"
@@ -74,7 +23,70 @@ public enum CustomKeyboardIdentifier: String {
   case ShiftToggledOnce = "ShiftToggledOnce"
 }
 
+// MARK: - CustomKeyboardLayoutStyle
+/// Create CustomKeyboardLayout with style
+public class CustomKeyboardLayoutStyle {
+
+  // MARK: Layout Style
+  public var layoutStyle = KeyboardLayoutStyle(backgroundColor: UIColor(
+    red: 208.0/255.0,
+    green: 213.0/255.0,
+    blue: 219.0/255.0,
+    alpha: 1))
+
+  // MARK: Row Style
+  public var rowStyle = KeyboardRowStyle()
+
+  public var secondRowStyle = KeyboardRowStyle(
+    leadingPadding: 22,
+    leadingPaddingLandscape: 30,
+    trailingPadding: 22,
+    trailingPaddingLandscape: 30)
+
+  public var thirdRowStyle = KeyboardRowStyle(
+    bottomPadding: 10,
+    bottomPaddingLandscape: 6,
+    buttonsPadding: 15)
+
+  public var childRowStyle = KeyboardRowStyle(
+    leadingPadding: 0,
+    trailingPadding: 0)
+
+  // MARK: Button Style
+  public var keyButtonStyle = KeyboardButtonStyle(keyPopType: .Default)
+  public var leftKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Left)
+  public var rightKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Right)
+
+  public var lowercaseKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Default)
+  public var lowercaseLeftKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Left)
+  public var lowercaseRightKeyButtonStyle = KeyboardButtonStyle(textOffsetY: -2, keyPopType: .Right)
+
+  public var spaceButtonStyle = KeyboardButtonStyle(font: UIFont.systemFontOfSize(15))
+
+  public var backspaceButtonStyle = KeyboardButtonStyle(
+    backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+    imageSize: 20)
+
+  public var shiftButtonStyle = KeyboardButtonStyle(
+    backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+    imageSize: 20)
+
+  public var globeButtonStyle = KeyboardButtonStyle(
+    backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+    imageSize: 20)
+
+  public var returnButtonStyle = KeyboardButtonStyle(
+    backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+    font: UIFont.systemFontOfSize(15))
+
+  public var numbersButtonStyle = KeyboardButtonStyle(
+    backgroundColor: UIColor(red: 172.0/255.0, green: 179.0/255.0, blue: 188.0/255.0, alpha: 1),
+    font: UIFont.systemFontOfSize(15))
+}
+
 // MARK: - CustomKeyboardLayout
+/// CustomKeyboardLayout is immutable.
+/// Create a new keyboard layout when CustomKeyboardLayoutStyle change
 public class CustomKeyboardLayout {
   public var uppercase: KeyboardLayout
   public var uppercaseToggled: KeyboardLayout
@@ -82,60 +94,60 @@ public class CustomKeyboardLayout {
   public var numbers: KeyboardLayout
   public var symbols: KeyboardLayout
 
-  public init() {
+  public init(style: CustomKeyboardLayoutStyle) {
     uppercase = KeyboardLayout(
-        style: CustomKeyboardLayoutStyle,
+        style: style.layoutStyle,
         rows: [
           KeyboardRow(
-            style: CustomKeyboardRowStyle,
+            style: style.rowStyle,
             characters: [
-              KeyboardButton(type: .Key("Q"), style: CustomKeyboardLeftKeyButtonStyle),
-              KeyboardButton(type: .Key("W"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("E"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("R"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("T"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("Y"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("U"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("I"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("O"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("P"), style: CustomKeyboardRightKeyButtonStyle),
+              KeyboardButton(type: .Key("Q"), style: style.leftKeyButtonStyle),
+              KeyboardButton(type: .Key("W"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("E"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("R"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("T"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("Y"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("U"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("I"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("O"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("P"), style: style.rightKeyButtonStyle),
             ]
           ),
           KeyboardRow(
-            style: CustomKeyboardSecondRowStyle,
+            style: style.secondRowStyle,
             characters: [
-              KeyboardButton(type: .Key("A"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("S"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("D"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("F"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("G"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("H"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("J"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("K"), style: CustomKeyboardKeyButtonStyle),
-              KeyboardButton(type: .Key("L"), style: CustomKeyboardKeyButtonStyle),
+              KeyboardButton(type: .Key("A"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("S"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("D"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("F"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("G"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("H"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("J"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("K"), style: style.keyButtonStyle),
+              KeyboardButton(type: .Key("L"), style: style.keyButtonStyle),
             ]
           ),
           KeyboardRow(
-            style: CustomKeyboardThirdRowStyle,
+            style: style.thirdRowStyle,
             characters: [
               KeyboardButton(
                 type: .Image(UIImage(
                   named: "shiftToggledOnce",
                   inBundle: NSBundle(forClass: CustomKeyboard.self),
                   compatibleWithTraitCollection: nil)),
-                style: CustomKeyboardShiftButtonStyle,
+                style: style.shiftButtonStyle,
                 width: .Relative(percent: 0.115),
                 identifier: CustomKeyboardIdentifier.ShiftToggledOnce.rawValue),
               KeyboardRow(
-                style: CustomKeyboardChildRowStyle,
+                style: style.childRowStyle,
                 characters: [
-                  KeyboardButton(type: .Key("Z"), style: CustomKeyboardKeyButtonStyle),
-                  KeyboardButton(type: .Key("X"), style: CustomKeyboardKeyButtonStyle),
-                  KeyboardButton(type: .Key("C"), style: CustomKeyboardKeyButtonStyle),
-                  KeyboardButton(type: .Key("V"), style: CustomKeyboardKeyButtonStyle),
-                  KeyboardButton(type: .Key("B"), style: CustomKeyboardKeyButtonStyle),
-                  KeyboardButton(type: .Key("N"), style: CustomKeyboardKeyButtonStyle),
-                  KeyboardButton(type: .Key("M"), style: CustomKeyboardKeyButtonStyle),
+                  KeyboardButton(type: .Key("Z"), style: style.keyButtonStyle),
+                  KeyboardButton(type: .Key("X"), style: style.keyButtonStyle),
+                  KeyboardButton(type: .Key("C"), style: style.keyButtonStyle),
+                  KeyboardButton(type: .Key("V"), style: style.keyButtonStyle),
+                  KeyboardButton(type: .Key("B"), style: style.keyButtonStyle),
+                  KeyboardButton(type: .Key("N"), style: style.keyButtonStyle),
+                  KeyboardButton(type: .Key("M"), style: style.keyButtonStyle),
                 ]
               ),
               KeyboardButton(
@@ -143,17 +155,17 @@ public class CustomKeyboardLayout {
                   named: "backspace",
                   inBundle: NSBundle(forClass: CustomKeyboard.self),
                   compatibleWithTraitCollection: nil)),
-                style: CustomKeyboardBackspaceButtonStyle,
+                style: style.backspaceButtonStyle,
                 width: .Relative(percent: 0.115),
                 identifier: CustomKeyboardIdentifier.Backspace.rawValue),
             ]
           ),
           KeyboardRow(
-            style: CustomKeyboardRowStyle,
+            style: style.rowStyle,
             characters: [
               KeyboardButton(
                 type: .Text("123"),
-                style: CustomKeyboardNumbersButtonStyle,
+                style: style.numbersButtonStyle,
                 width: .Relative(percent: 0.115),
                 identifier: CustomKeyboardIdentifier.Numbers.rawValue),
               KeyboardButton(
@@ -161,16 +173,16 @@ public class CustomKeyboardLayout {
                   named: "globe",
                   inBundle: NSBundle(forClass: CustomKeyboard.self),
                   compatibleWithTraitCollection: nil)),
-                style: CustomKeyboardGlobeButtonStyle,
+                style: style.globeButtonStyle,
                 width: .Relative(percent: 0.115),
                 identifier: CustomKeyboardIdentifier.Globe.rawValue),
               KeyboardButton(
                 type: .Text("space"),
-                style: CustomKeyboardSpaceButtonStyle,
+                style: style.spaceButtonStyle,
                 identifier: CustomKeyboardIdentifier.Space.rawValue),
               KeyboardButton(
                 type: .Text("return"),
-                style: CustomKeyboardReturnButtonStyle,
+                style: style.returnButtonStyle,
                 width: .Relative(percent: 0.18),
                 identifier: CustomKeyboardIdentifier.Return.rawValue),
             ]
@@ -179,58 +191,58 @@ public class CustomKeyboardLayout {
       )
 
     uppercaseToggled = KeyboardLayout(
-      style: CustomKeyboardLayoutStyle,
+      style: style.layoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
-            KeyboardButton(type: .Key("Q"), style: CustomKeyboardLeftKeyButtonStyle),
-            KeyboardButton(type: .Key("W"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("E"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("R"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("T"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("Y"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("U"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("I"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("O"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("P"), style: CustomKeyboardRightKeyButtonStyle),
+            KeyboardButton(type: .Key("Q"), style: style.leftKeyButtonStyle),
+            KeyboardButton(type: .Key("W"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("E"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("R"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("T"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("Y"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("U"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("I"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("O"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("P"), style: style.rightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardSecondRowStyle,
+          style: style.secondRowStyle,
           characters: [
-            KeyboardButton(type: .Key("A"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("S"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("D"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("F"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("G"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("H"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("J"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("K"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("L"), style: CustomKeyboardKeyButtonStyle),
+            KeyboardButton(type: .Key("A"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("S"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("D"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("F"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("G"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("H"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("J"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("K"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("L"), style: style.keyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardThirdRowStyle,
+          style: style.thirdRowStyle,
           characters: [
             KeyboardButton(
               type: .Image(UIImage(
                 named: "shiftToggled",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardShiftButtonStyle,
+              style: style.shiftButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.ShiftToggled.rawValue),
             KeyboardRow(
-              style: CustomKeyboardChildRowStyle,
+              style: style.childRowStyle,
               characters: [
-                KeyboardButton(type: .Key("Z"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("X"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("C"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("V"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("B"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("N"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("M"), style: CustomKeyboardKeyButtonStyle),
+                KeyboardButton(type: .Key("Z"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("X"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("C"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("V"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("B"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("N"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("M"), style: style.keyButtonStyle),
               ]
             ),
             KeyboardButton(
@@ -238,17 +250,17 @@ public class CustomKeyboardLayout {
                 named: "backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardBackspaceButtonStyle,
+              style: style.backspaceButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Backspace.rawValue),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
             KeyboardButton(
               type: .Text("123"),
-              style: CustomKeyboardNumbersButtonStyle,
+              style: style.numbersButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Numbers.rawValue),
             KeyboardButton(
@@ -256,16 +268,16 @@ public class CustomKeyboardLayout {
                 named: "globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardGlobeButtonStyle,
+              style: style.globeButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Globe.rawValue),
             KeyboardButton(
               type: .Text("space"),
-              style: CustomKeyboardSpaceButtonStyle,
+              style: style.spaceButtonStyle,
               identifier: CustomKeyboardIdentifier.Space.rawValue),
             KeyboardButton(
               type: .Text("return"),
-              style: CustomKeyboardReturnButtonStyle,
+              style: style.returnButtonStyle,
               width: .Relative(percent: 0.18),
               identifier: CustomKeyboardIdentifier.Return.rawValue),
           ]
@@ -274,58 +286,58 @@ public class CustomKeyboardLayout {
     )
 
     lowercase = KeyboardLayout(
-      style: CustomKeyboardLayoutStyle,
+      style: style.layoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
-            KeyboardButton(type: .Key("q"), style: CustomKeyboardLowercaseLeftKeyButtonStyle),
-            KeyboardButton(type: .Key("w"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("e"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("r"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("t"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("y"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("u"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("i"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("o"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("p"), style: CustomKeyboardLowercaseRightKeyButtonStyle),
+            KeyboardButton(type: .Key("q"), style: style.lowercaseLeftKeyButtonStyle),
+            KeyboardButton(type: .Key("w"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("e"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("r"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("t"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("y"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("u"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("i"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("o"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("p"), style: style.lowercaseRightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardSecondRowStyle,
+          style: style.secondRowStyle,
           characters: [
-            KeyboardButton(type: .Key("a"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("s"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("d"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("f"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("g"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("h"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("j"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("k"), style: CustomKeyboardLowercaseKeyButtonStyle),
-            KeyboardButton(type: .Key("l"), style: CustomKeyboardLowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("a"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("s"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("d"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("f"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("g"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("h"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("j"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("k"), style: style.lowercaseKeyButtonStyle),
+            KeyboardButton(type: .Key("l"), style: style.lowercaseKeyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardThirdRowStyle,
+          style: style.thirdRowStyle,
           characters: [
             KeyboardButton(
               type: .Image(UIImage(
                 named: "shift",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardShiftButtonStyle,
+              style: style.shiftButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Shift.rawValue),
             KeyboardRow(
-              style: CustomKeyboardChildRowStyle,
+              style: style.childRowStyle,
               characters: [
-                KeyboardButton(type: .Key("z"), style: CustomKeyboardLowercaseKeyButtonStyle),
-                KeyboardButton(type: .Key("x"), style: CustomKeyboardLowercaseKeyButtonStyle),
-                KeyboardButton(type: .Key("c"), style: CustomKeyboardLowercaseKeyButtonStyle),
-                KeyboardButton(type: .Key("v"), style: CustomKeyboardLowercaseKeyButtonStyle),
-                KeyboardButton(type: .Key("b"), style: CustomKeyboardLowercaseKeyButtonStyle),
-                KeyboardButton(type: .Key("n"), style: CustomKeyboardLowercaseKeyButtonStyle),
-                KeyboardButton(type: .Key("m"), style: CustomKeyboardLowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("z"), style: style.lowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("x"), style: style.lowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("c"), style: style.lowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("v"), style: style.lowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("b"), style: style.lowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("n"), style: style.lowercaseKeyButtonStyle),
+                KeyboardButton(type: .Key("m"), style: style.lowercaseKeyButtonStyle),
               ]
             ),
             KeyboardButton(
@@ -333,17 +345,17 @@ public class CustomKeyboardLayout {
                 named: "backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardBackspaceButtonStyle,
+              style: style.backspaceButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Backspace.rawValue),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
             KeyboardButton(
               type: .Text("123"),
-              style: CustomKeyboardNumbersButtonStyle,
+              style: style.numbersButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Numbers.rawValue),
             KeyboardButton(
@@ -351,16 +363,16 @@ public class CustomKeyboardLayout {
                 named: "globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardGlobeButtonStyle,
+              style: style.globeButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Globe.rawValue),
             KeyboardButton(
               type: .Text("space"),
-              style: CustomKeyboardSpaceButtonStyle,
+              style: style.spaceButtonStyle,
               identifier: CustomKeyboardIdentifier.Space.rawValue),
             KeyboardButton(
               type: .Text("return"),
-              style: CustomKeyboardReturnButtonStyle,
+              style: style.returnButtonStyle,
               width: .Relative(percent: 0.18),
               identifier: CustomKeyboardIdentifier.Return.rawValue),
           ]
@@ -369,54 +381,54 @@ public class CustomKeyboardLayout {
     )
 
     numbers = KeyboardLayout(
-      style: CustomKeyboardLayoutStyle,
+      style: style.layoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
-            KeyboardButton(type: .Key("1"), style: CustomKeyboardLeftKeyButtonStyle),
-            KeyboardButton(type: .Key("2"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("3"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("4"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("5"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("6"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("7"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("8"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("9"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("0"), style: CustomKeyboardRightKeyButtonStyle),
+            KeyboardButton(type: .Key("1"), style: style.leftKeyButtonStyle),
+            KeyboardButton(type: .Key("2"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("3"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("4"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("5"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("6"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("7"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("8"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("9"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("0"), style: style.rightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
-            KeyboardButton(type: .Key("-"), style: CustomKeyboardLeftKeyButtonStyle),
-            KeyboardButton(type: .Key("/"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key(":"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key(";"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("("), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key(")"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("$"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("&"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("@"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("\""), style: CustomKeyboardRightKeyButtonStyle),
+            KeyboardButton(type: .Key("-"), style: style.leftKeyButtonStyle),
+            KeyboardButton(type: .Key("/"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key(":"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key(";"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("("), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key(")"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("$"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("&"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("@"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("\""), style: style.rightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardThirdRowStyle,
+          style: style.thirdRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("#+="),
-              style: CustomKeyboardNumbersButtonStyle,
+              style: style.numbersButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Symbols.rawValue),
             KeyboardRow(
-              style: CustomKeyboardChildRowStyle,
+              style: style.childRowStyle,
               characters: [
-                KeyboardButton(type: .Key("."), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key(","), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("?"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("!"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("'"), style: CustomKeyboardKeyButtonStyle),
+                KeyboardButton(type: .Key("."), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key(","), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("?"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("!"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("'"), style: style.keyButtonStyle),
               ]
             ),
             KeyboardButton(
@@ -424,17 +436,17 @@ public class CustomKeyboardLayout {
                 named: "backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardBackspaceButtonStyle,
+              style: style.backspaceButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Backspace.rawValue),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
             KeyboardButton(
               type: .Text("ABC"),
-              style: CustomKeyboardNumbersButtonStyle,
+              style: style.numbersButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Letters.rawValue),
             KeyboardButton(
@@ -442,16 +454,16 @@ public class CustomKeyboardLayout {
                 named: "globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardGlobeButtonStyle,
+              style: style.globeButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Globe.rawValue),
             KeyboardButton(
               type: .Text("space"),
-              style: CustomKeyboardSpaceButtonStyle,
+              style: style.spaceButtonStyle,
               identifier: CustomKeyboardIdentifier.Space.rawValue),
             KeyboardButton(
               type: .Text("return"),
-              style: CustomKeyboardReturnButtonStyle,
+              style: style.returnButtonStyle,
               width: .Relative(percent: 0.18),
               identifier: CustomKeyboardIdentifier.Return.rawValue),
           ]
@@ -460,54 +472,54 @@ public class CustomKeyboardLayout {
     )
 
     symbols = KeyboardLayout(
-      style: CustomKeyboardLayoutStyle,
+      style: style.layoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
-            KeyboardButton(type: .Key("["), style: CustomKeyboardLeftKeyButtonStyle),
-            KeyboardButton(type: .Key("]"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("{"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("}"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("#"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("%"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("^"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("*"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("+"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("="), style: CustomKeyboardRightKeyButtonStyle),
+            KeyboardButton(type: .Key("["), style: style.leftKeyButtonStyle),
+            KeyboardButton(type: .Key("]"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("{"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("}"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("#"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("%"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("^"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("*"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("+"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("="), style: style.rightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
-            KeyboardButton(type: .Key("_"), style: CustomKeyboardLeftKeyButtonStyle),
-            KeyboardButton(type: .Key("\\"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("|"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("~"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("<"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key(">"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("€"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("£"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("¥"), style: CustomKeyboardKeyButtonStyle),
-            KeyboardButton(type: .Key("•"), style: CustomKeyboardRightKeyButtonStyle),
+            KeyboardButton(type: .Key("_"), style: style.leftKeyButtonStyle),
+            KeyboardButton(type: .Key("\\"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("|"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("~"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("<"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key(">"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("€"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("£"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("¥"), style: style.keyButtonStyle),
+            KeyboardButton(type: .Key("•"), style: style.rightKeyButtonStyle),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardThirdRowStyle,
+          style: style.thirdRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("123"),
-              style: CustomKeyboardNumbersButtonStyle,
+              style: style.numbersButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Numbers.rawValue),
             KeyboardRow(
-              style: CustomKeyboardChildRowStyle,
+              style: style.childRowStyle,
               characters: [
-                KeyboardButton(type: .Key("."), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key(","), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("?"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("!"), style: CustomKeyboardKeyButtonStyle),
-                KeyboardButton(type: .Key("'"), style: CustomKeyboardKeyButtonStyle),
+                KeyboardButton(type: .Key("."), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key(","), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("?"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("!"), style: style.keyButtonStyle),
+                KeyboardButton(type: .Key("'"), style: style.keyButtonStyle),
               ]
             ),
             KeyboardButton(
@@ -515,17 +527,17 @@ public class CustomKeyboardLayout {
                 named: "backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardBackspaceButtonStyle,
+              style: style.backspaceButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Backspace.rawValue),
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: style.rowStyle,
           characters: [
             KeyboardButton(
               type: .Text("ABC"),
-              style: CustomKeyboardNumbersButtonStyle,
+              style: style.numbersButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Letters.rawValue),
             KeyboardButton(
@@ -533,16 +545,16 @@ public class CustomKeyboardLayout {
                 named: "globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
-              style: CustomKeyboardGlobeButtonStyle,
+              style: style.globeButtonStyle,
               width: .Relative(percent: 0.115),
               identifier: CustomKeyboardIdentifier.Globe.rawValue),
             KeyboardButton(
               type: .Text("space"),
-              style: CustomKeyboardSpaceButtonStyle,
+              style: style.spaceButtonStyle,
               identifier: CustomKeyboardIdentifier.Space.rawValue),
             KeyboardButton(
               type: .Text("return"),
-              style: CustomKeyboardReturnButtonStyle,
+              style: style.returnButtonStyle,
               width: .Relative(percent: 0.18),
               identifier: CustomKeyboardIdentifier.Return.rawValue),
           ]
