@@ -20,7 +20,13 @@ import UIKit
 
 // MARK: - CustomKeyboard
 public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
-  public var keyboardLayout = CustomKeyboardLayout()
+  public var keyboardLayout: CustomKeyboardLayout!
+  public var keyboardStyle = CustomKeyboardLayoutStyle() {
+    didSet {
+      keyboardLayout = CustomKeyboardLayout(style: keyboardStyle)
+    }
+  }
+
   public weak var delegate: CustomKeyboardDelegate?
 
   // MARK: CustomKeyobardShiftState
@@ -90,6 +96,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   private func defaultInit() {
+    keyboardLayout = CustomKeyboardLayout(style: keyboardStyle)
     keyboardLayoutStateDidChange(oldState: nil, newState: keyboardLayoutState)
   }
 
