@@ -23,11 +23,9 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   public var keyboardLayout: CustomKeyboardLayout!
   public var keyboardStyle = CustomKeyboardLayoutStyle() {
     didSet {
-      keyboardLayout = CustomKeyboardLayout(style: keyboardStyle)
+      keyboardLayoutStyleDidChange()
     }
   }
-
-  public weak var delegate: CustomKeyboardDelegate?
 
   // MARK: CustomKeyobardShiftState
   public enum CustomKeyboardShiftState {
@@ -79,6 +77,8 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     }
   }
 
+  public weak var delegate: CustomKeyboardDelegate?
+
   // MARK: Init
   public init() {
     super.init(frame: CGRect.zero)
@@ -96,7 +96,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   private func defaultInit() {
-    keyboardLayout = CustomKeyboardLayout(style: keyboardStyle)
+    keyboardLayoutStyleDidChange()
     keyboardLayoutStateDidChange(oldState: nil, newState: keyboardLayoutState)
   }
 
@@ -132,6 +132,10 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
 
   public func getCurrentKeyboardLayout() -> KeyboardLayout {
     return getKeyboardLayout(ofState: keyboardLayoutState)
+  }
+
+  public func keyboardLayoutStyleDidChange() {
+    keyboardLayout = CustomKeyboardLayout(style: keyboardStyle)
   }
 
   public func keyboardLayoutStateDidChange(oldState oldState: CustomKeyboardLayoutState?, newState: CustomKeyboardLayoutState) {
