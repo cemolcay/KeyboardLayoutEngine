@@ -20,12 +20,8 @@ import UIKit
 
 // MARK: - CustomKeyboard
 public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
-  public var keyboardLayout: CustomKeyboardLayout!
-  public var keyboardStyle = CustomKeyboardLayoutStyle() {
-    didSet {
-      keyboardLayoutStyleDidChange()
-    }
-  }
+  public var keyboardLayout = CustomKeyboardLayout()
+  public weak var delegate: CustomKeyboardDelegate?
 
   // MARK: CustomKeyobardShiftState
   public enum CustomKeyboardShiftState {
@@ -77,8 +73,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     }
   }
 
-  public weak var delegate: CustomKeyboardDelegate?
-
   // MARK: Init
   public init() {
     super.init(frame: CGRect.zero)
@@ -96,7 +90,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   private func defaultInit() {
-    keyboardLayoutStyleDidChange()
+    keyboardLayout = CustomKeyboardLayout()
     keyboardLayoutStateDidChange(oldState: nil, newState: keyboardLayoutState)
   }
 
@@ -134,10 +128,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     return getKeyboardLayout(ofState: keyboardLayoutState)
   }
 
-  public func keyboardLayoutStyleDidChange() {
-    keyboardLayout = CustomKeyboardLayout(style: keyboardStyle)
-  }
-
   public func keyboardLayoutStateDidChange(oldState oldState: CustomKeyboardLayoutState?, newState: CustomKeyboardLayoutState) {
     // Remove old keyboard layout
     if let oldState = oldState {
@@ -155,6 +145,21 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     if case CustomKeyboardLayoutState.Letters(let shiftState) = newState {
       previousShiftState = shiftState
     }
+  }
+
+  public func reload() {
+    // Remove current
+    let currentLayout = getCurrentKeyboardLayout()
+    currentLayout.delegate = nil
+    currentLayout.removeFromSuperview()
+    // Reload layout
+    keyboardLayout = CustomKeyboardLayout()
+    keyboardLayoutStateDidChange(oldState: nil, newState: keyboardLayoutState)
+  }
+
+  // MARK: Capitalize
+  public func capitalize() {
+    keyboardLayoutState = .Letters(shiftState: .Once)
   }
 
   // MARK: Backspace Auto Delete
