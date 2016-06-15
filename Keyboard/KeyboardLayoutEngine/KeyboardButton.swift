@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ManualLayout
 
 // MARK: - KeyboardButtonType
 public enum KeyboardButtonType {
@@ -229,9 +228,9 @@ public class KeyboardButton: UIView {
     var contentRoundCorners = UIRectCorner.AllCorners
     switch style.keyPopType! {
     case .Default:
-      contentX = (contentWidth - width) / -2.0
+      contentX = (contentWidth - frame.size.width) / -2.0
     case .Right:
-      contentX = width - contentWidth
+      contentX = frame.size.width - contentWidth
       contentRoundCorners = [.TopLeft, .TopRight, .BottomLeft]
     case .Left:
       contentX = 0
@@ -243,13 +242,13 @@ public class KeyboardButton: UIView {
       y: 0,
       width: contentWidth,
       height: frame.size.height * content.style.heightMultiplier)
-    content.bottom = -padding
+    content.frame.origin.y = -(content.frame.size.height + padding)
 
     let bottomRect = CGRect(
       x: 0,
       y: -padding - 1, // a little hack for filling the gap
-      width: width,
-      height: height + padding)
+      width: frame.size.width,
+      height: frame.size.height + padding)
 
     let path = UIBezierPath(
       roundedRect: content.frame,
@@ -272,8 +271,8 @@ public class KeyboardButton: UIView {
       frame: CGRect(
         x: 0,
         y: 0,
-        width: content.width,
-        height: content.height + padding + frame.size.height))
+        width: content.frame.size.width,
+        height: content.frame.size.height + padding + frame.size.height))
     popup.addSubview(content)
     popup.layer.applyShadow(shadow: popStyle.shadow)
     popup.layer.insertSublayer(mask, atIndex: 0)
@@ -304,15 +303,15 @@ public class KeyboardButton: UIView {
   private func createKeyMenu() -> UIView {
     guard let content = keyMenu else { return UIView() }
     let padding = CGFloat(5)
-    content.bottom = -padding
+    content.frame.origin.y = -(content.frame.size.height + padding)
     content.layer.cornerRadius = style.cornerRadius * style.keyPopWidthMultiplier
     content.clipsToBounds = true
 
     let bottomRect = CGRect(
       x: 0,
       y: -padding - 1, // a little hack for filling the gap
-      width: width,
-      height: height + padding)
+      width: frame.size.width,
+      height: frame.size.height + padding)
 
     let path = UIBezierPath(
       roundedRect: content.frame,
@@ -336,8 +335,8 @@ public class KeyboardButton: UIView {
       frame: CGRect(
         x: 0,
         y: 0,
-        width: content.width,
-        height: content.height + padding + frame.size.height))
+        width: content.frame.size.width,
+        height: content.frame.size.height + padding + frame.size.height))
     popup.addSubview(content)
     popup.layer.insertSublayer(mask, atIndex: 0)
     return popup

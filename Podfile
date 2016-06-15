@@ -17,5 +17,4 @@ end
 
 target 'Keyboard' do
 pod 'Shadow'
-pod 'ManualLayout'
 end
