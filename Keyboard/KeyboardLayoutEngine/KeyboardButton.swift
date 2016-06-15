@@ -98,9 +98,9 @@ public var KeyboardButtonPopupViewTag: Int = 101
 public var KeyboardButtonMenuViewTag: Int = 102
 
 public class KeyboardButton: UIView {
-  public var type: KeyboardButtonType = .Key("")
-  public var widthInRow: KeyboardButtonWidth = .Dynamic
-  public var style: KeyboardButtonStyle!
+  public var type: KeyboardButtonType = .Key("") { didSet { reload() } }
+  public var widthInRow: KeyboardButtonWidth = .Dynamic { didSet { reload() } }
+  public var style: KeyboardButtonStyle! { didSet { reload() } }
   public var keyMenu: KeyMenu?
 
   public var textLabel: UILabel?
@@ -122,8 +122,39 @@ public class KeyboardButton: UIView {
     self.style = style
     self.widthInRow = width
     self.identifier = identifier
+    reload()
+  }
+
+  public required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    reload()
+  }
+
+  private func reload() {
     userInteractionEnabled = true
-    setupAppearance()
+    backgroundColor = style.backgroundColor
+    layer.cornerRadius = style.cornerRadius
+
+    // border
+    layer.borderColor = style.borderColor.CGColor
+    layer.borderWidth = style.borderWidth
+
+    // shadow
+    if style.shadowEnabled {
+      layer.shadowColor = style.shadowColor.CGColor
+      layer.shadowOpacity = style.shadowOpacity
+      layer.shadowOffset = style.shadowOffset
+      layer.shadowRadius = style.shadowRadius
+      if let path = style.shadowPath {
+        layer.shadowPath = path.CGPath
+      }
+    }
+
+    // content
+    textLabel?.removeFromSuperview()
+    textLabel = nil
+    imageView?.removeFromSuperview()
+    imageView = nil
 
     switch type {
     case .Key(let text):
@@ -150,28 +181,6 @@ public class KeyboardButton: UIView {
       imageView = UIImageView(image: image)
       imageView?.contentMode = .ScaleAspectFit
       addSubview(imageView!)
-    }
-  }
-
-  public required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
-
-  private func setupAppearance() {
-    backgroundColor = style.backgroundColor
-    layer.cornerRadius = style.cornerRadius
-    // border
-    layer.borderColor = style.borderColor.CGColor
-    layer.borderWidth = style.borderWidth
-    // shadow
-    if style.shadowEnabled {
-      layer.shadowColor = style.shadowColor.CGColor
-      layer.shadowOpacity = style.shadowOpacity
-      layer.shadowOffset = style.shadowOffset
-      layer.shadowRadius = style.shadowRadius
-      if let path = style.shadowPath {
-        layer.shadowPath = path.CGPath
-      }
     }
   }
 

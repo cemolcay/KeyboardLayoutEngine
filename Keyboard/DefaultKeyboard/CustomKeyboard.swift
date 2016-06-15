@@ -37,7 +37,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     case Symbols
   }
 
-  private(set) var previousShiftState: CustomKeyboardShiftState = .Once
   private(set) var keyboardLayoutState: CustomKeyboardLayoutState = .Letters(shiftState: CustomKeyboardShiftState.Once) {
     didSet {
       keyboardLayoutStateDidChange(oldState: oldValue, newState: keyboardLayoutState)
@@ -128,6 +127,20 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     return getKeyboardLayout(ofState: keyboardLayoutState)
   }
 
+  public func enumerateKeyboardLayouts(enumerate: (KeyboardLayout) -> Void) {
+    let layouts = [
+      keyboardLayout.uppercase,
+      keyboardLayout.uppercaseToggled,
+      keyboardLayout.lowercase,
+      keyboardLayout.numbers,
+      keyboardLayout.symbols,
+      ]
+
+    for layout in layouts {
+      enumerate(layout)
+    }
+  }
+
   public func keyboardLayoutStateDidChange(oldState oldState: CustomKeyboardLayoutState?, newState: CustomKeyboardLayoutState) {
     // Remove old keyboard layout
     if let oldState = oldState {
@@ -140,11 +153,6 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     let newKeyboardLayout = getKeyboardLayout(ofState: newState)
     newKeyboardLayout.delegate = self
     addSubview(newKeyboardLayout)
-
-    // Set previous shift state
-    if case CustomKeyboardLayoutState.Letters(let shiftState) = newState {
-      previousShiftState = shiftState
-    }
   }
 
   public func reload() {
@@ -260,6 +268,8 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   public func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressEnd keyboardButton: KeyboardButton) {
+    delegate?.customKeyboard?(self, keyboardButtonPressed: keyboardButton)
+
     // If keyboard key is pressed notify no questions asked
     if case KeyboardButtonType.Key(let text) = keyboardButton.type {
       delegate?.customKeyboard?(self, keyButtonPressed: text)
@@ -287,7 +297,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
 
       // Update keyboard layout state
       case .Letters:
-        keyboardLayoutState = .Letters(shiftState: previousShiftState)
+        keyboardLayoutState = .Letters(shiftState: .Off)
       case .Numbers:
         keyboardLayoutState = .Numbers
       case .Symbols:
