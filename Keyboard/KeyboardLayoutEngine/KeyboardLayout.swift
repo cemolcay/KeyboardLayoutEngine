@@ -38,16 +38,16 @@ public struct KeyboardLayoutStyle {
   public var backgroundColor: UIColor
 
   public init(
-    topPadding: CGFloat = 10,
-    bottomPadding: CGFloat = 4,
-    rowPadding: CGFloat = 12,
-    rowPaddingLandscape: CGFloat = 6,
-    backgroundColor: UIColor = UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)) {
-    self.topPadding = topPadding
-    self.bottomPadding = bottomPadding
-    self.rowPadding = rowPadding
-    self.rowPaddingLandscape = rowPaddingLandscape
-    self.backgroundColor = backgroundColor
+    topPadding: CGFloat? = nil,
+    bottomPadding: CGFloat? = nil,
+    rowPadding: CGFloat? = nil,
+    rowPaddingLandscape: CGFloat? = nil,
+    backgroundColor: UIColor? = nil) {
+    self.topPadding = topPadding ?? 10
+    self.bottomPadding = bottomPadding ?? 4
+    self.rowPadding = rowPadding ?? 12
+    self.rowPaddingLandscape = rowPaddingLandscape ?? 6
+    self.backgroundColor = backgroundColor ?? UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)
   }
 }
 

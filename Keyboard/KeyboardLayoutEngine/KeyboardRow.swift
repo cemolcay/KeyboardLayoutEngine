@@ -21,27 +21,27 @@ public struct KeyboardRowStyle {
   public var buttonHitTestEdgeInsests: UIEdgeInsets
 
   public init(
-    leadingPadding: CGFloat = 3,
+    leadingPadding: CGFloat? = nil,
     leadingPaddingLandscape: CGFloat? = nil,
-    trailingPadding: CGFloat = 3,
+    trailingPadding: CGFloat? = nil,
     trailingPaddingLandscape: CGFloat? = nil,
     topPadding: CGFloat? = nil,
     topPaddingLandscape: CGFloat? = nil,
     bottomPadding: CGFloat? = nil,
     bottomPaddingLandscape: CGFloat? = nil,
-    buttonsPadding: CGFloat = 6,
+    buttonsPadding: CGFloat? = nil,
     buttonsPaddingLandscape: CGFloat? = nil,
-    buttonHitTestEdgeInsests: UIEdgeInsets = UIEdgeInsets(top: -6, left: -6, bottom: -6, right: -6)) {
+    buttonHitTestEdgeInsests: UIEdgeInsets? = nil) {
 
-    self.leadingPadding = leadingPadding
+    self.leadingPadding = leadingPadding ?? 3
     self.leadingPaddingLandscape = leadingPaddingLandscape
-    self.trailingPadding = trailingPadding
+    self.trailingPadding = trailingPadding ?? 3
     self.trailingPaddingLandscape = trailingPaddingLandscape
     self.bottomPadding = bottomPadding
     self.bottomPaddingLandscape = bottomPaddingLandscape
-    self.buttonsPadding = buttonsPadding
+    self.buttonsPadding = buttonsPadding ?? 6
     self.buttonsPaddingLandscape = buttonsPaddingLandscape
-    self.buttonHitTestEdgeInsests = buttonHitTestEdgeInsests
+    self.buttonHitTestEdgeInsests = buttonHitTestEdgeInsests ?? UIEdgeInsets(top: -6, left: -6, bottom: -6, right: -6)
   }
 }
 
