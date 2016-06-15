@@ -127,6 +127,20 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     return getKeyboardLayout(ofState: keyboardLayoutState)
   }
 
+  public func enumerateKeyboardLayouts(enumerate: (KeyboardLayout) -> Void) {
+    let layouts = [
+      keyboardLayout.uppercase,
+      keyboardLayout.uppercaseToggled,
+      keyboardLayout.lowercase,
+      keyboardLayout.numbers,
+      keyboardLayout.symbols,
+      ]
+
+    for layout in layouts {
+      enumerate(layout)
+    }
+  }
+
   public func keyboardLayoutStateDidChange(oldState oldState: CustomKeyboardLayoutState?, newState: CustomKeyboardLayoutState) {
     // Remove old keyboard layout
     if let oldState = oldState {
