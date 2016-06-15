@@ -4,12 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>ManualLayout.xcscheme</key>
+		<key>Pods-Keyboard.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Keyboard.xcscheme</key>
+		<key>Pods-KeyboardLayoutEngine.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-KeyboardLayoutEngineTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-KeyboardLayoutEngineUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2487B7780E0419AD9D7F6DF5C1AC6077</key>
+		<key>00FAA7EC280B13D71F901C8A858C312A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69677992D5950BDD28B45D216F85CFFB</key>
+		<key>06DC6E84AB12018A5EAB0905E5ED2E11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F389AE25A2ED30CBFC2125E31DDDDE24</key>
+		<key>36F46FCC52674D2BCA61E373388DC87F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8C1145D9AFD788479A50BCC77D5A2B31</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>973AC4F4116E2FFD939C2891116C1E50</key>
 		<dict>
 			<key>primary</key>
 			<true/>

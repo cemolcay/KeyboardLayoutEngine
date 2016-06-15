@@ -1,0 +1,6 @@
+framework module Pods_KeyboardLayoutEngine {
+  umbrella header "Pods-KeyboardLayoutEngine-umbrella.h"
+
+  export *
+  module * { export * }
+}

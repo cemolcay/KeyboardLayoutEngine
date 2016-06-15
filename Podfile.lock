@@ -1,13 +1,12 @@
 PODS:
-  - ManualLayout (1.2.1)
   - Shadow (0.1)
 
 DEPENDENCIES:
-  - ManualLayout
   - Shadow
 
 SPEC CHECKSUMS:
-  ManualLayout: 7326e29d60370c9fdfa41338f87f0b0ae350bf54
   Shadow: 1c2e0d6996cea95de76ad7df440b25d9b85183ca
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: df543bce1ee7f6451a25cf49c2b49af81bcb189e
+
+COCOAPODS: 1.0.1
