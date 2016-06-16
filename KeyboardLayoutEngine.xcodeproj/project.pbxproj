@@ -853,6 +853,7 @@
 			baseConfigurationReference = 1A703E494B5253AB13CA7294 /* Pods-Keyboard.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Keyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngine.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -865,6 +866,7 @@
 			baseConfigurationReference = C45C1A2FFE11C55DDFB7314C /* Pods-Keyboard.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Keyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.prototapp.KeyboardLayoutEngine.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -24,10 +24,14 @@ class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
     view.addSubview(customKeyboard)
 
     // Autolayout
-    customKeyboard.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-    customKeyboard.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
-    customKeyboard.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-    customKeyboard.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+    if #available(iOSApplicationExtension 9.0, *) {
+      customKeyboard.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
+      customKeyboard.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
+      customKeyboard.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
+      customKeyboard.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+    } else {
+      // Fallback on earlier versions
+    }
 
     // This is how you add extra buttons to layouts for customising CustomKeyboard without even subclass it!
     let customButton = KeyboardButton(
