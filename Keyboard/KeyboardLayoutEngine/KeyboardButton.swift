@@ -46,6 +46,7 @@ public struct KeyboardButtonStyle {
 
   // Image
   public var imageSize: CGFloat?
+  public var tintColor: UIColor
 
   // KeyPop
   public var keyPopType: KeyPopType?
@@ -68,6 +69,7 @@ public struct KeyboardButtonStyle {
     font: UIFont? = nil,
     textOffsetY: CGFloat? = nil,
     imageSize: CGFloat? = nil,
+    tintColor: UIColor = UIColor.blackColor(),
     keyPopType: KeyPopType? = nil,
     keyPopWidthMultiplier: CGFloat? = nil,
     keyPopHeightMultiplier: CGFloat? = nil,
@@ -86,6 +88,7 @@ public struct KeyboardButtonStyle {
     self.font = font ?? UIFont.systemFontOfSize(21)
     self.textOffsetY = textOffsetY ?? 0
     self.imageSize = imageSize
+    self.tintColor = tintColor
     self.keyPopType = keyPopType
     self.keyPopWidthMultiplier = keyPopWidthMultiplier ?? 1.5
     self.keyPopHeightMultiplier = keyPopHeightMultiplier ?? 1.1
@@ -180,6 +183,7 @@ public class KeyboardButton: UIView {
     case .Image(let image):
       imageView = UIImageView(image: image)
       imageView?.contentMode = .ScaleAspectFit
+      imageView?.tintColor = style.tintColor
       addSubview(imageView!)
     }
   }
