@@ -304,7 +304,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
         keyboardLayoutState = .Symbols
 
       // Update shift state
-      case .Shift:
+      case .ShiftOff:
         if shiftToggleTimer == nil {
           keyboardLayoutState = .Letters(shiftState: .Once)
           startShiftToggleTimer()
@@ -312,7 +312,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
           keyboardLayoutState = .Letters(shiftState: .On)
           invalidateShiftToggleTimer()
         }
-      case .ShiftToggledOnce:
+      case .ShiftOnce:
         if shiftToggleTimer == nil {
           keyboardLayoutState = .Letters(shiftState: .Off)
           startShiftToggleTimer()
@@ -320,7 +320,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
           keyboardLayoutState = .Letters(shiftState: .On)
           invalidateShiftToggleTimer()
         }
-      case .ShiftToggled:
+      case .ShiftOn:
         if shiftToggleTimer == nil {
           keyboardLayoutState = .Letters(shiftState: .Off)
         }

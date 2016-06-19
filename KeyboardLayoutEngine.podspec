@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "KeyboardLayoutEngine"
-  s.version      = "0.9.3"
+  s.version      = "0.9.4"
   s.summary      = "⌨️ Simplest custom keyboard generator for iOS ever!"
 
   # This description is used to generate tags and improve search results.
@@ -336,7 +336,7 @@ optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboa
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/cemolcay/KeyboardLayoutEngine.git", :tag => "0.9.3" }
+  s.source       = { :git => "https://github.com/cemolcay/KeyboardLayoutEngine.git", :tag => "0.9.4" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

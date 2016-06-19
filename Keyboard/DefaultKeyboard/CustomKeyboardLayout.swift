@@ -69,9 +69,9 @@ public enum CustomKeyboardIdentifier: String {
   case Numbers = "Numbers"
   case Letters = "Letters"
   case Symbols = "Symbols"
-  case Shift = "Shift"
-  case ShiftToggled = "ShiftToggled"
-  case ShiftToggledOnce = "ShiftToggledOnce"
+  case ShiftOff = "ShiftOff"
+  case ShiftOn = "ShiftOn"
+  case ShiftOnce = "ShiftOnce"
 }
 
 // MARK: - CustomKeyboardLayout
@@ -120,12 +120,12 @@ public class CustomKeyboardLayout {
           characters: [
             KeyboardButton(
               type: .Image(UIImage(
-                named: "shiftToggledOnce",
+                named: "ShiftOnce",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardShiftButtonStyle,
               width: .Relative(percent: 0.115),
-              identifier: CustomKeyboardIdentifier.ShiftToggledOnce.rawValue),
+              identifier: CustomKeyboardIdentifier.ShiftOnce.rawValue),
             KeyboardRow(
               style: CustomKeyboardChildRowStyle,
               characters: [
@@ -140,7 +140,7 @@ public class CustomKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "backspace",
+                named: "Backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardBackspaceButtonStyle,
@@ -158,7 +158,7 @@ public class CustomKeyboardLayout {
               identifier: CustomKeyboardIdentifier.Numbers.rawValue),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "globe",
+                named: "Globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardGlobeButtonStyle,
@@ -215,12 +215,12 @@ public class CustomKeyboardLayout {
           characters: [
             KeyboardButton(
               type: .Image(UIImage(
-                named: "shiftToggled",
+                named: "ShiftOn",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardShiftButtonStyle,
               width: .Relative(percent: 0.115),
-              identifier: CustomKeyboardIdentifier.ShiftToggled.rawValue),
+              identifier: CustomKeyboardIdentifier.ShiftOn.rawValue),
             KeyboardRow(
               style: CustomKeyboardChildRowStyle,
               characters: [
@@ -235,7 +235,7 @@ public class CustomKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "backspace",
+                named: "Backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardBackspaceButtonStyle,
@@ -253,7 +253,7 @@ public class CustomKeyboardLayout {
               identifier: CustomKeyboardIdentifier.Numbers.rawValue),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "globe",
+                named: "Globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardGlobeButtonStyle,
@@ -310,12 +310,12 @@ public class CustomKeyboardLayout {
           characters: [
             KeyboardButton(
               type: .Image(UIImage(
-                named: "shift",
+                named: "ShiftOff",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardShiftButtonStyle,
               width: .Relative(percent: 0.115),
-              identifier: CustomKeyboardIdentifier.Shift.rawValue),
+              identifier: CustomKeyboardIdentifier.ShiftOff.rawValue),
             KeyboardRow(
               style: CustomKeyboardChildRowStyle,
               characters: [
@@ -330,7 +330,7 @@ public class CustomKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "backspace",
+                named: "Backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardBackspaceButtonStyle,
@@ -348,7 +348,7 @@ public class CustomKeyboardLayout {
               identifier: CustomKeyboardIdentifier.Numbers.rawValue),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "globe",
+                named: "Globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardGlobeButtonStyle,
@@ -421,7 +421,7 @@ public class CustomKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "backspace",
+                named: "Backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardBackspaceButtonStyle,
@@ -439,7 +439,7 @@ public class CustomKeyboardLayout {
               identifier: CustomKeyboardIdentifier.Letters.rawValue),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "globe",
+                named: "Globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardGlobeButtonStyle,
@@ -512,7 +512,7 @@ public class CustomKeyboardLayout {
             ),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "backspace",
+                named: "Backspace",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardBackspaceButtonStyle,
@@ -530,7 +530,7 @@ public class CustomKeyboardLayout {
               identifier: CustomKeyboardIdentifier.Letters.rawValue),
             KeyboardButton(
               type: .Image(UIImage(
-                named: "globe",
+                named: "Globe",
                 inBundle: NSBundle(forClass: CustomKeyboard.self),
                 compatibleWithTraitCollection: nil)),
               style: CustomKeyboardGlobeButtonStyle,
