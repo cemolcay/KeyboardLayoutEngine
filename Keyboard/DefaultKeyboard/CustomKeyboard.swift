@@ -166,10 +166,14 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   // MARK: Capitalize
-  public func capitalize() {
-    keyboardLayoutState = .Letters(shiftState: .Once)
+  public func switchToLetters(shiftState shift: CustomKeyboardShiftState) {
+    keyboardLayoutState = .Letters(shiftState: shift)
   }
 
+  public func capitalize() {
+    switchToLetters(shiftState: .Once)
+  }
+  
   // MARK: Backspace Auto Delete
   private func startBackspaceAutoDeleteModeTimer() {
     backspaceAutoDeleteModeTimer = NSTimer.scheduledTimerWithTimeInterval(
