@@ -37,7 +37,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     case Symbols
   }
 
-  private(set) var keyboardLayoutState: CustomKeyboardLayoutState = .Letters(shiftState: CustomKeyboardShiftState.Once) {
+  public private(set) var keyboardLayoutState: CustomKeyboardLayoutState = .Letters(shiftState: CustomKeyboardShiftState.Once) {
     didSet {
       keyboardLayoutStateDidChange(oldState: oldValue, newState: keyboardLayoutState)
     }
@@ -166,8 +166,12 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
   }
 
   // MARK: Capitalize
+  public func switchToLetters(shiftState shift: CustomKeyboardShiftState) {
+    keyboardLayoutState = .Letters(shiftState: shift)
+  }
+
   public func capitalize() {
-    keyboardLayoutState = .Letters(shiftState: .Once)
+    switchToLetters(shiftState: .Once)
   }
 
   // MARK: Backspace Auto Delete
