@@ -336,7 +336,7 @@ optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboa
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/cemolcay/KeyboardLayoutEngine.git", :tag => "0.9.6" }
+  s.source       = { :git => "https://github.com/cemolcay/KeyboardLayoutEngine.git", :tag => "0.9.7" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -347,7 +347,7 @@ optional func defaultKeyboardDidPressReturnButton(defaultKeyboard: DefaultKeyboa
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Keyboard/KeyboardLayoutEngine/*.swift", "Keyboard/DefaultKeyboard/*.swift", "Keyboard/KeyPop/*.swift"
+  s.source_files  = "Keyboard/KeyboardLayoutEngine/*.swift", "Keyboard/CustomKeyboard/*.swift", "Keyboard/KeyPop/*.swift"
 
   # s.public_header_files = "Classes/**/*.h"
 

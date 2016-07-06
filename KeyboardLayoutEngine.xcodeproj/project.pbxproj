@@ -248,9 +248,9 @@
 		B2FBDCFE1CDD2292008D6100 /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
-				B21428851D2DAC72009F6A5E /* CustomKeyboard */,
 				B29ADFFE1D050F8D003C94E5 /* KeyPop */,
 				B2FBDD091CDD22AE008D6100 /* KeyboardLayoutEngine */,
+				B21428851D2DAC72009F6A5E /* CustomKeyboard */,
 				B2FBDCFF1CDD2292008D6100 /* KeyboardViewController.swift */,
 				B2FBDD011CDD2292008D6100 /* Info.plist */,
 				B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */,
