@@ -16,12 +16,30 @@ extension CollectionType {
   }
 }
 
+// MARK: - UITouch Extension
+internal extension UITouch {
+  internal var key: String {
+    return "\(unsafeAddressOf(self))"
+  }
+}
+
+// MARK: - KeyboardButtonTouch
+internal class KeyboardButtonTouch {
+  internal var touch: String
+  internal var button: KeyboardButton
+
+  internal init(touch: UITouch, button: KeyboardButton) {
+    self.touch = touch.key
+    self.button = button
+  }
+}
+
 // MARK: - KeyboardLayoutDelegate
 @objc public protocol KeyboardLayoutDelegate {
   // Key Press Events
   optional func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressStart keyboardButton: KeyboardButton)
   optional func keyboardLayout(keyboardLayout: KeyboardLayout, didKeyPressEnd keyboardButton: KeyboardButton)
-  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didDraggedIn fromKeyboardButton: KeyboardButton, toKeyboardButton: KeyboardButton)
+  optional func keyboardLayout(keyboardLayout: KeyboardLayout, didDraggedInFrom oldKeyboardButton: KeyboardButton, to newKeyboardButton: KeyboardButton)
   // Touch Events
   optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesBegin touches: Set<UITouch>)
   optional func keyboardLayout(keyboardLayout: KeyboardLayout, didTouchesMove touches: Set<UITouch>)
@@ -33,8 +51,6 @@ extension CollectionType {
 public struct KeyboardLayoutStyle {
   public var topPadding: CGFloat
   public var bottomPadding: CGFloat
-  public var rowPadding: CGFloat
-  public var rowPaddingLandscape: CGFloat
   public var backgroundColor: UIColor
 
   public init(
@@ -43,10 +59,8 @@ public struct KeyboardLayoutStyle {
     rowPadding: CGFloat? = nil,
     rowPaddingLandscape: CGFloat? = nil,
     backgroundColor: UIColor? = nil) {
-    self.topPadding = topPadding ?? 10
-    self.bottomPadding = bottomPadding ?? 4
-    self.rowPadding = rowPadding ?? 12
-    self.rowPaddingLandscape = rowPaddingLandscape ?? 6
+    self.topPadding = topPadding ?? 0
+    self.bottomPadding = bottomPadding ?? 0
     self.backgroundColor = backgroundColor ?? UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)
   }
 }
@@ -63,12 +77,7 @@ public class KeyboardLayout: UIView {
   }
 
   public var typingEnabled: Bool = true
-  private var currentlyPressingKeyboardButton: KeyboardButton? {
-    didSet {
-      oldValue?.showKeyPop(show: false)
-      currentlyPressingKeyboardButton?.showKeyPop(show: true)
-    }
-  }
+  private var currentTouches: [KeyboardButtonTouch] = []
 
   // MARK: Init
   public init(style: KeyboardLayoutStyle, rows: [KeyboardRow]) {
@@ -98,23 +107,23 @@ public class KeyboardLayout: UIView {
     var currentY: CGFloat = 0
     for row in rows {
       row.isPortrait = isPortrait
+      currentY += isPortrait ? row.style.topPadding : row.style.topPaddingLandscape
       row.frame = CGRect(
         x: 0,
         y: currentY,
         width: frame.size.width,
         height: optimumRowHeight)
-      currentY += optimumRowHeight + getRowPadding(forRow: row)
+      currentY += optimumRowHeight + row.style.bottomPadding
     }
   }
 
   private func getRowPadding(forRow row: KeyboardRow) -> CGFloat {
-    return isPortrait ? row.style.bottomPadding ?? style.rowPadding : row.style.bottomPaddingLandscape ?? row.style.bottomPadding ?? style.rowPaddingLandscape
+    return isPortrait ? row.style.bottomPadding + row.style.topPadding : row.style.bottomPaddingLandscape + row.style.topPaddingLandscape
   }
 
   private func getRowPaddings() -> CGFloat {
     var total = CGFloat(0)
     for row in rows {
-      if row == rows.last { break }
       total = total + getRowPadding(forRow: row)
     }
     return total
@@ -174,13 +183,28 @@ public class KeyboardLayout: UIView {
       return
     }
 
-    for (index, touch) in touches.enumerate() {
+    // Add valid touches that hit a `KeyboardButton` to `currentTouches` dictionary
+    for touch in touches {
       if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
-        if index == touches.count - 1 {
-          currentlyPressingKeyboardButton = button
+        if currentTouches.map({ $0.touch }).contains(touch.key) == false {
+          currentTouches.append(KeyboardButtonTouch(touch: touch, button: button))
         }
-        delegate?.keyboardLayout?(self, didKeyPressStart: button)
       }
+    }
+
+    // Send key press start and end events ordered from current touches
+    for (index, currentTouch) in currentTouches.enumerate() {
+      if index == max(0, currentTouches.count - 1) {
+        delegate?.keyboardLayout?(self, didKeyPressStart: currentTouch.button)
+        currentTouch.button.showKeyPop(show: true)
+      } else {
+        delegate?.keyboardLayout?(self, didKeyPressEnd: currentTouch.button)
+        currentTouch.button.showKeyPop(show: false)
+      }
+    }
+
+    if currentTouches.count > 1 {
+      currentTouches.removeRange(0..<max(0, currentTouches.count - 1))
     }
   }
 
@@ -192,18 +216,15 @@ public class KeyboardLayout: UIView {
       return
     }
 
-    // Check the first touch moving
-    if let touch = touches.first {
-      if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
-        // Do nothing if still pressing the same button
-        if currentlyPressingKeyboardButton == button {
-          return
+    for touch in touches {
+      if let currentTouch = currentTouches.filter({ $0.touch == touch.key }).first,
+         button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
+        if currentTouch.button != button {
+          delegate?.keyboardLayout?(self, didDraggedInFrom: currentTouch.button, to: button)
+          currentTouch.button.showKeyPop(show: false)
+          currentTouch.button = button
+          currentTouch.button.showKeyPop(show: true)
         }
-        // set current button
-        if let oldButton = currentlyPressingKeyboardButton {
-          delegate?.keyboardLayout?(self, didDraggedIn: oldButton, toKeyboardButton: button)
-        }
-        currentlyPressingKeyboardButton = button
       }
     }
   }
@@ -216,17 +237,19 @@ public class KeyboardLayout: UIView {
       return
     }
 
-    currentlyPressingKeyboardButton = nil
     for touch in touches {
-      if let button = hitTest(touch.locationInView(self), withEvent: nil) as? KeyboardButton {
-        delegate?.keyboardLayout?(self, didKeyPressEnd: button)
+      if let currentTouch = currentTouches.filter({ $0.touch == touch.key }).first {
+        currentTouch.button.showKeyPop(show: false)
+        delegate?.keyboardLayout?(self, didKeyPressEnd: currentTouch.button)
+        currentTouches = currentTouches.filter({ $0.touch != touch.key })
       }
     }
   }
 
   public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
     super.touchesCancelled(touches, withEvent: event)
-    currentlyPressingKeyboardButton = nil
+    currentTouches.forEach({ $0.button.showKeyPop(show: false) })
+    currentTouches = []
     delegate?.keyboardLayout?(self, didTouchesCancel: touches)
   }
 }
