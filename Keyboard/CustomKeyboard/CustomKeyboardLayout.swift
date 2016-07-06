@@ -13,7 +13,7 @@ public var CustomKeyboardLayoutStyle = KeyboardLayoutStyle(
   backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
 
 // MARK: - Row Style
-public var CustomKeyboardRowStyle = KeyboardRowStyle()
+public var CustomKeyboardFirstRowStyle = KeyboardRowStyle(topPadding: 10, topPaddingLandscape: 10)
 
 public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
   leadingPadding: 22,
@@ -22,13 +22,19 @@ public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
   trailingPaddingLandscape: 30)
 
 public var CustomKeyboardThirdRowStyle = KeyboardRowStyle(
-  bottomPadding: 10,
-  bottomPaddingLandscape: 6,
+  bottomPadding: 5,
+  bottomPaddingLandscape: 3,
   buttonsPadding: 15)
 
 public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
   leadingPadding: 0,
   trailingPadding: 0)
+
+public var CustomKeyboardFourthRowStyle = KeyboardRowStyle(
+  topPadding: 5,
+  topPaddingLandscape: 3,
+  bottomPadding: 4,
+  bottomPaddingLandscape: 4)
 
 // MARK: - Button Style
 public var CustomKeyboardKeyButtonStyle = KeyboardButtonStyle(keyPopType: .Default)
@@ -87,7 +93,7 @@ public class CustomKeyboardLayout {
       style: CustomKeyboardLayoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFirstRowStyle,
           characters: [
             KeyboardButton(type: .Key("Q"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("W"), style: CustomKeyboardKeyButtonStyle),
@@ -149,7 +155,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFourthRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("123"),
@@ -182,7 +188,7 @@ public class CustomKeyboardLayout {
       style: CustomKeyboardLayoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFirstRowStyle,
           characters: [
             KeyboardButton(type: .Key("Q"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("W"), style: CustomKeyboardKeyButtonStyle),
@@ -244,7 +250,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFourthRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("123"),
@@ -277,7 +283,7 @@ public class CustomKeyboardLayout {
       style: CustomKeyboardLayoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFirstRowStyle,
           characters: [
             KeyboardButton(type: .Key("q"), style: CustomKeyboardLowercaseLeftKeyButtonStyle),
             KeyboardButton(type: .Key("w"), style: CustomKeyboardLowercaseKeyButtonStyle),
@@ -339,7 +345,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFourthRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("123"),
@@ -372,7 +378,7 @@ public class CustomKeyboardLayout {
       style: CustomKeyboardLayoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFirstRowStyle,
           characters: [
             KeyboardButton(type: .Key("1"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("2"), style: CustomKeyboardKeyButtonStyle),
@@ -387,7 +393,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: KeyboardRowStyle(),
           characters: [
             KeyboardButton(type: .Key("-"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("/"), style: CustomKeyboardKeyButtonStyle),
@@ -430,7 +436,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFourthRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("ABC"),
@@ -463,7 +469,7 @@ public class CustomKeyboardLayout {
       style: CustomKeyboardLayoutStyle,
       rows: [
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFirstRowStyle,
           characters: [
             KeyboardButton(type: .Key("["), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("]"), style: CustomKeyboardKeyButtonStyle),
@@ -478,7 +484,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: KeyboardRowStyle(),
           characters: [
             KeyboardButton(type: .Key("_"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("\\"), style: CustomKeyboardKeyButtonStyle),
@@ -521,7 +527,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: CustomKeyboardRowStyle,
+          style: CustomKeyboardFourthRowStyle,
           characters: [
             KeyboardButton(
               type: .Text("ABC"),

@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		272ECC4A4ED1F15D081CFC5A /* Pods_KeyboardLayoutEngineUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20A0689365625AD3D6BB8F2 /* Pods_KeyboardLayoutEngineUITests.framework */; };
 		77B942C18AA242EFE2B2D638 /* Pods_KeyboardLayoutEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA56F1B2615869D1369176F /* Pods_KeyboardLayoutEngine.framework */; };
-		B29423E51CE3C47A00973547 /* CustomKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29423E41CE3C47A00973547 /* CustomKeyboard.swift */; };
-		B29423E71CE3C64100973547 /* CustomKeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29423E61CE3C64100973547 /* CustomKeyboardLayout.swift */; };
+		B21428831D2DA62A009F6A5E /* CustomKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21428811D2DA62A009F6A5E /* CustomKeyboard.swift */; };
+		B21428841D2DA62A009F6A5E /* CustomKeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21428821D2DA62A009F6A5E /* CustomKeyboardLayout.swift */; };
 		B29AE0001D050F99003C94E5 /* KeyPop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29ADFFF1D050F99003C94E5 /* KeyPop.swift */; };
 		B29AE0021D050FA9003C94E5 /* KeyMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AE0011D050FA9003C94E5 /* KeyMenu.swift */; };
 		B29AE0421D05463E003C94E5 /* KeyMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AE0411D05463E003C94E5 /* KeyMenuItem.swift */; };
@@ -76,8 +76,8 @@
 		534B0B218BA10817005BDB93 /* Pods_KeyboardLayoutEngineTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KeyboardLayoutEngineTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		778E8D60F9EDE27FB4729141 /* Pods-KeyboardLayoutEngineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KeyboardLayoutEngineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KeyboardLayoutEngineTests/Pods-KeyboardLayoutEngineTests.release.xcconfig"; sourceTree = "<group>"; };
 		89D14674438F7D73168D13B1 /* Pods_Keyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Keyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B29423E41CE3C47A00973547 /* CustomKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboard.swift; sourceTree = "<group>"; };
-		B29423E61CE3C64100973547 /* CustomKeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboardLayout.swift; sourceTree = "<group>"; };
+		B21428811D2DA62A009F6A5E /* CustomKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboard.swift; sourceTree = "<group>"; };
+		B21428821D2DA62A009F6A5E /* CustomKeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKeyboardLayout.swift; sourceTree = "<group>"; };
 		B29ADFFF1D050F99003C94E5 /* KeyPop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyPop.swift; sourceTree = "<group>"; };
 		B29AE0011D050FA9003C94E5 /* KeyMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMenu.swift; sourceTree = "<group>"; };
 		B29AE0411D05463E003C94E5 /* KeyMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMenuItem.swift; sourceTree = "<group>"; };
@@ -171,19 +171,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		B29423E31CE3C46400973547 /* CustomKeyboard */ = {
+		B21428801D2DA62A009F6A5E /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				B29423E41CE3C47A00973547 /* CustomKeyboard.swift */,
-				B29423E61CE3C64100973547 /* CustomKeyboardLayout.swift */,
+				B21428811D2DA62A009F6A5E /* CustomKeyboard.swift */,
+				B21428821D2DA62A009F6A5E /* CustomKeyboardLayout.swift */,
 			);
-			name = CustomKeyboard;
-			path = DefaultKeyboard;
+			path = CustomKeyboard;
 			sourceTree = "<group>";
 		};
 		B29ADFFE1D050F8D003C94E5 /* KeyPop */ = {
 			isa = PBXGroup;
 			children = (
+				B21428801D2DA62A009F6A5E /* CustomKeyboard */,
 				B29ADFFF1D050F99003C94E5 /* KeyPop.swift */,
 				B29AE0011D050FA9003C94E5 /* KeyMenu.swift */,
 				B29AE0411D05463E003C94E5 /* KeyMenuItem.swift */,
@@ -251,7 +251,6 @@
 			children = (
 				B29ADFFE1D050F8D003C94E5 /* KeyPop */,
 				B2FBDD091CDD22AE008D6100 /* KeyboardLayoutEngine */,
-				B29423E31CE3C46400973547 /* CustomKeyboard */,
 				B2FBDCFF1CDD2292008D6100 /* KeyboardViewController.swift */,
 				B2FBDD011CDD2292008D6100 /* Info.plist */,
 				B2FBDD3F1CDD4EDB008D6100 /* Resources.xcassets */,
@@ -637,10 +636,10 @@
 			files = (
 				B29AE0421D05463E003C94E5 /* KeyMenuItem.swift in Sources */,
 				B2FBDD0F1CDD22CC008D6100 /* KeyboardButton.swift in Sources */,
-				B29423E51CE3C47A00973547 /* CustomKeyboard.swift in Sources */,
 				B2FBDD0D1CDD22C3008D6100 /* KeyboardRow.swift in Sources */,
+				B21428841D2DA62A009F6A5E /* CustomKeyboardLayout.swift in Sources */,
+				B21428831D2DA62A009F6A5E /* CustomKeyboard.swift in Sources */,
 				B2FBDD0B1CDD22B8008D6100 /* KeyboardLayout.swift in Sources */,
-				B29423E71CE3C64100973547 /* CustomKeyboardLayout.swift in Sources */,
 				B2FBDD001CDD2292008D6100 /* KeyboardViewController.swift in Sources */,
 				B29AE0021D050FA9003C94E5 /* KeyMenu.swift in Sources */,
 				B29AE0001D050F99003C94E5 /* KeyPop.swift in Sources */,

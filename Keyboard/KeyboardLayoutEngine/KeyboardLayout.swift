@@ -51,8 +51,6 @@ internal class KeyboardButtonTouch {
 public struct KeyboardLayoutStyle {
   public var topPadding: CGFloat
   public var bottomPadding: CGFloat
-  public var rowPadding: CGFloat
-  public var rowPaddingLandscape: CGFloat
   public var backgroundColor: UIColor
 
   public init(
@@ -61,10 +59,8 @@ public struct KeyboardLayoutStyle {
     rowPadding: CGFloat? = nil,
     rowPaddingLandscape: CGFloat? = nil,
     backgroundColor: UIColor? = nil) {
-    self.topPadding = topPadding ?? 10
-    self.bottomPadding = bottomPadding ?? 4
-    self.rowPadding = rowPadding ?? 12
-    self.rowPaddingLandscape = rowPaddingLandscape ?? 6
+    self.topPadding = topPadding ?? 0
+    self.bottomPadding = bottomPadding ?? 0
     self.backgroundColor = backgroundColor ?? UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)
   }
 }
@@ -111,23 +107,23 @@ public class KeyboardLayout: UIView {
     var currentY: CGFloat = 0
     for row in rows {
       row.isPortrait = isPortrait
+      currentY += isPortrait ? row.style.topPadding : row.style.topPaddingLandscape
       row.frame = CGRect(
         x: 0,
         y: currentY,
         width: frame.size.width,
         height: optimumRowHeight)
-      currentY += optimumRowHeight + getRowPadding(forRow: row)
+      currentY += optimumRowHeight + row.style.bottomPadding
     }
   }
 
   private func getRowPadding(forRow row: KeyboardRow) -> CGFloat {
-    return isPortrait ? row.style.bottomPadding ?? style.rowPadding : row.style.bottomPaddingLandscape ?? row.style.bottomPadding ?? style.rowPaddingLandscape
+    return isPortrait ? row.style.bottomPadding + row.style.topPadding : row.style.bottomPaddingLandscape + row.style.topPaddingLandscape
   }
 
   private func getRowPaddings() -> CGFloat {
     var total = CGFloat(0)
     for row in rows {
-      if row == rows.last { break }
       total = total + getRowPadding(forRow: row)
     }
     return total
