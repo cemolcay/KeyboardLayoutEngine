@@ -49,18 +49,9 @@ internal class KeyboardButtonTouch {
 
 // MARK: - KeyboardLayoutStyle
 public struct KeyboardLayoutStyle {
-  public var topPadding: CGFloat
-  public var bottomPadding: CGFloat
   public var backgroundColor: UIColor
 
-  public init(
-    topPadding: CGFloat? = nil,
-    bottomPadding: CGFloat? = nil,
-    rowPadding: CGFloat? = nil,
-    rowPaddingLandscape: CGFloat? = nil,
-    backgroundColor: UIColor? = nil) {
-    self.topPadding = topPadding ?? 0
-    self.bottomPadding = bottomPadding ?? 0
+  public init(backgroundColor: UIColor? = nil) {
     self.backgroundColor = backgroundColor ?? UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1)
   }
 }
@@ -97,13 +88,9 @@ public class KeyboardLayout: UIView {
   // MARK: Layout
   public override func layoutSubviews() {
     super.layoutSubviews()
-    guard let superview = superview else { return }
-    superview.backgroundColor = style.backgroundColor
+    superview?.backgroundColor = style.backgroundColor
 
-    let layoutHeight = superview.frame.size.height - style.topPadding - style.bottomPadding
-    frame = CGRect(x: 0, y: style.topPadding, width: superview.frame.size.width, height: layoutHeight)
-
-    let optimumRowHeight = getOptimumRowHeight(forView: superview)
+    let optimumRowHeight = getOptimumRowHeight()
     var currentY: CGFloat = 0
     for row in rows {
       row.isPortrait = isPortrait
@@ -113,25 +100,21 @@ public class KeyboardLayout: UIView {
         y: currentY,
         width: frame.size.width,
         height: optimumRowHeight)
-      currentY += optimumRowHeight + row.style.bottomPadding
+      currentY += optimumRowHeight + (isPortrait ? row.style.bottomPadding : row.style.bottomPaddingLandscape)
     }
-  }
-
-  private func getRowPadding(forRow row: KeyboardRow) -> CGFloat {
-    return isPortrait ? row.style.bottomPadding + row.style.topPadding : row.style.bottomPaddingLandscape + row.style.topPaddingLandscape
   }
 
   private func getRowPaddings() -> CGFloat {
     var total = CGFloat(0)
     for row in rows {
-      total = total + getRowPadding(forRow: row)
+      total += isPortrait ? row.style.topPadding + row.style.bottomPadding : row.style.topPaddingLandscape + row.style.bottomPaddingLandscape
     }
     return total
   }
 
-  private func getOptimumRowHeight(forView view: UIView) -> CGFloat {
-    let height = view.frame.size.height
-    let totalPaddings = getRowPaddings() + style.topPadding + style.bottomPadding
+  private func getOptimumRowHeight() -> CGFloat {
+    let height = frame.size.height
+    let totalPaddings = getRowPaddings()
     return max(0, (height - totalPaddings) / CGFloat(rows.count))
   }
 

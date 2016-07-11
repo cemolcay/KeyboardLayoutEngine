@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Shadow
 
 // MARK: - KeyboardButtonType
 public enum KeyboardButtonType {
@@ -32,12 +33,7 @@ public struct KeyboardButtonStyle {
   public var borderWidth: CGFloat
 
   // Shadow
-  public var shadowEnabled: Bool
-  public var shadowColor: UIColor
-  public var shadowOpacity: Float
-  public var shadowOffset: CGSize
-  public var shadowRadius: CGFloat
-  public var shadowPath: UIBezierPath?
+  public var shadow: Shadow?
 
   // Text
   public var textColor: UIColor
@@ -59,12 +55,7 @@ public struct KeyboardButtonStyle {
     cornerRadius: CGFloat? = nil,
     borderColor: UIColor? = nil,
     borderWidth: CGFloat? = nil,
-    shadowEnabled: Bool? = nil,
-    shadowColor: UIColor? = nil,
-    shadowOpacity: Float? = nil,
-    shadowOffset: CGSize? = nil,
-    shadowRadius: CGFloat? = nil,
-    shadowPath: UIBezierPath? = nil,
+    shadow: Shadow? = nil,
     textColor: UIColor? = nil,
     font: UIFont? = nil,
     textOffsetY: CGFloat? = nil,
@@ -78,12 +69,7 @@ public struct KeyboardButtonStyle {
     self.cornerRadius = cornerRadius ?? 5
     self.borderColor = borderColor ?? UIColor.clearColor()
     self.borderWidth = borderWidth ?? 0
-    self.shadowEnabled = shadowEnabled ?? true
-    self.shadowColor = shadowColor ?? UIColor.grayColor()
-    self.shadowOpacity = shadowOpacity ?? 1
-    self.shadowOffset = shadowOffset ?? CGSize(width: 0, height: 1)
-    self.shadowRadius = shadowRadius ?? 0
-    self.shadowPath = shadowPath
+    self.shadow = shadow ?? Shadow()
     self.textColor = textColor ?? UIColor.blackColor()
     self.font = font ?? UIFont.systemFontOfSize(21)
     self.textOffsetY = textOffsetY ?? 0
@@ -142,17 +128,6 @@ public class KeyboardButton: UIView {
     layer.borderColor = style.borderColor.CGColor
     layer.borderWidth = style.borderWidth
 
-    // shadow
-    if style.shadowEnabled {
-      layer.shadowColor = style.shadowColor.CGColor
-      layer.shadowOpacity = style.shadowOpacity
-      layer.shadowOffset = style.shadowOffset
-      layer.shadowRadius = style.shadowRadius
-      if let path = style.shadowPath {
-        layer.shadowPath = path.CGPath
-      }
-    }
-
     // content
     textLabel?.removeFromSuperview()
     textLabel = nil
@@ -192,6 +167,8 @@ public class KeyboardButton: UIView {
   public override func layoutSubviews() {
     super.layoutSubviews()
     var padding = CGFloat(0)
+    applyShadow(shadow: style.shadow)
+    
     textLabel?.frame = CGRect(
       x: padding,
       y: padding + style.textOffsetY,

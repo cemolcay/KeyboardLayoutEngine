@@ -1,11 +1,11 @@
 PODS:
-  - Shadow (0.1)
+  - Shadow (0.2)
 
 DEPENDENCIES:
   - Shadow
 
 SPEC CHECKSUMS:
-  Shadow: 1c2e0d6996cea95de76ad7df440b25d9b85183ca
+  Shadow: 0fd870dd3de3ec5226315203f25ba54453547060
 
 PODFILE CHECKSUM: df543bce1ee7f6451a25cf49c2b49af81bcb189e
 

@@ -30,8 +30,8 @@ public struct Shadow {
     offset: CGSize? = nil,
     path: UIBezierPath? = nil) {
     self.color = color ?? UIColor.grayColor()
-    self.radius = radius ?? 1
-    self.opacity = opacity ?? 0.5
+    self.radius = radius ?? 5
+    self.opacity = opacity ?? 1
     self.offset = offset ?? CGSize(width: 0, height: 1)
     self.path = path
   }
@@ -43,10 +43,29 @@ public extension CALayer {
   /// Removes shadow if given object is nil.
   public func applyShadow(shadow shadow: Shadow? = nil) {
     shadowColor = shadow?.color.CGColor ?? UIColor.clearColor().CGColor
-    shadowRadius = shadow?.radius ?? 0
     shadowOpacity = shadow?.opacity ?? 0
-    shadowOffset = shadow?.offset ?? CGSize.zero
-    shadowPath = shadow?.path?.CGPath ?? nil
+    if let shadow = shadow {
+      if let path = shadow.path {
+        shadowRadius = shadow.radius ?? 0
+        shadowOffset = shadow.offset ?? CGSize.zero
+        shadowPath = path.CGPath
+      } else {
+        var shadowRect = bounds
+        shadowRect.origin = CGPoint(
+          x: bounds.origin.x + shadow.offset.width,
+          y: bounds.origin.y + shadow.offset.height)
+        let path = UIBezierPath(
+          roundedRect: shadowRect,
+          cornerRadius: shadow.radius)
+        shadowPath = path.CGPath
+        shadowRadius = 0
+        shadowOffset = CGSize.zero
+      }
+    } else {
+      shadowRadius = 0
+      shadowOffset = CGSize.zero
+      shadowPath = nil
+    }
   }
 }
 

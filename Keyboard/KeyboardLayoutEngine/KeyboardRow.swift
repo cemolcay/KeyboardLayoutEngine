@@ -44,9 +44,9 @@ public struct KeyboardRowStyle {
     self.topPadding = topPadding ?? 6
     self.topPaddingLandscape = topPaddingLandscape ?? topPadding ?? 6
     self.bottomPadding = bottomPadding ?? 6
-    self.bottomPaddingLandscape = bottomPaddingLandscape ?? bottomPadding ?? 6
+    self.bottomPaddingLandscape = bottomPaddingLandscape ?? bottomPadding ?? 4
     self.buttonsPadding = buttonsPadding ?? 6
-    self.buttonsPaddingLandscape = buttonsPaddingLandscape ?? buttonsPaddingLandscape ?? 6
+    self.buttonsPaddingLandscape = buttonsPaddingLandscape ?? buttonsPadding ?? 5
   }
 }
 
