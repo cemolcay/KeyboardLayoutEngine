@@ -133,7 +133,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
       keyboardLayout.lowercase,
       keyboardLayout.numbers,
       keyboardLayout.symbols,
-      ]
+    ]
 
     for layout in layouts {
       enumerate(layout)
@@ -152,6 +152,7 @@ public class CustomKeyboard: UIView, KeyboardLayoutDelegate {
     let newKeyboardLayout = getKeyboardLayout(ofState: newState)
     newKeyboardLayout.delegate = self
     addSubview(newKeyboardLayout)
+    setNeedsLayout()
   }
 
   public func reload() {

@@ -9,11 +9,11 @@
 import UIKit
 
 // MARK: - Layout Style
-public var CustomKeyboardLayoutStyle = KeyboardLayoutStyle(
-  backgroundColor: UIColor(red: 208.0/255.0, green: 213.0/255.0, blue: 219.0/255.0, alpha: 1))
+public var CustomKeyboardLayoutStyle = KeyboardLayoutStyle()
 
 // MARK: - Row Style
-public var CustomKeyboardFirstRowStyle = KeyboardRowStyle(topPadding: 10, topPaddingLandscape: 10)
+public var CustomKeyboardRowStyle = KeyboardRowStyle()
+public var CustomKeyboardFirstRowStyle = KeyboardRowStyle(topPadding: 10, topPaddingLandscape: 6)
 
 public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
   leadingPadding: 22,
@@ -23,7 +23,7 @@ public var CustomKeyboardSecondRowStyle = KeyboardRowStyle(
 
 public var CustomKeyboardThirdRowStyle = KeyboardRowStyle(
   bottomPadding: 5,
-  bottomPaddingLandscape: 3,
+  bottomPaddingLandscape: 4,
   buttonsPadding: 15)
 
 public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
@@ -32,7 +32,7 @@ public var CustomKeyboardChildRowStyle = KeyboardRowStyle(
 
 public var CustomKeyboardFourthRowStyle = KeyboardRowStyle(
   topPadding: 5,
-  topPaddingLandscape: 3,
+  topPaddingLandscape: 4,
   bottomPadding: 4,
   bottomPaddingLandscape: 4)
 
@@ -393,7 +393,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: KeyboardRowStyle(),
+          style: CustomKeyboardRowStyle,
           characters: [
             KeyboardButton(type: .Key("-"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("/"), style: CustomKeyboardKeyButtonStyle),
@@ -484,7 +484,7 @@ public class CustomKeyboardLayout {
           ]
         ),
         KeyboardRow(
-          style: KeyboardRowStyle(),
+          style: CustomKeyboardRowStyle,
           characters: [
             KeyboardButton(type: .Key("_"), style: CustomKeyboardLeftKeyButtonStyle),
             KeyboardButton(type: .Key("\\"), style: CustomKeyboardKeyButtonStyle),
