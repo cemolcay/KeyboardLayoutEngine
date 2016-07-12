@@ -69,7 +69,7 @@ public struct KeyboardButtonStyle {
     self.cornerRadius = cornerRadius ?? 5
     self.borderColor = borderColor ?? UIColor.clearColor()
     self.borderWidth = borderWidth ?? 0
-    self.shadow = shadow ?? Shadow()
+    self.shadow = shadow
     self.textColor = textColor ?? UIColor.blackColor()
     self.font = font ?? UIFont.systemFontOfSize(21)
     self.textOffsetY = textOffsetY ?? 0
