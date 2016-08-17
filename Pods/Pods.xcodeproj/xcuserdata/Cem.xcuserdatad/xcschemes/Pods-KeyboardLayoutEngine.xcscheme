@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "973AC4F4116E2FFD939C2891116C1E50"
+               BlueprintIdentifier = "8259E8692E98E987F77DBFCEBEDF729D"
                BuildableName = "Pods_KeyboardLayoutEngine.framework"
                BlueprintName = "Pods-KeyboardLayoutEngine"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "973AC4F4116E2FFD939C2891116C1E50"
+            BlueprintIdentifier = "8259E8692E98E987F77DBFCEBEDF729D"
             BuildableName = "Pods_KeyboardLayoutEngine.framework"
             BlueprintName = "Pods-KeyboardLayoutEngine"
             ReferencedContainer = "container:Pods.xcodeproj">

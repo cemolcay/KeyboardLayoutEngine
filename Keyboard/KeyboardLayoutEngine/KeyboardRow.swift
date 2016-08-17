@@ -51,16 +51,16 @@ public struct KeyboardRowStyle {
 }
 
 // MARK: - KeyboardRow
-public class KeyboardRow: UIView {
-  public var style: KeyboardRowStyle!
+open class KeyboardRow: UIView {
+  open var style: KeyboardRowStyle!
   /// Characters should be eighter `KeyboardButton` or `KeyboardRow`
-  public var characters: [AnyObject]!
+  open var characters: [AnyObject]!
   /// Managed by KeyboardLayout
   internal var isPortrait: Bool = true
   /// Managed by self, returns parent `KeyboardRow` if exists.
-  public private(set) var parentRow: KeyboardRow?
+  open fileprivate(set) var parentRow: KeyboardRow?
 
-  public var buttonHitRangeInsets: UIEdgeInsets {
+  open var buttonHitRangeInsets: UIEdgeInsets {
     return UIEdgeInsets(
       top: isPortrait ? -style.topPadding : -style.topPaddingLandscape,
       left: -(style.buttonsPadding / 2.0),
@@ -105,7 +105,7 @@ public class KeyboardRow: UIView {
   }
 
   // MARK: Layout
-  public override func layoutSubviews() {
+  open override func layoutSubviews() {
     super.layoutSubviews()
     let optimumButtonWidth = getOptimumButtonWidth()
     var currentX = getLeadingPadding()
@@ -139,25 +139,25 @@ public class KeyboardRow: UIView {
     currentX += getTrailingPadding()
   }
 
-  private func getRelativeWidthForPercent(percent: CGFloat) -> CGFloat {
+  fileprivate func getRelativeWidthForPercent(_ percent: CGFloat) -> CGFloat {
     let buttonsPadding = max(0, CGFloat(characters.count - 1)) * getButtonsPadding()
     let totalPadding = buttonsPadding + getLeadingPadding() + getTrailingPadding()
     let cleanWidth = frame.size.width - totalPadding
     return cleanWidth * percent
   }
 
-  private func getWidthForKeyboardButton(button: KeyboardButton) -> CGFloat {
+  fileprivate func getWidthForKeyboardButton(_ button: KeyboardButton) -> CGFloat {
     switch button.widthInRow {
-    case .Dynamic:
+    case .dynamic:
       return getOptimumButtonWidth()
-    case .Static(let width):
+    case .static(let width):
       return width
-    case .Relative(let percent):
+    case .relative(let percent):
       return getRelativeWidthForPercent(percent)
     }
   }
 
-  private func getOptimumButtonWidth() -> CGFloat {
+  fileprivate func getOptimumButtonWidth() -> CGFloat {
     var charactersWithDynamicWidthCount: Int = 0
     var totalStaticWidthButtonsWidth: CGFloat = 0
     var totalChildRowPadding: CGFloat = 0
@@ -165,11 +165,11 @@ public class KeyboardRow: UIView {
     for character in characters {
       if let button = character as? KeyboardButton {
         switch button.widthInRow {
-        case .Dynamic:
+        case .dynamic:
           charactersWithDynamicWidthCount += 1
-        case .Static(let width):
+        case .static(let width):
           totalStaticWidthButtonsWidth += width
-        case .Relative(let percent):
+        case .relative(let percent):
           totalStaticWidthButtonsWidth += getRelativeWidthForPercent(percent)
           break
          }
@@ -191,12 +191,12 @@ public class KeyboardRow: UIView {
   }
 
   // MARK: Hit Test
-  public override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-    if UIEdgeInsetsEqualToEdgeInsets(buttonHitRangeInsets, UIEdgeInsetsZero) {
-      return super.pointInside(point, withEvent: event)
+  open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    if UIEdgeInsetsEqualToEdgeInsets(buttonHitRangeInsets, UIEdgeInsets.zero) {
+      return super.point(inside: point, with: event)
     }
 
     let hitFrame = UIEdgeInsetsInsetRect(bounds, buttonHitRangeInsets)
-    return CGRectContainsPoint(hitFrame, point)
+    return hitFrame.contains(point)
   }
 }

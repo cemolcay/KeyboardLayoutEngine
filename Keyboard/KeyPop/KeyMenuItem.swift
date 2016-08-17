@@ -34,32 +34,32 @@ public struct KeyMenuItemStyle {
     highlightedFont: UIFont? = nil,
     separatorColor: UIColor? = nil,
     separatorWidth: CGFloat? = nil) {
-    self.highlightedBackgroundColor = highlightedBackgroundColor ?? UIColor.blueColor()
-    self.textColor = textColor ?? UIColor.blackColor()
-    self.highlightedTextColor = highlightedTextColor ?? UIColor.whiteColor()
-    self.font = font ?? UIFont.systemFontOfSize(15)
-    self.highlightedFont = highlightedFont ?? UIFont.boldSystemFontOfSize(15)
-    self.separatorColor = separatorColor ?? UIColor.blackColor()
+    self.highlightedBackgroundColor = highlightedBackgroundColor ?? UIColor.blue
+    self.textColor = textColor ?? UIColor.black
+    self.highlightedTextColor = highlightedTextColor ?? UIColor.white
+    self.font = font ?? UIFont.systemFont(ofSize: 15)
+    self.highlightedFont = highlightedFont ?? UIFont.boldSystemFont(ofSize: 15)
+    self.separatorColor = separatorColor ?? UIColor.black
     self.separatorWidth = separatorWidth ?? 1
   }
 }
 
 // MARK: - KeyMenuItem
-public typealias KeyMenuItemAction = (keyMenuItem: KeyMenuItem) -> Void
+public typealias KeyMenuItemAction = (_ keyMenuItem: KeyMenuItem) -> Void
 
-public class KeyMenuItem: UIView {
-  public var title: String?
-  public var style = KeyMenuItemStyle()
-  public var action: KeyMenuItemAction?
+open class KeyMenuItem: UIView {
+  open var title: String?
+  open var style = KeyMenuItemStyle()
+  open var action: KeyMenuItemAction?
 
-  public var highlighted: Bool = false {
+  open var highlighted: Bool = false {
     didSet {
       setNeedsLayout()
     }
   }
 
-  public var titleLabel: UILabel?
-  public var separator: CALayer?
+  open var titleLabel: UILabel?
+  open var separator: CALayer?
 
   // MARK: Init
   public init(
@@ -73,11 +73,11 @@ public class KeyMenuItem: UIView {
 
     titleLabel = UILabel()
     titleLabel?.text = title
-    titleLabel?.textAlignment = .Center
+    titleLabel?.textAlignment = .center
     addSubview(titleLabel!)
 
     separator = CALayer()
-    separator?.backgroundColor = style.separatorColor.CGColor
+    separator?.backgroundColor = style.separatorColor.cgColor
     layer.addSublayer(separator!)
   }
 
@@ -86,7 +86,7 @@ public class KeyMenuItem: UIView {
   }
 
   // MARK: Layout
-  public override func layoutSubviews() {
+  open override func layoutSubviews() {
     super.layoutSubviews()
     titleLabel?.frame = CGRect(
       x: 0,
@@ -107,7 +107,7 @@ public class KeyMenuItem: UIView {
     } else {
       titleLabel?.textColor = style.textColor
       titleLabel?.font = style.font
-      titleLabel?.backgroundColor = UIColor.clearColor()
+      titleLabel?.backgroundColor = UIColor.clear
     }
   }
 }

@@ -17,7 +17,7 @@ class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
     setupKeyboard()
   }
 
-  private func setupKeyboard() {
+  fileprivate func setupKeyboard() {
     customKeyboard = CustomKeyboard()
     customKeyboard.delegate = self
     customKeyboard.translatesAutoresizingMaskIntoConstraints = false
@@ -25,19 +25,19 @@ class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
 
     // Autolayout
     if #available(iOSApplicationExtension 9.0, *) {
-      customKeyboard.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-      customKeyboard.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
-      customKeyboard.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-      customKeyboard.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+      customKeyboard.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+      customKeyboard.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+      customKeyboard.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+      customKeyboard.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     } else {
       // Fallback on earlier versions
     }
 
     // This is how you add extra buttons to layouts for customising CustomKeyboard without even subclass it!
     let customButton = KeyboardButton(
-      type: .Text("🕶"),
+      type: .text("🕶"),
       style: CustomKeyboardKeyButtonStyle,
-      width: .Static(width: 40),
+      width: .static(width: 40),
       identifier: "customButton")
     customKeyboard.keyboardLayout.symbols.addKeyboardButton(
       keyboardButton: customButton,
@@ -65,13 +65,13 @@ class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
           KeyMenuItem(title: "About Us", style: menuItemStyle, action: { _ in print("about pressed") }),
         ],
         style: KeyMenuStyle(itemSize: CGSize(width: 150, height: 40)),
-        type: .Vertical)
+        type: .vertical)
       globeButton?.keyMenu = menu
     }
   }
 
   // MARK: CustomKeyboardDelegate
-  func customKeyboard(customKeyboard: CustomKeyboard, keyboardButtonPressed keyboardButton: KeyboardButton) {
+  func customKeyboard(_ customKeyboard: CustomKeyboard, keyboardButtonPressed keyboardButton: KeyboardButton) {
     if customKeyboard == self.customKeyboard {
       if keyboardButton.identifier == "customButton" {
         print("custom button pressed")
@@ -79,25 +79,25 @@ class KeyboardViewController: UIInputViewController, CustomKeyboardDelegate {
     }
   }
 
-  func customKeyboard(customKeyboard: CustomKeyboard, keyButtonPressed key: String) {
+  func customKeyboard(_ customKeyboard: CustomKeyboard, keyButtonPressed key: String) {
     if customKeyboard == self.customKeyboard {
       textDocumentProxy.insertText(key)
     }
   }
 
-  func customKeyboardSpaceButtonPressed(customKeyboard: CustomKeyboard) {
+  func customKeyboardSpaceButtonPressed(_ customKeyboard: CustomKeyboard) {
     if customKeyboard == self.customKeyboard {
       textDocumentProxy.insertText(" ")
     }
   }
 
-  func customKeyboardBackspaceButtonPressed(customKeyboard: CustomKeyboard) {
+  func customKeyboardBackspaceButtonPressed(_ customKeyboard: CustomKeyboard) {
     if customKeyboard == self.customKeyboard {
       textDocumentProxy.deleteBackward()
     }
   }
 
-  func customKeyboardReturnButtonPressed(customKeyboard: CustomKeyboard) {
+  func customKeyboardReturnButtonPressed(_ customKeyboard: CustomKeyboard) {
     if customKeyboard == self.customKeyboard {
       textDocumentProxy.insertText("\n")
     }

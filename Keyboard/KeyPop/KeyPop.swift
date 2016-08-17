@@ -11,9 +11,9 @@ import Shadow
 
 // MARK: - KeyPopType
 public enum KeyPopType {
-  case Default
-  case Left
-  case Right
+  case normal
+  case left
+  case right
 }
 
 // MARK: - KeyPopStyle
@@ -36,63 +36,63 @@ public struct KeyPopStyle {
     textColor: UIColor? = nil,
     contentInset: CGSize? = nil,
     contentOffset: CGSize? = nil) {
-    self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
+    self.backgroundColor = backgroundColor ?? UIColor.white
     self.shadow = shadow ?? nil
     self.widthMultiplier = widthMultiplier ?? 1.2
     self.heightMultiplier = heightMultiplier ?? 1.2
-    self.font = font ?? UIFont.systemFontOfSize(15)
-    self.textColor = textColor ?? UIColor.blackColor()
+    self.font = font ?? UIFont.systemFont(ofSize: 15)
+    self.textColor = textColor ?? UIColor.black
     self.contentInset = contentInset ?? CGSize(width: 5, height: 5)
     self.contentOffset = contentOffset ?? CGSize.zero
   }
 }
 
 // MARK: - KeyPop
-public class KeyPop: UIView {
-  public var type: KeyPopType = .Default
-  public var style: KeyPopStyle = KeyPopStyle()
-  private(set) var keyboardButton: KeyboardButton?
-  private(set) var contentView: UIView?
+open class KeyPop: UIView {
+  open var type: KeyPopType = .normal
+  open var style: KeyPopStyle = KeyPopStyle()
+  fileprivate(set) var keyboardButton: KeyboardButton?
+  fileprivate(set) var contentView: UIView?
 
   // MARK: Init
   public init(referenceButton keyboardButton: KeyboardButton, style: KeyPopStyle = KeyPopStyle()) {
     super.init(frame: CGRect.zero)
     self.style = style
     self.keyboardButton = keyboardButton
-    userInteractionEnabled = false
+    isUserInteractionEnabled = false
 
     switch keyboardButton.type {
-    case .Key(let text):
+    case .key(let text):
       let label = UILabel()
       label.text = text
       label.textColor = style.textColor
-      label.textAlignment = .Center
+      label.textAlignment = .center
       label.adjustsFontSizeToFitWidth = true
       label.minimumScaleFactor = 0.5
       if let textLabel = keyboardButton.textLabel {
-        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.widthMultiplier)
+        label.font = textLabel.font.withSize(textLabel.font.pointSize * style.widthMultiplier)
       } else {
-        label.font = style.font.fontWithSize(style.font.pointSize * style.widthMultiplier)
+        label.font = style.font.withSize(style.font.pointSize * style.widthMultiplier)
       }
       addSubview(label)
       contentView = label
-    case .Text(let text):
+    case .text(let text):
       let label = UILabel()
       label.text = text
       label.textColor = style.textColor
-      label.textAlignment = .Center
+      label.textAlignment = .center
       label.adjustsFontSizeToFitWidth = true
       label.minimumScaleFactor = 0.5
       if let textLabel = keyboardButton.textLabel {
-        label.font = textLabel.font.fontWithSize(textLabel.font.pointSize * style.widthMultiplier)
+        label.font = textLabel.font.withSize(textLabel.font.pointSize * style.widthMultiplier)
       } else {
-        label.font = style.font.fontWithSize(style.font.pointSize * style.widthMultiplier)
+        label.font = style.font.withSize(style.font.pointSize * style.widthMultiplier)
       }
       contentView = label
       addSubview(label)
-    case .Image(let image):
+    case .image(let image):
       let imageView = UIImageView()
-      imageView.contentMode = .ScaleAspectFit
+      imageView.contentMode = .scaleAspectFit
       imageView.image = image
       contentView = imageView
       addSubview(imageView)
@@ -104,7 +104,7 @@ public class KeyPop: UIView {
   }
 
   // MARK: Layout
-  public override func layoutSubviews() {
+  open override func layoutSubviews() {
     super.layoutSubviews()
     contentView?.frame = CGRect(
       x: style.contentInset.width + style.contentOffset.width,

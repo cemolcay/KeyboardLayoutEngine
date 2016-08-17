@@ -11,16 +11,16 @@ import Shadow
 
 // MARK: - KeyboardButtonType
 public enum KeyboardButtonType {
-  case Key(String)
-  case Text(String)
-  case Image(UIImage?)
+  case key(String)
+  case text(String)
+  case image(UIImage?)
 }
 
 // MARK: - KeyboardButtonWidth
 public enum KeyboardButtonWidth {
-  case Dynamic
-  case Static(width: CGFloat)
-  case Relative(percent: CGFloat)
+  case dynamic
+  case `static`(width: CGFloat)
+  case relative(percent: CGFloat)
 }
 
 // MARK: - KeyboardButtonStyle
@@ -55,23 +55,23 @@ public struct KeyboardButtonStyle {
     cornerRadius: CGFloat? = nil,
     borderColor: UIColor? = nil,
     borderWidth: CGFloat? = nil,
-    shadow: Shadow? = nil,
+    shadow: Shadow? = Shadow(),
     textColor: UIColor? = nil,
     font: UIFont? = nil,
     textOffsetY: CGFloat? = nil,
     imageSize: CGFloat? = nil,
-    tintColor: UIColor = UIColor.blackColor(),
+    tintColor: UIColor = UIColor.black,
     keyPopType: KeyPopType? = nil,
     keyPopWidthMultiplier: CGFloat? = nil,
     keyPopHeightMultiplier: CGFloat? = nil,
     keyPopContainerView: UIView? = nil) {
-    self.backgroundColor = backgroundColor ?? UIColor.whiteColor()
+    self.backgroundColor = backgroundColor ?? UIColor.white
     self.cornerRadius = cornerRadius ?? 5
-    self.borderColor = borderColor ?? UIColor.clearColor()
+    self.borderColor = borderColor ?? UIColor.clear
     self.borderWidth = borderWidth ?? 0
     self.shadow = shadow
-    self.textColor = textColor ?? UIColor.blackColor()
-    self.font = font ?? UIFont.systemFontOfSize(21)
+    self.textColor = textColor ?? UIColor.black
+    self.font = font ?? UIFont.systemFont(ofSize: 21)
     self.textOffsetY = textOffsetY ?? 0
     self.imageSize = imageSize
     self.tintColor = tintColor
@@ -86,23 +86,23 @@ public struct KeyboardButtonStyle {
 public var KeyboardButtonPopupViewTag: Int = 101
 public var KeyboardButtonMenuViewTag: Int = 102
 
-public class KeyboardButton: UIView {
-  public var type: KeyboardButtonType = .Key("") { didSet { reload() } }
-  public var widthInRow: KeyboardButtonWidth = .Dynamic { didSet { reload() } }
-  public var style: KeyboardButtonStyle! { didSet { reload() } }
-  public var keyMenu: KeyMenu?
+open class KeyboardButton: UIView {
+  open var type: KeyboardButtonType = .key("") { didSet { reload() } }
+  open var widthInRow: KeyboardButtonWidth = .dynamic { didSet { reload() } }
+  open var style: KeyboardButtonStyle! { didSet { reload() } }
+  open var keyMenu: KeyMenu?
 
-  public var textLabel: UILabel?
-  public var imageView: UIImageView?
+  open var textLabel: UILabel?
+  open var imageView: UIImageView?
 
-  public var identifier: String?
-  public var hitRangeInsets: UIEdgeInsets = UIEdgeInsetsZero
+  open var identifier: String?
+  open var hitRangeInsets = UIEdgeInsets.zero
 
   // MARK: Init
   public init(
     type: KeyboardButtonType,
     style: KeyboardButtonStyle,
-    width: KeyboardButtonWidth = .Dynamic,
+    width: KeyboardButtonWidth = .dynamic,
     menu: KeyMenu? = nil,
     identifier: String? = nil) {
 
@@ -119,13 +119,13 @@ public class KeyboardButton: UIView {
     reload()
   }
 
-  private func reload() {
-    userInteractionEnabled = true
+  fileprivate func reload() {
+    isUserInteractionEnabled = true
     backgroundColor = style.backgroundColor
     layer.cornerRadius = style.cornerRadius
 
     // border
-    layer.borderColor = style.borderColor.CGColor
+    layer.borderColor = style.borderColor.cgColor
     layer.borderWidth = style.borderWidth
 
     // content
@@ -135,36 +135,36 @@ public class KeyboardButton: UIView {
     imageView = nil
 
     switch type {
-    case .Key(let text):
+    case .key(let text):
       textLabel = UILabel()
       textLabel?.text = text
       textLabel?.textColor = style.textColor
       textLabel?.font = style.font
-      textLabel?.textAlignment = .Center
+      textLabel?.textAlignment = .center
       textLabel?.translatesAutoresizingMaskIntoConstraints = false
       textLabel?.adjustsFontSizeToFitWidth = true
       textLabel?.minimumScaleFactor = 0.5
       addSubview(textLabel!)
-    case .Text(let text):
+    case .text(let text):
       textLabel = UILabel()
       textLabel?.text = text
       textLabel?.textColor = style.textColor
       textLabel?.font = style.font
-      textLabel?.textAlignment = .Center
+      textLabel?.textAlignment = .center
       textLabel?.translatesAutoresizingMaskIntoConstraints = false
       textLabel?.adjustsFontSizeToFitWidth = true
       textLabel?.minimumScaleFactor = 0.5
       addSubview(textLabel!)
-    case .Image(let image):
+    case .image(let image):
       imageView = UIImageView(image: image)
-      imageView?.contentMode = .ScaleAspectFit
+      imageView?.contentMode = .scaleAspectFit
       imageView?.tintColor = style.tintColor
       addSubview(imageView!)
     }
   }
 
   // MARK: Layout
-  public override func layoutSubviews() {
+  open override func layoutSubviews() {
     super.layoutSubviews()
     var padding = CGFloat(0)
     applyShadow(shadow: style.shadow)
@@ -187,7 +187,7 @@ public class KeyboardButton: UIView {
   }
 
   // MARK: KeyPop
-  public func showKeyPop(show show: Bool) {
+  open func showKeyPop(show: Bool) {
     if style.keyPopType == nil {
       return
     }
@@ -197,7 +197,7 @@ public class KeyboardButton: UIView {
       if view.viewWithTag(KeyboardButtonPopupViewTag) != nil { return }
       let popup = createKeyPop()
       popup.tag = KeyboardButtonPopupViewTag
-      popup.frame.origin = convertPoint(popup.frame.origin, toView: view)
+      popup.frame.origin = convert(popup.frame.origin, to: view)
       view.addSubview(popup)
     } else {
       if let popup = view.viewWithTag(KeyboardButtonPopupViewTag) {
@@ -206,7 +206,7 @@ public class KeyboardButton: UIView {
     }
   }
 
-  private func createKeyPop() -> UIView {
+  fileprivate func createKeyPop() -> UIView {
     let padding = CGFloat(5)
     let popStyle = KeyPopStyle(
       widthMultiplier: style.keyPopWidthMultiplier,
@@ -215,16 +215,16 @@ public class KeyboardButton: UIView {
     let contentWidth = frame.size.width * content.style.widthMultiplier
 
     var contentX = CGFloat(0)
-    var contentRoundCorners = UIRectCorner.AllCorners
+    var contentRoundCorners = UIRectCorner.allCorners
     switch style.keyPopType! {
-    case .Default:
+    case .normal:
       contentX = (contentWidth - frame.size.width) / -2.0
-    case .Right:
+    case .right:
       contentX = frame.size.width - contentWidth
-      contentRoundCorners = [.TopLeft, .TopRight, .BottomLeft]
-    case .Left:
+      contentRoundCorners = [.topLeft, .topRight, .bottomLeft]
+    case .left:
       contentX = 0
-      contentRoundCorners = [.TopLeft, .TopRight, .BottomRight]
+      contentRoundCorners = [.topLeft, .topRight, .bottomRight]
     }
 
     content.frame = CGRect(
@@ -246,16 +246,16 @@ public class KeyboardButton: UIView {
       cornerRadii: CGSize(
         width: style.cornerRadius * style.keyPopWidthMultiplier,
         height: style.cornerRadius * style.keyPopHeightMultiplier))
-    path.appendPath(UIBezierPath(
+    path.append(UIBezierPath(
       roundedRect: bottomRect,
-      byRoundingCorners: [.BottomLeft, .BottomRight],
+      byRoundingCorners: [.bottomLeft, .bottomRight],
       cornerRadii: CGSize(
         width: style.cornerRadius,
         height: style.cornerRadius)))
 
     let mask = CAShapeLayer()
-    mask.path = path.CGPath
-    mask.fillColor = popStyle.backgroundColor.CGColor
+    mask.path = path.cgPath
+    mask.fillColor = popStyle.backgroundColor.cgColor
 
     let popup = UIView(
       frame: CGRect(
@@ -265,13 +265,13 @@ public class KeyboardButton: UIView {
         height: content.frame.size.height + padding + frame.size.height))
     popup.addSubview(content)
     popup.layer.applyShadow(shadow: popStyle.shadow)
-    popup.layer.insertSublayer(mask, atIndex: 0)
+    popup.layer.insertSublayer(mask, at: 0)
 
     return popup
   }
 
   // MARK: KeyMenu
-  public func showKeyMenu(show show: Bool) {
+  open func showKeyMenu(show: Bool) {
     if keyMenu == nil {
       return
     }
@@ -290,7 +290,7 @@ public class KeyboardButton: UIView {
     }
   }
 
-  private func createKeyMenu() -> UIView {
+  fileprivate func createKeyMenu() -> UIView {
     guard let content = keyMenu else { return UIView() }
     let padding = CGFloat(5)
     content.frame.origin.y = -(content.frame.size.height + padding)
@@ -305,20 +305,20 @@ public class KeyboardButton: UIView {
 
     let path = UIBezierPath(
       roundedRect: content.frame,
-      byRoundingCorners: [.TopLeft, .TopRight, .BottomRight],
+      byRoundingCorners: [.topLeft, .topRight, .bottomRight],
       cornerRadii: CGSize(
         width: style.cornerRadius * style.keyPopWidthMultiplier,
         height: style.cornerRadius * style.keyPopHeightMultiplier))
-    path.appendPath(UIBezierPath(
+    path.append(UIBezierPath(
       roundedRect: bottomRect,
-      byRoundingCorners: [.BottomLeft, .BottomRight],
+      byRoundingCorners: [.bottomLeft, .bottomRight],
       cornerRadii: CGSize(
         width: style.cornerRadius,
         height: style.cornerRadius)))
 
     let mask = CAShapeLayer()
-    mask.path = path.CGPath
-    mask.fillColor = content.style.backgroundColor.CGColor
+    mask.path = path.cgPath
+    mask.fillColor = content.style.backgroundColor.cgColor
     mask.applyShadow(shadow: content.style.shadow)
 
     let popup = UIView(
@@ -328,13 +328,13 @@ public class KeyboardButton: UIView {
         width: content.frame.size.width,
         height: content.frame.size.height + padding + frame.size.height))
     popup.addSubview(content)
-    popup.layer.insertSublayer(mask, atIndex: 0)
+    popup.layer.insertSublayer(mask, at: 0)
     return popup
   }
 
   // MARK: Hit Test
-  public override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+  open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     let hitFrame = UIEdgeInsetsInsetRect(bounds, hitRangeInsets)
-    return CGRectContainsPoint(hitFrame, point)
+    return hitFrame.contains(point)
   }
 }
