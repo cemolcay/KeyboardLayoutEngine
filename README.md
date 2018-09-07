@@ -4,7 +4,7 @@ KeyboardLayoutEngine
 [![Version](https://img.shields.io/cocoapods/v/KeyboardLayoutEngine.svg?style=flat)](http://cocoapods.org/pods/KeyboardLayoutEngine)
 [![License](https://img.shields.io/cocoapods/l/KeyboardLayoutEngine.svg?style=flat)](http://cocoapods.org/pods/KeyboardLayoutEngine)
 
-⌨️ Simplest custom keyboard generator for iOS ever!  
+⌨️ The most simple custom keyboard generator for iOS ever!  
   
 ![alt tag](https://raw.githubusercontent.com/cemolcay/KeyboardLayoutEngine/master/demo.gif)
   
