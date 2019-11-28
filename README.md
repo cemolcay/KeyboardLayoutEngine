@@ -8,7 +8,7 @@ KeyboardLayoutEngine
   
 ![alt tag](https://raw.githubusercontent.com/cemolcay/KeyboardLayoutEngine/master/demo.gif)
   
-`KeyboardLayoutEngine` is all about laying out keyboard buttons dynamically in a rectangle with a custom style easily. For the sake of flexiblity, KeyboardLayoutEngine provides:
+`KeyboardLayoutEngine` is all about laying out keyboard buttons dynamically in a rectangle with a custom style easily. For the sake of flexibility, KeyboardLayoutEngine provides:
 
 * `KeyboardLayout`: For laying out rows with custom paddings, colors.
 * `KeyboardRow`: For laying out buttons or another set of KeyboardRow's inside.
@@ -222,11 +222,11 @@ CustomKeyboard
 Default iOS Keyboard implementation with `KeyboardLayoutEngine`.  
 
 * Shift toggle mechanism  
-* Backspace mechanisim  
+* Backspace mechanism  
 * Key button popups  
 * `textDocumentProxy` integrations with `CustomKeyboardDelegate`  
 * Ridiculusly easy implementation in `KeyboardViewController`  
-* Change default styles before initilze it and you have your fully functional custumised standard English QWERTY keyboard!
+* Change default styles before initialize it and you have your fully functional customized standard English QWERTY keyboard!
 
 ``` swift
 override func viewDidLoad() {
